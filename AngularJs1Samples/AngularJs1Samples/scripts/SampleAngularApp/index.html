@@ -1,0 +1,15 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <title>Простое приложение AngularJs</title>
+    <meta charset="utf-8"/>
+    <link rel="stylesheet" href="css/app.min.css">
+    <script src="js/angular/angular.min.js"></script>
+    <script src="js/app.min.js"></script>
+</head>
+<body ng-app="simpleApp" ng-controller="ctrl">
+    <ul>
+        <li ng-repeat="x in products">{{x}}</li>
+    </ul>
+</body>
+</html>

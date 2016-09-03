@@ -1,0 +1,4 @@
+﻿<!-- My AngularJs 1.x samples. -->
+<!-- Version <%= version %>. -->
+<!-- https://github.com/abaula/MixedCode -->
+<!-- Copyright 2016 / Anton Baula, anton.baula@gmail.com -->
