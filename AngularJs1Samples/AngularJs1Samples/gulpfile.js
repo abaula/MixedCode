@@ -1,27 +1,27 @@
-﻿/// <binding BeforeBuild='clean:wwwroot, copyAppJsScripts, copyAppHtmlFiles, copyAppStyles, copyLibJsScripts' Clean='clean:wwwroot' />
+﻿/// <binding BeforeBuild="clean:wwwroot, copyAppJsScripts, copyAppHtmlFiles, copyAppStyles, copyLibJsScripts" Clean="clean:wwwroot" />
 /*
-This file in the main entry point for defining Gulp tasks and using Gulp plugins.
-Click here to learn more. http://go.microsoft.com/fwlink/?LinkId=518007
+    Можно было бы сделать и через конфиг, но для этого проекта хватит и простого копирования директорий один к одному.
+    Необходимо следить за именами файлов js в проектах, чтобы они сортировались в нужном порядке.
 */
-var fs = require('fs');
-var path = require('path');
-var dir = require('node-dir');
-var gulp = require('gulp');
-var concat = require('gulp-concat');
-var uglify = require('gulp-uglify');
-var del = require('del');
+var fs = require("fs");
+var path = require("path");
+var dir = require("node-dir");
+var gulp = require("gulp");
+var concat = require("gulp-concat");
+var uglify = require("gulp-uglify");
+var del = require("del");
 var header = require("gulp-header");
-var less = require('gulp-less');
-var minifycss = require('gulp-minify-css');
+var less = require("gulp-less");
+var minifycss = require("gulp-minify-css");
 
 // информация о версии
-var appVersion = fs.readFileSync('version.txt');
+var appVersion = fs.readFileSync("version.txt");
 // папка с библиотечными скриптами
-var libsPath = 'bower_components';
+var libsPath = "bower_components";
 // папка с исходными скриптами
-var scriptsPath = 'scripts';
+var scriptsPath = "scripts";
 // папка куда копируются готовые скрипты
-var outputPath = 'wwwroot';
+var outputPath = "wwwroot";
 
 
 function replaceCoreFolder(dir, newCoreFolder)
@@ -31,7 +31,7 @@ function replaceCoreFolder(dir, newCoreFolder)
     return dirArr.join(path.sep);
 }
 
-gulp.task('copyAppJsScripts', function()
+gulp.task("copyAppJsScripts", function()
 {
     dir.subdirs(scriptsPath, function(err, subdirs)
     {
@@ -40,28 +40,28 @@ gulp.task('copyAppJsScripts', function()
 
         subdirs.forEach(function(subdir)
         {
-            gulp.src(path.join(subdir, '/*.js'))
+            gulp.src(path.join(subdir, "/*.js"))
                 .pipe(uglify())
-                .pipe(concat('app.min.js'))
-                .pipe(header(fs.readFileSync('copyright.js.txt'), { version: appVersion }))
+                .pipe(concat("app.min.js"))
+                .pipe(header(fs.readFileSync("copyright.js.txt"), { version: appVersion }))
                 .pipe(gulp.dest(replaceCoreFolder(subdir, outputPath)));
         });
     });
 });
 
-gulp.task('clean:wwwroot', function()
+gulp.task("clean:wwwroot", function()
 {
-    return del('wwwroot/**/*');
+    return del("wwwroot/**/*");
 });
 
-gulp.task('copyAppHtmlFiles', function()
+gulp.task("copyAppHtmlFiles", function()
 {
-    return gulp.src(path.join(scriptsPath, '/**/*.html'))
-        .pipe(header(fs.readFileSync('copyright.html.txt'), { version: appVersion }))
+    return gulp.src(path.join(scriptsPath, "/**/*.html"))
+        .pipe(header(fs.readFileSync("copyright.html.txt"), { version: appVersion }))
         .pipe(gulp.dest(outputPath));
 });
 
-gulp.task('copyAppStyles', function()
+gulp.task("copyAppStyles", function()
 {
     dir.subdirs(scriptsPath, function(err, subdirs)
     {
@@ -70,19 +70,19 @@ gulp.task('copyAppStyles', function()
 
         subdirs.forEach(function(subdir)
         {
-            gulp.src(path.join(subdir, '/*.less'))
+            gulp.src(path.join(subdir, "/*.less"))
                 .pipe(less())
                 .pipe(minifycss())
-                .pipe(concat('app.min.css'))
-                .pipe(header(fs.readFileSync('copyright.js.txt'), { version: appVersion }))
+                .pipe(concat("app.min.css"))
+                .pipe(header(fs.readFileSync("copyright.js.txt"), { version: appVersion }))
                 .pipe(gulp.dest(replaceCoreFolder(subdir, outputPath)));
         });
     });
 });
 
-gulp.task('copyLibJsScripts', function()
+gulp.task("copyLibJsScripts", function()
 {
-    var stream = gulp.src(path.join(libsPath, '/**/*.min.js'));
+    var stream = gulp.src(path.join(libsPath, "/**/*.min.js"));
 
     dir.subdirs(outputPath, function (err, subdirs)
     {
@@ -91,7 +91,7 @@ gulp.task('copyLibJsScripts', function()
 
         subdirs.forEach(function (subdir)
         {
-            if(path.basename(subdir) === 'js')
+            if(path.basename(subdir) === "js")
                 stream.pipe(gulp.dest(subdir));
         });
     });

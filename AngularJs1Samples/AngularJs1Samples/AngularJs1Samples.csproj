@@ -110,7 +110,8 @@
     <Content Include="copyright.html.txt" />
     <Content Include="gulpfile.js" />
     <Content Include="scripts\SampleAngularApp\index.html" />
-    <Content Include="scripts\SampleAngularApp\js\app.js" />
+    <Content Include="scripts\SampleAngularApp\js\001_app.js" />
+    <Content Include="scripts\SampleAngularApp\js\002_controller.js" />
     <Content Include="version.txt" />
     <Content Include="Web.config" />
   </ItemGroup>
