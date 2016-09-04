@@ -1,0 +1,15 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <title>Использование директив AngularJs для ввода данных</title>
+    <meta charset="utf-8"/>
+    <link rel="stylesheet" href="css/app.min.css">
+    <script src="js/angular/angular.min.js"></script>
+    <script src="js/app.min.js"></script>
+</head>
+<body ng-app="sampleNumberDirectiveApp" ng-controller="ctrl">
+    <input type="text" ng-model="myNumber" float-number/>
+    <div>Введено число? Ответ: {{myNumberIsNumber()}}</div>
+    <div>Значение: {{myNumber}}</div>
+</body>
+</html>

@@ -41,7 +41,7 @@ gulp.task("copyAppJsScripts", function()
         subdirs.forEach(function(subdir)
         {
             gulp.src(path.join(subdir, "/*.js"))
-                .pipe(uglify())
+                //.pipe(uglify())
                 .pipe(concat("app.min.js"))
                 .pipe(header(fs.readFileSync("copyright.js.txt"), { version: appVersion }))
                 .pipe(gulp.dest(replaceCoreFolder(subdir, outputPath)));
@@ -72,7 +72,7 @@ gulp.task("copyAppStyles", function()
         {
             gulp.src(path.join(subdir, "/*.less"))
                 .pipe(less())
-                .pipe(minifycss())
+                //.pipe(minifycss())
                 .pipe(concat("app.min.css"))
                 .pipe(header(fs.readFileSync("copyright.js.txt"), { version: appVersion }))
                 .pipe(gulp.dest(replaceCoreFolder(subdir, outputPath)));

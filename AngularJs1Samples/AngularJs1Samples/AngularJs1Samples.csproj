@@ -99,6 +99,7 @@
     <Content Include="bower.json" />
     <Content Include="scripts\SampleAngularApp\css\style.less" />
     <Content Include="package.json" />
+    <Content Include="scripts\SampleNumberDirective\css\style.less" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -112,6 +113,10 @@
     <Content Include="scripts\SampleAngularApp\index.html" />
     <Content Include="scripts\SampleAngularApp\js\001_app.js" />
     <Content Include="scripts\SampleAngularApp\js\002_controller.js" />
+    <Content Include="scripts\SampleNumberDirective\index.html" />
+    <Content Include="scripts\SampleNumberDirective\js\001_app.js" />
+    <Content Include="scripts\SampleNumberDirective\js\200_controller.js" />
+    <Content Include="scripts\SampleNumberDirective\js\300_directive.js" />
     <Content Include="version.txt" />
     <Content Include="Web.config" />
   </ItemGroup>
