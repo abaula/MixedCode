@@ -1,20 +1,19 @@
-﻿(function() {
+﻿(function(app) {
     "use strict";
 
     /*
       Директива для использования в input.
       Допускает ввод только целых и натуральных чисел и пустого значения.
       Передаёт в model только 2 типа значений: number и undefined.
-     */
-    angular.module("sampleNumberDirectiveApp")
-    .directive("floatNumber", function ()
+     */    
+    app.directive("floatNumber", function ()
     {
         return {
             require: "ngModel",
-            link: function ($scope, element, attr, ngModelCtrl)
+            link: function (scope, element, attr, ngCtrl)
             {
                               
-                ngModelCtrl.$parsers.push(function (text)
+                ngCtrl.$parsers.push(function (text)
                 {
                     // Функция нормализует сроку, приводит её к виду числа.
                     // Реализовано методом конечного автомата.
@@ -107,8 +106,8 @@
                     if (text)
                     {
                         var transformedInput = normalize(text.toString().trim());
-                        ngModelCtrl.$setViewValue(transformedInput);
-                        ngModelCtrl.$render();
+                        ngCtrl.$setViewValue(transformedInput);
+                        ngCtrl.$render();
 
                         if (transformedInput.length > 0 && transformedInput !== "-")
                             return parseFloat(transformedInput);
@@ -119,4 +118,4 @@
             }
         };
     });
-})();
+})(angular.module("sampleNumberDirectiveApp"));

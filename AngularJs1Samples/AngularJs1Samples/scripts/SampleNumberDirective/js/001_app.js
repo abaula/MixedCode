@@ -1,8 +1,8 @@
-﻿(function () {
+﻿(function (ng) {
     "use strict";
 
-    angular.module("sampleNumberDirectiveApp", []);
+    ng.module("sampleNumberDirectiveApp", []);
 
-})();
+})(angular);
 
 

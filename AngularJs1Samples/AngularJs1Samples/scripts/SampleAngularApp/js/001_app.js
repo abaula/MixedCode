@@ -1,8 +1,8 @@
-﻿(function () {
+﻿(function (ng) {
     "use strict";
 
-    angular.module("simpleApp", []);
+    ng.module("simpleApp", []);
 
-})();
+})(angular);
 
 
