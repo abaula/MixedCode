@@ -1,6 +1,5 @@
 ﻿(function (app) {
     "use strict";
-
     app.controller("ctrl", function ($scope)
     {
         $scope.myNumber = undefined;
@@ -10,5 +9,4 @@
             return !isNaN(parseFloat(n)) && isFinite(n);
         }
     });
-
 })(angular.module("sampleNumberDirectiveApp"));

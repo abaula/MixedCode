@@ -97,9 +97,17 @@
     <Content Include="copyright.js.txt" />
     <Content Include="packages.config" />
     <Content Include="bower.json" />
+    <Content Include="scripts\CommunicateBtwServices\index.html" />
+    <Content Include="scripts\CommunicateBtwServices\js\001_app.js" />
+    <Content Include="scripts\CommunicateBtwServices\js\002_notifyService.js" />
+    <Content Include="scripts\CommunicateBtwServices\js\003_publishService.js" />
+    <Content Include="scripts\CommunicateBtwServices\js\004_listenerService.js" />
+    <Content Include="scripts\CommunicateBtwServices\js\005_ctrl1.js" />
+    <Content Include="scripts\CommunicateBtwServices\js\006_ctrl2.js" />
     <Content Include="scripts\SampleAngularApp\css\style.less" />
     <Content Include="package.json" />
     <Content Include="scripts\SampleNumberDirective\css\style.less" />
+    <Content Include="scripts\CommunicateBtwServices\css\style.less" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

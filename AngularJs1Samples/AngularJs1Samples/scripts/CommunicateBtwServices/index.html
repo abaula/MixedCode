@@ -1,0 +1,20 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <title>Обмен данными между независимыми контроллерами/сервисами в AngularJs без $rootScope - $emit/$broadcast/$on.</title>
+    <meta charset="utf-8"/>
+    <link rel="stylesheet" href="css/app.min.css">
+    <script src="js/angular/angular.min.js"></script>
+    <script src="js/app.min.js"></script>
+</head>
+<body ng-app="communicateBtwServicesApp">
+    <div ng-controller="ctrl1">
+        <span>Введённый текст:</span>
+        <input type="text" ng-model="text"/>
+    </div>
+    <div ng-controller="ctrl2">
+        <span>Полученный текст:</span>
+        <div>{{text}}</div>
+    </div>
+</body>
+</html>

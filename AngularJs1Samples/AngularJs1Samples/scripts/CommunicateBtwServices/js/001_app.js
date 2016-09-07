@@ -1,6 +1,6 @@
 ﻿(function (ng) {
     "use strict";
-    ng.module("simpleApp", []);
+    ng.module("communicateBtwServicesApp", []);
 })(angular);
 
 
