@@ -1,0 +1,19 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <title>Пример использования ng-repeat.</title>
+    <meta charset="utf-8"/>
+    <link rel="stylesheet" href="css/app.min.css">
+    <script src="js/angular/angular.min.js"></script>
+    <script src="js/app.min.js"></script>
+</head>
+<body ng-app="ngRepeatSampleApp">
+    <div ng-controller="ctrl">
+        <div ng-repeat="fruit in basket track by fruit.id">
+            <span>{{::fruit.name}}</span>
+        </div>
+        <button ng-click="showBasketOne()">Корзина 1</button>
+        <button ng-click="showBasketTwo()">Корзина 2</button>
+    </div>
+</body>
+</html>
