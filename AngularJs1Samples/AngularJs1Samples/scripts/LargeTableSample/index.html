@@ -1,0 +1,21 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <title>Пример больших таблиц.</title>
+    <meta charset="utf-8"/>
+    <link rel="stylesheet" href="css/app.min.css">
+    <script src="js/angular/angular.min.js"></script>
+    <script src="js/app.min.js"></script>
+</head>
+<body ng-app="LargeTableSampleApp">
+    <div ng-controller="ctrl">
+        <input type="text" ng-model="text" />
+        <table>
+            <tr ng-repeat="row in data track by row.id" ng-click="removeRow(row)">
+                <td ng-repeat="col in row.cols track by col.id">{{::col.text}}</td>
+            </tr>
+        </table>
+
+    </div>
+</body>
+</html>

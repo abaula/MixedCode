@@ -104,6 +104,9 @@
     <Content Include="scripts\CommunicateBtwServices\js\004_listenerService.js" />
     <Content Include="scripts\CommunicateBtwServices\js\005_ctrl1.js" />
     <Content Include="scripts\CommunicateBtwServices\js\006_ctrl2.js" />
+    <Content Include="scripts\LargeTableSample\index.html" />
+    <Content Include="scripts\LargeTableSample\js\001_app.js" />
+    <Content Include="scripts\LargeTableSample\js\002_ctrl.js" />
     <Content Include="scripts\NgRepeatSample\index.html" />
     <Content Include="scripts\NgRepeatSample\js\001_app.js" />
     <Content Include="scripts\NgRepeatSample\js\002_ctrl.js" />
@@ -112,6 +115,7 @@
     <Content Include="scripts\SampleNumberDirective\css\style.less" />
     <Content Include="scripts\CommunicateBtwServices\css\style.less" />
     <Content Include="scripts\NgRepeatSample\css\style.less" />
+    <Content Include="scripts\LargeTableSample\css\style.less" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
