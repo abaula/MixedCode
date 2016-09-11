@@ -9,13 +9,35 @@
 </head>
 <body ng-app="LargeTableSampleApp">
     <div ng-controller="ctrl">
-        <input type="text" ng-model="text" />
+        <div>
+            <p>
+                В примере показан правильный способ работы с большими таблицами.<br/>
+                В примере используется one-time binding.<br/>
+                Вместо стандартного для AngularJS обновления данных в строке таблицы приходиться замещать изменённую строку, что работает медленнее на ~30%.<br/>
+                Тем не менее скорость работы $digest увеличивается более чем в 2 раза!
+            </p>
+            <p>
+                Тестировал следующим образом:<br/>
+                - после загрузки страницы включал Chrome профайлер "Record JavaScript CPU Profile";<br/>
+                - в поле ввода вводил и стирал цифры 1,2...9,0. Повторял 2 раза.
+            </p>
+            <p>
+                На моей машине получил следующие данные Self Time для $digest:<br/>
+                - стандартный биндинг, см. метод updateRow, 1056.6 мс.;<br />
+                - one-time биндинг, см. метод replaceRow, 499.6 мс.
+            </p>
+        </div>
+        <input type="text" ng-model="text"/>
         <table>
-            <tr ng-repeat="row in data track by row.id" ng-click="removeRow(row)">
+            <tr ng-repeat="row in data track by row.id" ng-click="replaceRow(row)">
                 <td ng-repeat="col in row.cols track by col.id">{{::col.text}}</td>
             </tr>
         </table>
-
+        <!--<table>
+            <tr ng-repeat="row in data track by row.id" ng-click="updateRow(row)">
+                <td ng-repeat="col in row.cols track by col.id">{{col.text}}</td>
+            </tr>
+        </table>-->
     </div>
 </body>
 </html>

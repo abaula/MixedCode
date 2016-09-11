@@ -56,21 +56,15 @@
 
         //$scope.updateRow = function(row)
         //{
-        //    var t0 = performance.now();
         //    var len = row.cols.length;
 
         //    for (var i = 0; i < len; i++)
         //        row.cols[i].text = 0;
-
-        //    var t1 = performance.now();
-        //    console.log("Время выполнения $scope.updateRow: " + (t1 - t0) + " мс.");
         //}
 
-        $scope.removeRow = function(row)
+        $scope.replaceRow = function(row)
         {
-            var t0 = performance.now();
             var num = getRowNumById(row.id);
-
             $scope.data.splice(num, 1);
             $scope.data.splice(num, 0,
                 {
@@ -78,9 +72,6 @@
                     text: num,
                     cols: createRowColumns(num, true)
                 });
-
-            var t1 = performance.now();
-            console.log("Время выполнения $scope.removeRow: " + (t1 - t0) + " мс.");
         }
 
         $scope.text = "";
