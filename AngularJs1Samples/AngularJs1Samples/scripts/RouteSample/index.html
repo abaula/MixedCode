@@ -7,6 +7,7 @@
     <link rel="stylesheet" href="css/app.min.css">
     <script src="js/angular/angular.min.js"></script>
     <script src="js/angular-route/angular-route.min.js"></script>
+    <script src="js/angular-animate/angular-animate.min.js"></script>
     <script src="js/app.min.js"></script>
 </head>
 <body ng-app="routedApp" ng-controller="ctrl">
@@ -21,8 +22,10 @@
     <h3>Angular View</h3>
     <p>{{ explain1 }}
         <br/>{{ explain2 }}
-        <br />{{ explain3 }}
+        <br/>{{ explain3 }}
     </p>
-    <div ng-view></div>
+    <div class="view-animate-container">
+        <div ng-view anim-class></div>
+    </div>
 </body>
 </html>

@@ -1,5 +1,6 @@
 ﻿@color: #941f1f;
 @fint-family: "Calibri";
+@animate-speed-sec: 0.5s;
 
 body {
     font-family: @fint-family;
@@ -7,4 +8,67 @@ body {
 
 li {
     color: @color;
+}
+
+a {
+    text-decoration: underline double;
+}
+
+.view-animate-container {
+  position: relative;
+  height: 200px!important;
+  width: 400px;
+  background: white;
+  border: 1px dotted black;
+  overflow: hidden;
+}
+
+.view-animate-left, .view-animate-right {
+  padding: 10px;
+}
+
+.view-animate-left.ng-enter, 
+.view-animate-left.ng-leave,
+.view-animate-right.ng-enter, 
+.view-animate-right.ng-leave {
+  -webkit-transition: all cubic-bezier(0.250, 0.460, 0.450, 0.940) @animate-speed-sec;
+  -moz-transition: all cubic-bezier(0.250, 0.460, 0.450, 0.940) @animate-speed-sec;
+  -o-transition: all cubic-bezier(0.250, 0.460, 0.450, 0.940) @animate-speed-sec;
+  transition: all cubic-bezier(0.250, 0.460, 0.450, 0.940) @animate-speed-sec;
+  display: block;
+  width: 100%;
+  border-left: 1px solid black;
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  padding: 10px;
+}
+
+.view-animate-left.ng-enter {
+  left: 100%;
+}
+.view-animate-left.ng-enter.ng-enter-active {
+  left: 0;
+}
+
+.view-animate-left.ng-leave { 
+  left: 0; 
+}
+.view-animate-left.ng-leave.ng-leave-active {
+  left: -100%;
+}
+
+.view-animate-right.ng-enter {
+  left: -100%;
+}
+.view-animate-right.ng-enter.ng-enter-active {
+  left: 0;
+}
+.view-animate-right.ng-leave { 
+  left: 0; 
+}
+.view-animate-right.ng-leave.ng-leave-active {
+  left: 100%;
 }

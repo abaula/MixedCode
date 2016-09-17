@@ -7,12 +7,14 @@
             .when("/",
                 {
                     templateUrl: "defaultPage.html",
-                    controller: "defaultPageController"
+                    controller: "defaultPageController",
+                    animateToShow: "view-animate-right"
                 })
             .when("/page1",
                 {
                     templateUrl: "page1.html",
-                    controller: "page1Controller"
+                    controller: "page1Controller",
+                    animateToShow: "view-animate-left"
                 })
             .otherwise({ redirectTo: "/" });
 

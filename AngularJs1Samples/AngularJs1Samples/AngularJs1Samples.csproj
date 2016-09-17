@@ -117,6 +117,7 @@
     <Content Include="scripts\RouteSample\js\003_route_init.js" />
     <Content Include="scripts\RouteSample\js\004_defaultPageController.js" />
     <Content Include="scripts\RouteSample\js\005_page1Controller.js" />
+    <Content Include="scripts\RouteSample\js\006_animClass.js" />
     <Content Include="scripts\RouteSample\page1.html" />
     <Content Include="scripts\SampleAngularApp\css\style.less" />
     <Content Include="package.json" />
