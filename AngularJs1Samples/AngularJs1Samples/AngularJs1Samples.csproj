@@ -110,12 +110,21 @@
     <Content Include="scripts\NgRepeatSample\index.html" />
     <Content Include="scripts\NgRepeatSample\js\001_app.js" />
     <Content Include="scripts\NgRepeatSample\js\002_ctrl.js" />
+    <Content Include="scripts\RouteSample\defaultPage.html" />
+    <Content Include="scripts\RouteSample\index.html" />
+    <Content Include="scripts\RouteSample\js\001_app.js" />
+    <Content Include="scripts\RouteSample\js\002_controller.js" />
+    <Content Include="scripts\RouteSample\js\003_route_init.js" />
+    <Content Include="scripts\RouteSample\js\004_defaultPageController.js" />
+    <Content Include="scripts\RouteSample\js\005_page1Controller.js" />
+    <Content Include="scripts\RouteSample\page1.html" />
     <Content Include="scripts\SampleAngularApp\css\style.less" />
     <Content Include="package.json" />
     <Content Include="scripts\SampleNumberDirective\css\style.less" />
     <Content Include="scripts\CommunicateBtwServices\css\style.less" />
     <Content Include="scripts\NgRepeatSample\css\style.less" />
     <Content Include="scripts\LargeTableSample\css\style.less" />
+    <Content Include="scripts\RouteSample\css\style.less" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
