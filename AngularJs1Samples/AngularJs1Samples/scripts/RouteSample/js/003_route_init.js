@@ -1,20 +1,20 @@
 ﻿(function(app)
 {
     "use strict";
-    app.config(["$routeProvider", "$locationProvider", function ($routeProvider, $locationProvider)
+    app.config(["$routeProvider", "$locationProvider", "animConfig", function ($routeProvider, $locationProvider, animConfig)
     {
         $routeProvider
             .when("/",
                 {
                     templateUrl: "defaultPage.html",
                     controller: "defaultPageController",
-                    animateToShow: "view-animate-right"
+                    animateToShow: animConfig.animateRight
                 })
             .when("/page1",
                 {
                     templateUrl: "page1.html",
                     controller: "page1Controller",
-                    animateToShow: "view-animate-left"
+                    animateToShow: animConfig.animateLeft
                 })
             .otherwise({ redirectTo: "/" });
 
