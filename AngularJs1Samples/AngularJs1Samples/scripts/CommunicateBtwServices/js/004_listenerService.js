@@ -1,7 +1,7 @@
 ﻿(function (ng, app)
 {
     "use strict";
-    app.factory("listenerService", ["notifyService", function (notifyService)
+    app.service("listenerService", ["notifyService", function (notifyService)
     {
         var notifyCallbacks = [];
 

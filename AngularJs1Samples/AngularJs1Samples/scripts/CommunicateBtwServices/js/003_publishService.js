@@ -1,7 +1,7 @@
 ﻿(function (app)
 {
     "use strict";
-    app.factory("publishService", ["notifyService", function(notifyService)
+    app.service("publishService", ["notifyService", function(notifyService)
     {
         return {
             publishText: function(text)

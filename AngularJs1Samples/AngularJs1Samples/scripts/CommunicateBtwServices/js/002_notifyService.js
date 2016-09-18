@@ -1,7 +1,7 @@
 ﻿(function(ng, app)
 {
     "use strict";
-    app.factory("notifyService", function()
+    app.service("notifyService", function()
     {
         var eventHandlers = [];
 
