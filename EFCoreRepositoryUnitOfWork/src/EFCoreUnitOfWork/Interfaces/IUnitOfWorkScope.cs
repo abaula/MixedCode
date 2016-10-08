@@ -4,7 +4,7 @@ namespace EFCoreUnitOfWork.Interfaces
 {
     public interface IUnitOfWorkScope : IDisposable
     {
-        TRepository GetRepository<TRepository>();
+        TRepository Get<TRepository>();
         void Commit();
     }
 }

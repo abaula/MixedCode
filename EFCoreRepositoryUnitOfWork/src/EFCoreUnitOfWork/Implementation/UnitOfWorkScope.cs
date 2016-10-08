@@ -24,7 +24,7 @@ namespace EFCoreUnitOfWork.Implementation
             _serviceScope.Dispose();
         }
 
-        public TRepository GetRepository<TRepository>()
+        public TRepository Get<TRepository>()
         {
             // Репозитории создаются из отдельного scope, что гарантирует наличие одного экземляра DbContext в репозитории.
             // Время жизни DbContext определено для scope.
