@@ -32,11 +32,10 @@ namespace EFCoreRepositoryUnitOfWork
 
         private static void Configure(ContainerBuilder builder)
         {
-            var options = new DbContextOptionsBuilder<SampleContext>()
+            builder.Register(c => new DbContextOptionsBuilder<SampleContext>()
                 .UseSqlServer(new SqlConnection(Configuration["ConnectionString"]))
-                .Options;
-
-            builder.RegisterInstance(options).As<DbContextOptions<SampleContext>>();
+                .Options)
+                .As<DbContextOptions<SampleContext>>();
             builder.RegisterType<UnitOfWorkScope>().As<IUnitOfWorkScope>();
             builder.RegisterType<UnitOfWorkFactory>().As<IUnitOfWorkFactory>();
             builder.RegisterType<UnitOfWorkScopeContextManager>().As<IUnitOfWorkScopeContextManager>();
