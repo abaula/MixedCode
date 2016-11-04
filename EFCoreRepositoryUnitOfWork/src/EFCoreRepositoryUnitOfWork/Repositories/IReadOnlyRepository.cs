@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using Microsoft.EntityFrameworkCore;
 
-namespace EFCoreRepositoryUnitOfWork
+namespace EFCoreRepositoryUnitOfWork.Repositories
 {
     public interface IReadOnlyRepository
     {

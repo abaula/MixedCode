@@ -3,6 +3,8 @@ using System.Data.SqlClient;
 using Autofac;
 using Autofac.Extensions.DependencyInjection;
 using EFCoreRepositoryUnitOfWork.Contexts;
+using EFCoreRepositoryUnitOfWork.Repositories;
+using EFCoreRepositoryUnitOfWork.Works;
 using EFCoreUnitOfWork.Implementation;
 using EFCoreUnitOfWork.Interfaces;
 using Microsoft.EntityFrameworkCore;
@@ -27,6 +29,8 @@ namespace EFCoreRepositoryUnitOfWork
             var container = builder.Build();
             Container = container.Resolve<IServiceProvider>();
             Run();
+            Console.WriteLine();
+            Console.WriteLine("Работа приложения завершена. Для выхода нажмите любую клавишу.");
             Console.ReadKey();
         }
 
@@ -36,15 +40,28 @@ namespace EFCoreRepositoryUnitOfWork
                 .UseSqlServer(new SqlConnection(Configuration["ConnectionString"]))
                 .Options)
                 .As<DbContextOptions<SampleContext>>();
-            builder.RegisterType<UnitOfWorkScope>().As<IUnitOfWorkScope>();
             builder.RegisterType<UnitOfWorkFactory>().As<IUnitOfWorkFactory>();
             builder.RegisterType<UnitOfWorkScopeContextManager>().As<IUnitOfWorkScopeContextManager>();
             builder.RegisterType<Service>();
 
-            // Обязательно регистрируем с опцией InstancePerLifetimeScope().
+            // IUnitOfWorkScope обязательно регистрируем с опцией InstancePerLifetimeScope().
+            // Делаем это, чтобы передавать один экземпляр IUnitOfWorkScope между объектами TWork выполняющими работу 
+            // в рамках созданного scope.
+            builder.RegisterType<UnitOfWorkScope>().As<IUnitOfWorkScope>().InstancePerLifetimeScope();
+
+            // Объекты доступа к данным TRepository и рабочие объекты TWork 
+            // не обязательно регистрировать с опцией InstancePerLifetimeScope().
+            // Можно это сделать, чтобы оптимизировать время жизни объектов
+            // и использовать один экземпляр несколько раз.
+            builder.RegisterType<ReadOnlyRepository>().As<IReadOnlyRepository>();
+            builder.RegisterType<EditRepository>().As<IEditRepository>();
+            builder.RegisterType<FalseWork>().As<IFalseWork>();
+            builder.RegisterType<Work>().As<IWork>();
+
+            // Контекст обязательно регистрируем с опцией InstancePerLifetimeScope().
+            // Делаем это, чтобы передавать один экземпляр DbContext между объектами 
+            // доступа к данным TRepository, выполняющими работу в рамках созданного scope.
             builder.RegisterType<SampleContext>().InstancePerLifetimeScope();
-            builder.RegisterType<ReadOnlyRepository>().As<IReadOnlyRepository>().InstancePerLifetimeScope();
-            builder.RegisterType<EditRepository>().As<IEditRepository>().InstancePerLifetimeScope();
         }
 
         private static void Run()
@@ -56,6 +73,7 @@ namespace EFCoreRepositoryUnitOfWork
             service.DoSomeCommitedWork();
             service.DoSomeInterruptedWork();
             service.DoSomeNotCommitedWork();
+            service.DoSomeWorkWithWorkers();
             var values = service.GetAllValues();
 
             foreach (var value in values)

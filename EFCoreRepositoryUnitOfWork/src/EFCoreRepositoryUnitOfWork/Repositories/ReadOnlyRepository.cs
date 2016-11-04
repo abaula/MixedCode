@@ -1,9 +1,9 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using EFCoreRepositoryUnitOfWork.Contexts;
 using Microsoft.EntityFrameworkCore;
-using System.Linq;
 
-namespace EFCoreRepositoryUnitOfWork
+namespace EFCoreRepositoryUnitOfWork.Repositories
 {
     public class ReadOnlyRepository : IReadOnlyRepository
     {

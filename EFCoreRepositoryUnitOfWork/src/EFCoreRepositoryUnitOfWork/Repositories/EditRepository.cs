@@ -2,7 +2,7 @@
 using EFCoreRepositoryUnitOfWork.Entities;
 using Microsoft.EntityFrameworkCore;
 
-namespace EFCoreRepositoryUnitOfWork
+namespace EFCoreRepositoryUnitOfWork.Repositories
 {
     public class EditRepository : IEditRepository
     {

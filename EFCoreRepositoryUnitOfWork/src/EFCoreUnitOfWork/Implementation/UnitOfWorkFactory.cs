@@ -15,7 +15,16 @@ namespace EFCoreUnitOfWork.Implementation
 
         public IUnitOfWorkScope Create()
         {
-            return _serviceProvider.GetService<IUnitOfWorkScope>();
+            // Каждый экземпляр IUnitOfWorkScope необходимо создавать в своём изолированном scope, 
+            // это позволит обмениваться одними и теми-же экземплярами объектов между разными классами.
+            // Время жизни объектов, которыми необходимо обмениваться, должно быть определено для scope.
+            // Кроме этого, если создавать экземпляр IUnitOfWorkScope в глобальном scope,
+            // то при повторном обращении к нему будет ошибка, т.к. IUnitOfWorkScope поддерживает IDisposable.
+            return _serviceProvider
+                .GetService<IServiceScopeFactory>()
+                .CreateScope()
+                .ServiceProvider
+                .GetService<IUnitOfWorkScope>();
         }
     }
 }

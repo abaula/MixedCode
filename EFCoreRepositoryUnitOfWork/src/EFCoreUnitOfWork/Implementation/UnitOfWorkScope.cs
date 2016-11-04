@@ -6,31 +6,34 @@ namespace EFCoreUnitOfWork.Implementation
 {
     public class UnitOfWorkScope : IUnitOfWorkScope
     {
-        private readonly IServiceScope _serviceScope;
+        private readonly IServiceProvider _serviceProvider;
         private readonly IUnitOfWorkScopeContextManager _contextManager;
 
         public UnitOfWorkScope(IServiceProvider serviceProvider)
         {
-            var scope = serviceProvider.GetService<IServiceScopeFactory>();
-            _serviceScope = scope.CreateScope();
-            // Магия происходит здесь. IUnitOfWorkScopeContextManager создаётся в отдельном scope, 
-            // и наследует его через конструктор.
-            _contextManager = _serviceScope.ServiceProvider.GetService<IUnitOfWorkScopeContextManager>();
+            _serviceProvider = serviceProvider;
+            _contextManager = _serviceProvider.GetService<IUnitOfWorkScopeContextManager>();
         }
 
         public void Dispose()
         {
             _contextManager.Dispose();
-            _serviceScope.Dispose();
         }
 
-        public TRepository Get<TRepository>()
+        public TRepository GetRepository<TRepository>()
         {
-            // Репозитории создаются из отдельного scope, что гарантирует наличие одного экземляра DbContext в репозитории.
-            // Время жизни DbContext определено для scope.
-            var repository = _serviceScope.ServiceProvider.GetService<TRepository>();
+            // Репозитории создаются внутри общего scope, что гарантирует наличие одного экземляра DbContext в репозитории.
+            // Для правильной работы необходимо, чтобы время жизни DbContext было определено для scope.
+            var repository = _serviceProvider.GetService<TRepository>();
             _contextManager.RegisterDbContext(repository.GetType());
             return repository;
+        }
+
+        public TWork GetWork<TWork>()
+        {
+            // Работы создаются внутри общего scope, что гарантирует наличие одного экземляра scope в работах созданных этим scope.
+            // Для правильной работы необходимо, чтобы время жизни IUnitOfWorkScope было определено для scope.
+            return _serviceProvider.GetService<TWork>();
         }
 
         public void Commit()
