@@ -10,7 +10,7 @@ namespace UnitOfWorkScopes.Dal.Implementation.Contexts
         public OrderStorageContext(IUnitOfWorkScopeProxy scope, string connectionString)
             : base(new SqlConnection(connectionString), scope.IsolationLevel)
         {
-            // Контекст БД на запись поддерживает транзакции.
+            // Контекст БД на запись должен поддерживать транзакции.
             scope.RegisterContext(this);
         }
     }

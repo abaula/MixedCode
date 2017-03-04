@@ -2,8 +2,8 @@
 
 namespace UnitOfWorkScopes.Dal.Abstractions.Dtos.Queries
 {
-    public class GetGoodsInfoAsyncQueryDto
+    public class GetOrderGoodsInfoAsyncQueryDto
     {
-        public Guid GoodsId { get; set; }
+        public Guid OrderId { get; set; }
     }
 }

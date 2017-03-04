@@ -20,7 +20,7 @@ namespace UnitOfWorkScopes.UnitOfWork.Implementation
                 .GetRequiredService<IServiceScopeFactory>()
                 .CreateScope()
                 .ServiceProvider
-                .GetRequiredService<UnitOfWorkScopeProxy>();
+                .GetRequiredService<IUnitOfWorkScopeProxy>();
 
             scope.IsolationLevel = isolationLevel;
 

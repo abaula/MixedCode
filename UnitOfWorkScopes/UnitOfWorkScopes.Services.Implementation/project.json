@@ -1,0 +1,19 @@
+{
+  "version": "1.0.0-*",
+
+  "dependencies": {
+    "Microsoft.Extensions.Logging.Abstractions": "1.1.0",
+    "NETStandard.Library": "1.6.0",
+    "UnitOfWorkScopes.Dal.Abstractions": "1.0.0-*",
+    "UnitOfWorkScopes.Domain.Abstractions": "1.0.0-*",
+    "UnitOfWorkScopes.Services.Abstractions": "1.0.0-*",
+    "UnitOfWorkScopes.UnitOfWork.Abstractions": "1.0.0-*",
+    "UnitOfWorkScopes.UnitOfWork.Extensions": "1.0.0-*"
+  },
+
+  "frameworks": {
+    "netstandard1.6": {
+      "imports": "dnxcore50"
+    }
+  }
+}

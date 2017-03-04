@@ -8,21 +8,21 @@ using UnitOfWorkScopes.UnitOfWork.Abstractions.Cqrs;
 
 namespace UnitOfWorkScopes.Dal.Implementation.Queries
 {
-    public class GetGoodsInfoAsyncQuery : DaoBase, IQueryAsync<GetGoodsInfoAsyncQueryDto, GoodsInfoDto>
+    public class GetOrderGoodsInfoAsyncQuery : DaoBase, IQueryAsync<GetOrderGoodsInfoAsyncQueryDto, GoodsInfoDto[]>
     {
-        public GetGoodsInfoAsyncQuery(IOrderStorageContext context)
+        public GetOrderGoodsInfoAsyncQuery(IOrderStorageContext context)
             : base(context)
         {
         }
 
-        public async Task<GoodsInfoDto> AskAsync(GetGoodsInfoAsyncQueryDto query)
+        public async Task<GoodsInfoDto[]> AskAsync(GetOrderGoodsInfoAsyncQueryDto query)
         {
             var parameters = CreateDynamicParameters();
-            parameters.Add("@goodsId", query.GoodsId);
+            parameters.Add("@orderId", query.OrderId);
 
-            return (await GetAsync<GoodsInfoDto>("dbo.getGoodsInfo", parameters)
+            return (await GetAsync<GoodsInfoDto>("dbo.getOrderGoodsInfo", parameters)
                 .ConfigureAwait(false))
-                .SingleOrDefault();
+                .ToArray();
         }
     }
 }
