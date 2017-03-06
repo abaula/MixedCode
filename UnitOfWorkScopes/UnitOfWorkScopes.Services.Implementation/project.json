@@ -8,7 +8,6 @@
     "UnitOfWorkScopes.Domain.Abstractions": "1.0.0-*",
     "UnitOfWorkScopes.Services.Abstractions": "1.0.0-*",
     "UnitOfWorkScopes.UnitOfWork.Abstractions": "1.0.0-*",
-    "UnitOfWorkScopes.UnitOfWork.Extensions": "1.0.0-*"
   },
 
   "frameworks": {

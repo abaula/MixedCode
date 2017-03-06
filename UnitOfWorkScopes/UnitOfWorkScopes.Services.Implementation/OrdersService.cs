@@ -2,13 +2,10 @@
 using System.Data;
 using System.Threading.Tasks;
 using Microsoft.Extensions.Logging;
-using UnitOfWorkScopes.Dal.Abstractions.Dtos.Commands;
+using UnitOfWorkScopes.Dal.Abstractions.Commands;
 using UnitOfWorkScopes.Domain.Abstractions.Works;
 using UnitOfWorkScopes.Services.Abstractions;
-using UnitOfWorkScopes.UnitOfWork.Abstractions.Cqrs;
 using UnitOfWorkScopes.UnitOfWork.Abstractions.Scopes;
-using UnitOfWorkScopes.UnitOfWork.Abstractions.Works;
-using UnitOfWorkScopes.UnitOfWork.Extensions;
 
 namespace UnitOfWorkScopes.Services.Implementation
 {
@@ -29,8 +26,8 @@ namespace UnitOfWorkScopes.Services.Implementation
             {
                 _logger.LogTrace("Start => GetOrderAmountAsync({0})", orderId);
 
-                var amount = await scope.Get<IWorkAsync<GetOrderAmountWorkDto, decimal>>()
-                    .DoAsync(new GetOrderAmountWorkDto {OrderId = orderId})
+                var amount = await scope.Get<IGetOrderAmountAsyncWork>()
+                    .DoAsync(orderId)
                     .ConfigureAwait(false);
 
                 _logger.LogTrace("End => GetOrderAmountAsync({0}) = {1}", orderId, amount);
@@ -58,45 +55,26 @@ namespace UnitOfWorkScopes.Services.Implementation
             {
                 _logger.LogTrace("Start => ApproveOrderAsync({0})", orderId);
 
-                var amount = await scope.Get<IWorkAsync<GetOrderAmountWorkDto, decimal>>()
-                    .DoAsync(new GetOrderAmountWorkDto { OrderId = orderId })
+                var amount = await scope.Get<IGetOrderAmountAsyncWork>()
+                    .DoAsync(orderId)
                     .ConfigureAwait(false);
 
                 if (amount > 0)
                 {
                     // Ставим резерв на все товары заказа.
-                    await scope.Get<IWorkAsync<ReserveOrderGoodsWorkDto>>()
-                        .DoAsync(new ReserveOrderGoodsWorkDto { OrderId = orderId})
+                    await scope.Get<IReserveOrderGoodsAsyncWork>()
+                        .DoAsync(orderId)
                         .ConfigureAwait(false);
                 }
 
                 // Утверждаем заказ
-                await scope.Get<ICommandAsync<ApproveOrderCmdDto>>()
-                    .ExecuteAsync(new ApproveOrderCmdDto {OrderId = orderId})
+                await scope.Get<IApproveOrderCmd>()
+                    .ExecuteAsync(orderId)
                     .ConfigureAwait(false);
 
                 scope.Commit();
 
                 _logger.LogTrace("End => ApproveOrderAsync({0})", orderId);
-            }
-        }
-
-        public async Task ApproveOrderAsyncExtended(Guid orderId)
-        {
-            using (var scope = _scopeFactory.Create(IsolationLevel.RepeatableRead))
-            {
-                var amount = await scope.DoWorkAsync<GetOrderAmountWorkDto, decimal>(new GetOrderAmountWorkDto { OrderId = orderId });
-
-                if (amount > 0)
-                {
-                    // Ставим резерв на все товары заказа.
-                    await scope.DoWorkAsync(new ReserveOrderGoodsWorkDto { OrderId = orderId });
-                }
-
-                // Утверждаем заказ
-                await scope.ExecuteCommandAsync(new ApproveOrderCmdDto { OrderId = orderId });
-
-                scope.Commit();             
             }
         }
     }

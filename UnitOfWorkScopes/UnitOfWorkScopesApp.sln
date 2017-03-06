@@ -28,8 +28,6 @@ Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "UnitOfWorkScopes.Domain.Abs
 EndProject
 Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "UnitOfWorkScopes.Domain.Implementation", "UnitOfWorkScopes.Domain.Implementation\UnitOfWorkScopes.Domain.Implementation.xproj", "{5D15507C-F425-4C66-A1AA-B62183F0C0FB}"
 EndProject
-Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "UnitOfWorkScopes.UnitOfWork.Extensions", "UnitOfWorkScopes.UnitOfWork.Extensions\UnitOfWorkScopes.UnitOfWork.Extensions.xproj", "{81751FC7-59BC-40DB-8874-7B7EC152D3B0}"
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -72,10 +70,6 @@ Global
 		{5D15507C-F425-4C66-A1AA-B62183F0C0FB}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{5D15507C-F425-4C66-A1AA-B62183F0C0FB}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{5D15507C-F425-4C66-A1AA-B62183F0C0FB}.Release|Any CPU.Build.0 = Release|Any CPU
-		{81751FC7-59BC-40DB-8874-7B7EC152D3B0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{81751FC7-59BC-40DB-8874-7B7EC152D3B0}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{81751FC7-59BC-40DB-8874-7B7EC152D3B0}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{81751FC7-59BC-40DB-8874-7B7EC152D3B0}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

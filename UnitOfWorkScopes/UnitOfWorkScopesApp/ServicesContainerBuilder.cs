@@ -1,12 +1,10 @@
 ﻿using Autofac;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
-using NLog;
 using NLog.Extensions.Logging;
+using UnitOfWorkScopes.Dal.Abstractions.Commands;
 using UnitOfWorkScopes.Dal.Abstractions.Contexts;
-using UnitOfWorkScopes.Dal.Abstractions.Dtos;
-using UnitOfWorkScopes.Dal.Abstractions.Dtos.Commands;
-using UnitOfWorkScopes.Dal.Abstractions.Dtos.Queries;
+using UnitOfWorkScopes.Dal.Abstractions.Queries;
 using UnitOfWorkScopes.Dal.Implementation.Commands;
 using UnitOfWorkScopes.Dal.Implementation.Contexts;
 using UnitOfWorkScopes.Dal.Implementation.Queries;
@@ -14,9 +12,7 @@ using UnitOfWorkScopes.Domain.Abstractions.Works;
 using UnitOfWorkScopes.Domain.Implementation.Works;
 using UnitOfWorkScopes.Services.Abstractions;
 using UnitOfWorkScopes.Services.Implementation;
-using UnitOfWorkScopes.UnitOfWork.Abstractions.Cqrs;
 using UnitOfWorkScopes.UnitOfWork.Abstractions.Scopes;
-using UnitOfWorkScopes.UnitOfWork.Abstractions.Works;
 using UnitOfWorkScopes.UnitOfWork.Implementation;
 
 namespace UnitOfWorkScopesApp
@@ -50,16 +46,16 @@ namespace UnitOfWorkScopesApp
                 .InstancePerLifetimeScope();
 
             // DAL CQRS
-            builder.RegisterType<GetOrderGoodsInfoAsyncQueryStub>().As<IQueryAsync<GetOrderGoodsInfoAsyncQueryDto, GoodsInfoDto[]>>();
-            //builder.RegisterType<GetOrderGoodsInfoAsyncQuery>().As<IQueryAsync<GetOrderGoodsInfoAsyncQueryDto, GoodsInfoDto[]>>();
-            builder.RegisterType<GetOrderAmountAsyncQueryStub>().As<IQueryAsync<GetOrderAmountAsyncQueryDto, decimal>>();
-            builder.RegisterType<ReserveGoodsCmdStub>().As<ICommandAsync<ReserveGoodsCmdDto>>();            
-            builder.RegisterType<ApproveOrderCmdStub>().As<ICommandAsync<ApproveOrderCmdDto>>();
+            builder.RegisterType<GetOrderGoodsInfoAsyncQueryStub>().As<IGetOrderGoodsInfoAsyncQuery>();
+            //builder.RegisterType<GetOrderGoodsInfoAsyncQuery>().As<IGetOrderGoodsInfoAsyncQuery>();
+            builder.RegisterType<GetOrderAmountAsyncQueryStub>().As<IGetOrderAmountAsyncQuery>();
+            builder.RegisterType<ReserveGoodsCmdStub>().As<IReserveGoodsCmd>();            
+            builder.RegisterType<ApproveOrderCmdStub>().As<IApproveOrderCmd>();
 
             // Workers
-            builder.RegisterType<GetOrderAmountWork>().As<IWorkAsync<GetOrderAmountWorkDto, decimal>>();
-            builder.RegisterType<GetOrderGoodsWork>().As<IWorkAsync<GetOrderGoodsWorkDto, GoodsInfoDto[]>>();
-            builder.RegisterType<ReserveOrderGoodsWork>().As<IWorkAsync<ReserveOrderGoodsWorkDto>>();
+            builder.RegisterType<GetOrderAmountAsyncWork>().As<IGetOrderAmountAsyncWork>();
+            builder.RegisterType<GetOrderGoodsAsyncWork>().As<IGetOrderGoodsAsyncWork>();
+            builder.RegisterType<ReserveOrderGoodsAsyncWork>().As<IReserveOrderGoodsAsyncWork>();
 
             // Services
             builder.RegisterType<OrdersService>().As<IOrdersService>();
