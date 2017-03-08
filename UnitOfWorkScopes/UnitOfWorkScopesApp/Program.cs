@@ -30,10 +30,6 @@ namespace UnitOfWorkScopesApp
             ordersService.ApproveOrderAsync(orderId)
                 .GetAwaiter()
                 .GetResult();
-
-            ordersService.DeleteOrderAsync(orderId)
-                .GetAwaiter()
-                .GetResult();
         }
 
         private static void BuildServiceProvider()

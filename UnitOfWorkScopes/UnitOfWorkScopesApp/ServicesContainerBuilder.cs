@@ -26,7 +26,6 @@ namespace UnitOfWorkScopesApp
             // NLog
             var loggerFactory = new LoggerFactory();
             loggerFactory.AddNLog();
-            loggerFactory.ConfigureNLog("nlog.config");
             builder.RegisterInstance(loggerFactory).As<ILoggerFactory>();
             builder.RegisterGeneric(typeof(Logger<>)).As(typeof(ILogger<>)).SingleInstance();
 

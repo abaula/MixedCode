@@ -36,19 +36,6 @@ namespace UnitOfWorkScopes.Services.Implementation
             }
         }
 
-        public async Task DeleteOrderAsync(Guid orderId)
-        {
-            using (var scope = _scopeFactory.Create(IsolationLevel.Serializable))
-            {
-                _logger.LogTrace("Start => DeleteOrderAsync({0})", orderId);
-
-
-                scope.Commit();
-
-                _logger.LogTrace("End => DeleteOrderAsync({0})", orderId);
-            }
-        }
-
         public async Task ApproveOrderAsync(Guid orderId)
         {
             using (var scope = _scopeFactory.Create(IsolationLevel.RepeatableRead))
