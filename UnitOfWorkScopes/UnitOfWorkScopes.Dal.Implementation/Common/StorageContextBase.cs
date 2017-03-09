@@ -1,5 +1,6 @@
 ﻿using System.Data;
 using System.Data.Common;
+using System.Threading;
 using System.Threading.Tasks;
 using UnitOfWorkScopes.Dal.Abstractions.Contexts;
 using UnitOfWorkScopes.UnitOfWork.Abstractions.Contexts;
@@ -10,11 +11,13 @@ namespace UnitOfWorkScopes.Dal.Implementation.Common
     {
         private readonly ConnectionContextData _connectionContextData;
         private readonly IsolationLevel _isolationLevel;
+        private readonly SemaphoreSlim _semaphoreSlim;
 
         protected StorageContextBase(DbConnection connection, IsolationLevel isolationLevel)
         {
             _connectionContextData = new ConnectionContextData(connection);
             _isolationLevel = isolationLevel;
+            _semaphoreSlim = new SemaphoreSlim(1, 1);
         }
 
         public void Commit()
@@ -45,13 +48,25 @@ namespace UnitOfWorkScopes.Dal.Implementation.Common
             if (_connectionContextData.Connection.State != ConnectionState.Closed)
                 return;
 
-            await _connectionContextData.Connection.OpenAsync()
-                .ConfigureAwait(false);
+            try
+            {
+                await _semaphoreSlim.WaitAsync();
 
-            if (_isolationLevel == IsolationLevel.Unspecified)
-                return;
+                if (_connectionContextData.Connection.State != ConnectionState.Closed)
+                    return;
 
-            _connectionContextData.Transaction = _connectionContextData.Connection.BeginTransaction(_isolationLevel);
+                await _connectionContextData.Connection.OpenAsync()
+                    .ConfigureAwait(false);
+
+                if (_isolationLevel == IsolationLevel.Unspecified)
+                    return;
+
+                _connectionContextData.Transaction = _connectionContextData.Connection.BeginTransaction(_isolationLevel);
+            }
+            finally
+            {
+                _semaphoreSlim.Release();
+            }
         }
     }
 }
