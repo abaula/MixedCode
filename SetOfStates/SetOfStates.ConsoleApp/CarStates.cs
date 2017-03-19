@@ -1,4 +1,5 @@
 ﻿using SetOfStates.States;
+using SetOfStates.States.Extensions;
 
 namespace SetOfStates.ConsoleApp
 {
@@ -14,7 +15,7 @@ namespace SetOfStates.ConsoleApp
                 .Condition(car => car.Speed > 0)
                 
                 .State("Равномерно", childState => childState
-                    .Condition(car => car.Acceleration == 0))
+                    .Condition(car => car.Acceleration == 0)) 
 
                 .State("Ускоряется", childState => childState
                     .Condition(car => car.Acceleration > 0))

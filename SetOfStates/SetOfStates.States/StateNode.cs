@@ -6,30 +6,30 @@ namespace SetOfStates.States
 {
     public sealed class StateNode<TObject, TId>
     {
-        private readonly List<StateNode<TObject, TId>> _childrenStates;
+        private readonly List<StateNode<TObject, TId>> _children;
         private readonly List<Func<TObject, bool>> _conditions;
-
-        public StateNode(TId id)
+        
+        public StateNode(TId id, StateNode<TObject, TId> parent)
         {
             Id = id;
-            _childrenStates = new List<StateNode<TObject, TId>>();
+            Parent = parent;
+            _children = new List<StateNode<TObject, TId>>();
             _conditions = new List<Func<TObject, bool>>();
         }
 
         public TId Id { get; }
+        public StateNode<TObject, TId> Parent { get; }
 
-        public StateNode<TObject, TId> State(TId id, Action<StateNode<TObject, TId>> stateAction)
+        public StateNode<TObject, TId> AddState(TId id)
         {
-            var state = new StateNode<TObject, TId>(id);
-            _childrenStates.Add(state);
-            stateAction(state);
-            return this;
+            var state = new StateNode<TObject, TId>(id, this);
+            _children.Add(state);
+            return state;
         }
 
-        public StateNode<TObject, TId> Condition(Func<TObject, bool> expression)
+        public void AddCondition(Func<TObject, bool> condition)
         {
-            _conditions.Add(expression);
-            return this;
+            _conditions.Add(condition);
         }
 
         internal void Handle(TObject obj, List<StateNode<TObject, TId>> setStatesList)
@@ -39,7 +39,7 @@ namespace SetOfStates.States
 
             setStatesList.Add(this);
 
-            foreach (var state in _childrenStates)
+            foreach (var state in _children)
                 state.Handle(obj, setStatesList);
         }
     }

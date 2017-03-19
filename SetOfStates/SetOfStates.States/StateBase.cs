@@ -5,17 +5,17 @@ namespace SetOfStates.States
 {
     public abstract class StateBase<TObject, TId>
     {
-        private readonly List<StateNode<TObject, TId>> _rootStates;
-
         protected StateBase()
         {
-            _rootStates = new List<StateNode<TObject, TId>>();
+            States = new List<StateNode<TObject, TId>>();
         }
+
+        public List<StateNode<TObject, TId>> States { get; }
 
         protected void State(TId id, Action<StateNode<TObject, TId>> stateAction)
         {
-            var state = new StateNode<TObject, TId>(id);
-            _rootStates.Add(state);
+            var state = new StateNode<TObject, TId>(id, null);
+            States.Add(state);
             stateAction(state);
         }
 
@@ -23,7 +23,7 @@ namespace SetOfStates.States
         {
             var info = new StatesInfo<TObject, TId>();
 
-            foreach (var state in _rootStates)
+            foreach (var state in States)
                 state.Handle(obj, info.SetStatesList);
 
             return info;

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Text;
 using SetOfStates.States;
+using SetOfStates.States.Extensions;
 
 namespace SetOfStates.ConsoleApp
 {
@@ -22,26 +23,38 @@ namespace SetOfStates.ConsoleApp
             var incorrectCar = new Car {Speed = 0, Acceleration = 1};
             var infoForIncorrectCar = carStates.Handle(incorrectCar);
             WriteStates("Тест - Машина с неправильными параметрами:", infoForIncorrectCar);
+            Console.WriteLine("Несколько соседних статусов: {0}", infoForIncorrectCar.AnySublingStates());
+            Console.WriteLine("Нет статусов: {0}", infoForIncorrectCar.NoStates());
+            Console.WriteLine();
+
 
             // Машина стоит
             var standStillCar = new Car { Speed = 0, Acceleration = 0 };
             var infoForStandStillCar = carStates.Handle(standStillCar);
             WriteStates("Тест - Машина стоит:", infoForStandStillCar);
+            Console.WriteLine("Несколько соседних статусов: {0}", infoForStandStillCar.AnySublingStates());
+            Console.WriteLine();
 
             // Машина движется равномерно
             var rollingCar = new Car { Speed = 1, Acceleration = 0 };
             var infoForRollingCar = carStates.Handle(rollingCar);
             WriteStates("Тест - Машина движется равномерно:", infoForRollingCar);
+            Console.WriteLine("Несколько соседних статусов: {0}", infoForRollingCar.AnySublingStates());
+            Console.WriteLine();
 
             // Машина ускоряется
             var speedUpCar = new Car { Speed = 1, Acceleration = 1 };
             var infoForSpeedUpCar = carStates.Handle(speedUpCar);
             WriteStates("Тест - Машина ускоряется:", infoForSpeedUpCar);
+            Console.WriteLine("Несколько соседних статусов: {0}", infoForSpeedUpCar.AnySublingStates());
+            Console.WriteLine();
 
             // Машина замедляется
             var slowDownCar = new Car { Speed = 1, Acceleration = -1 };
             var infoForSlowDownCar = carStates.Handle(slowDownCar);
             WriteStates("Тест - Машина замедляется:", infoForSlowDownCar);
+            Console.WriteLine("Несколько соседних статусов: {0}", infoForSlowDownCar.AnySublingStates());
+            Console.WriteLine();
 
             Console.ReadKey();
         }
