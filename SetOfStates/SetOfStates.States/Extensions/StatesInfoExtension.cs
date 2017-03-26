@@ -4,7 +4,7 @@ namespace SetOfStates.States.Extensions
 {
     public static class StatesInfoExtension
     {
-        public static bool AnySublingStates<TObject, TId>(this StatesInfo<TObject, TId> statesInfo)
+        public static bool AnySiblingStates<TObject, TId>(this StatesInfo<TObject, TId> statesInfo)
         {
             return statesInfo.SetStates
                 .GroupBy(s => s.Parent)
