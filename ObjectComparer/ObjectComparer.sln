@@ -1,15 +1,15 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 14
-VisualStudioVersion = 14.0.25420.1
+# Visual Studio 15
+VisualStudioVersion = 15.0.26403.0
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "ObjectComparer.ConsoleApp", "ObjectComparer.ConsoleApp\ObjectComparer.ConsoleApp.xproj", "{326662DA-774C-4094-9254-7AB566E486A1}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ObjectComparer.ConsoleApp", "ObjectComparer.ConsoleApp\ObjectComparer.ConsoleApp.csproj", "{326662DA-774C-4094-9254-7AB566E486A1}"
 EndProject
-Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "ObjectComparer.Abstractions", "ObjectComparer.Abstractions\ObjectComparer.Abstractions.xproj", "{BD887AAA-1A8F-4E9D-8785-8074EF8191B7}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ObjectComparer.Abstractions", "ObjectComparer.Abstractions\ObjectComparer.Abstractions.csproj", "{BD887AAA-1A8F-4E9D-8785-8074EF8191B7}"
 EndProject
-Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "ObjectComparer.Implementation", "ObjectComparer.Implementation\ObjectComparer.Implementation.xproj", "{C3B7777A-2FDE-4D54-81F1-E92E3AE92282}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ObjectComparer.Implementation", "ObjectComparer.Implementation\ObjectComparer.Implementation.csproj", "{C3B7777A-2FDE-4D54-81F1-E92E3AE92282}"
 EndProject
-Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "ObjectComparer.Drafts", "ObjectComparer.Drafts\ObjectComparer.Drafts.xproj", "{9B23CC9E-11A5-4D01-B9A2-5B9A3890F9EA}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ObjectComparer.Drafts", "ObjectComparer.Drafts\ObjectComparer.Drafts.csproj", "{9B23CC9E-11A5-4D01-B9A2-5B9A3890F9EA}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

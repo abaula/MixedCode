@@ -8,6 +8,7 @@ using ObjectComparer.Abstractions.Results;
 namespace ObjectComparer.Implementation.Comparers
 {
     public abstract class TypeComparerBase<TObject> : ITypeComparer<TObject>
+        where TObject : class
     {
         protected readonly Dictionary<string, PropertyInfo> Properties;
         protected readonly IEqualityComparer DefaultComparer;
@@ -15,8 +16,8 @@ namespace ObjectComparer.Implementation.Comparers
         protected TypeComparerBase()
         {
             Properties = typeof(TObject)
-               .GetProperties(BindingFlags.GetProperty | BindingFlags.Public | BindingFlags.Instance)
-               .ToDictionary(p => p.Name);
+                .GetProperties(BindingFlags.GetProperty | BindingFlags.Public | BindingFlags.Instance)
+                .ToDictionary(p => p.Name);
 
             DefaultComparer = new DefaultComparer();
         }

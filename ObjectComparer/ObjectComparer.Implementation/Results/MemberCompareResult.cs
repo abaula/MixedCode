@@ -1,7 +1,7 @@
 ﻿using System.Reflection;
 using ObjectComparer.Abstractions.Results;
 
-namespace ObjectComparer.Implementation
+namespace ObjectComparer.Implementation.Results
 {
     public class MemberCompareResult<TMember> : IMemberCompareResult<TMember>
     {

@@ -1,7 +1,8 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
+using ObjectComparer.ConsoleApp.Comparers;
+using ObjectComparer.ConsoleApp.Dtos;
+using ObjectComparer.ConsoleApp.Enums;
 
 namespace ObjectComparer.ConsoleApp
 {
@@ -18,7 +19,31 @@ namespace ObjectComparer.ConsoleApp
                 Manufacturer = new ManufacturerDto
                 {
                     Id = Guid.NewGuid(),
-                    Name = "GM"
+                    Name = "GM",
+                    Contacts = new[]
+                    {
+                        new ContactDto
+                        {
+                            Id = Guid.NewGuid(),
+                            Type = ContactType.Email,
+                            Order = 1,
+                            Value = "support@cadillac.com"
+                        },
+                        new ContactDto
+                        {
+                            Id = Guid.NewGuid(),
+                            Type = ContactType.Phone,
+                            Order = 2,
+                            Value = "+999999999"
+                        },
+                        new ContactDto
+                        {
+                            Id = Guid.NewGuid(),
+                            Type = ContactType.Post,
+                            Order = 3,
+                            Value = "Rose street"
+                        }
+                    }
                 }
             };
 
@@ -31,7 +56,24 @@ namespace ObjectComparer.ConsoleApp
                 Manufacturer = new ManufacturerDto
                 {
                     Id = Guid.NewGuid(),
-                    Name = "Ford motors"
+                    Name = "Ford motors",
+                    Contacts = new[]
+                    {
+                        new ContactDto
+                        {
+                            Id = Guid.NewGuid(),
+                            Type = ContactType.Email,
+                            Order = 1,
+                            Value = "support@fordmotors.com"
+                        },
+                        new ContactDto
+                        {
+                            Id = Guid.NewGuid(),
+                            Type = ContactType.Phone,
+                            Order = 2,
+                            Value = "+888888888"
+                        }
+                    }
                 }
             };
 
