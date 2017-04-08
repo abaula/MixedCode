@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Reflection;
 using ObjectComparer.Abstractions.Results;
 using ObjectComparer.ConsoleApp.Dtos;
@@ -46,12 +47,16 @@ namespace ObjectComparer.ConsoleApp.Comparers
                 Match = _stringComparer.Equals(left?.Name, right?.Name)
             });
 
+            var collectionResults = _contactsTypeComparer.Compare(left?.Contacts, right?.Contacts);
+            var collectionBothNullOrNotNull = _bothNullOrNotNullComparer.Equals(left?.Contacts, right?.Contacts);
+
             membersResults.Add(new CollectionCompareResult<ContactDto>
             {
                 Left = left?.Contacts,
                 Right = right?.Contacts,
                 Member = Properties[nameof(ManufacturerDto.Contacts)],
-                CollectionResults = _contactsTypeComparer.Compare(left?.Contacts, right?.Contacts)
+                CollectionResults = collectionResults,
+                Match = (!collectionResults.Any() || collectionResults.All(cr => cr.Match)) && collectionBothNullOrNotNull
             });
 
             var bothNullOrNotNull = _bothNullOrNotNullComparer.Equals(left, right);

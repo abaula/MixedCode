@@ -17,7 +17,7 @@ namespace ObjectComparer.Implementation.Comparers
             _typeComparer = new TTypeComparer();
         }
 
-        public IEnumerable<ICollectionMemberCompareResult<TMember>> Compare(IEnumerable<TMember> left,
+        public ICollection<ICollectionMemberCompareResult<TMember>> Compare(IEnumerable<TMember> left,
             IEnumerable<TMember> right)
         {
             var list = new List<ICollectionMemberCompareResult<TMember>>();
