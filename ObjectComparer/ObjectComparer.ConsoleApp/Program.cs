@@ -16,7 +16,7 @@ namespace ObjectComparer.ConsoleApp
                 ModelName = "Cadillac",
                 ManufactureDate = DateTime.Now.Subtract(TimeSpan.FromDays(400)),
                 Price = 16000,
-                Manufacturer = new ManufacturerDto
+                Manufacturer = null /*new ManufacturerDto
                 {
                     Id = Guid.NewGuid(),
                     Name = "GM",
@@ -44,7 +44,7 @@ namespace ObjectComparer.ConsoleApp
                             Value = "Rose street"
                         }
                     }
-                }
+                }*/
             };
 
             var car2 = new CarDto
@@ -53,7 +53,7 @@ namespace ObjectComparer.ConsoleApp
                 ModelName = "Ford",
                 ManufactureDate = DateTime.Now.Subtract(TimeSpan.FromDays(202)),
                 Price = 16000,
-                Manufacturer = new ManufacturerDto
+                Manufacturer = null /*new ManufacturerDto
                 {
                     Id = Guid.NewGuid(),
                     Name = "Ford motors",
@@ -74,7 +74,7 @@ namespace ObjectComparer.ConsoleApp
                             Value = "+888888888"
                         }
                     }
-                }
+                }*/
             };
 
             var carComparer = new CarComparer();

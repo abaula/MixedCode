@@ -5,6 +5,7 @@ using System.Reflection;
 using ObjectComparer.Abstractions.Results;
 using ObjectComparer.ConsoleApp.Dtos;
 using ObjectComparer.Implementation.Comparers;
+using ObjectComparer.Implementation.Helpers;
 using ObjectComparer.Implementation.Results;
 using StringComparer = ObjectComparer.Implementation.Comparers.StringComparer;
 
@@ -29,6 +30,9 @@ namespace ObjectComparer.ConsoleApp.Comparers
             ManufacturerDto right,
             MemberInfo memberInfo = null)
         {
+            if (left == null && right == null)
+                return NullParamsTypeCompareResultBuilder.Build<ManufacturerDto>(memberInfo);
+
             var membersResults = new List<ICompareResult>();
 
             membersResults.Add(new MemberCompareResult<Guid?>

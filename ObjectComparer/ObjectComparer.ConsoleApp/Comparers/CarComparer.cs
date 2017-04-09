@@ -4,6 +4,7 @@ using System.Reflection;
 using ObjectComparer.Abstractions.Results;
 using ObjectComparer.ConsoleApp.Dtos;
 using ObjectComparer.Implementation.Comparers;
+using ObjectComparer.Implementation.Helpers;
 using ObjectComparer.Implementation.Results;
 using StringComparer = ObjectComparer.Implementation.Comparers.StringComparer;
 
@@ -30,6 +31,9 @@ namespace ObjectComparer.ConsoleApp.Comparers
 
         public override ITypeCompareResult<CarDto> Compare(CarDto left, CarDto right, MemberInfo memberInfo = null)
         {
+            if (left == null && right == null)
+                return NullParamsTypeCompareResultBuilder.Build<CarDto>(memberInfo);
+
             var membersResults = new List<ICompareResult>();
 
             membersResults.Add(new MemberCompareResult<Guid?>
