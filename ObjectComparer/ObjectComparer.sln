@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
-VisualStudioVersion = 15.0.26403.0
+VisualStudioVersion = 15.0.26403.3
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ObjectComparer.ConsoleApp", "ObjectComparer.ConsoleApp\ObjectComparer.ConsoleApp.csproj", "{326662DA-774C-4094-9254-7AB566E486A1}"
 EndProject
@@ -10,6 +10,10 @@ EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ObjectComparer.Implementation", "ObjectComparer.Implementation\ObjectComparer.Implementation.csproj", "{C3B7777A-2FDE-4D54-81F1-E92E3AE92282}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ObjectComparer.Drafts", "ObjectComparer.Drafts\ObjectComparer.Drafts.csproj", "{9B23CC9E-11A5-4D01-B9A2-5B9A3890F9EA}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{7FADBAB2-BB65-4325-9E85-01636D27C572}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ObjectComparer.Implementation.UnitTests", "ObjectComparer.Implementation.UnitTests\ObjectComparer.Implementation.UnitTests.csproj", "{5130176C-09B6-4788-944F-C1C3D310834B}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -33,8 +37,15 @@ Global
 		{9B23CC9E-11A5-4D01-B9A2-5B9A3890F9EA}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{9B23CC9E-11A5-4D01-B9A2-5B9A3890F9EA}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{9B23CC9E-11A5-4D01-B9A2-5B9A3890F9EA}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5130176C-09B6-4788-944F-C1C3D310834B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5130176C-09B6-4788-944F-C1C3D310834B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5130176C-09B6-4788-944F-C1C3D310834B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5130176C-09B6-4788-944F-C1C3D310834B}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{5130176C-09B6-4788-944F-C1C3D310834B} = {7FADBAB2-BB65-4325-9E85-01636D27C572}
 	EndGlobalSection
 EndGlobal
