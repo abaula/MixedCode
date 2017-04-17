@@ -1,4 +1,5 @@
-﻿using ObjectComparer.Implementation.Comparers;
+﻿using System;
+using ObjectComparer.Implementation.Comparers;
 using Xunit;
 
 namespace ObjectComparer.Implementation.UnitTests.Comparers
@@ -17,15 +18,19 @@ namespace ObjectComparer.Implementation.UnitTests.Comparers
             Assert.Equal(expected, result);
         }
 
-        [Theory]
-        [InlineData("testObject", false)]
-        [InlineData(null, true)]
-        public void GetHashCode_ZeroCheck(object testObject, bool expected)
+        [Fact]
+        public void GetHashCode_NotZero_ReturnsTrue()
         {
             var comparer = new BothNullOrNotNullComparer();
-            var hasCode = comparer.GetHashCode(testObject);
-            var result = hasCode == 0;
-            Assert.Equal(expected, result);
+            var hasCode = comparer.GetHashCode(new object());
+            Assert.NotEqual(0, hasCode);
+        }
+
+        [Fact]
+        public void GetHashCode_Null_Throws()
+        {
+            var comparer = new BothNullOrNotNullComparer();
+            Assert.Throws<ArgumentNullException>(() => comparer.GetHashCode(null));
         }
     }
 }

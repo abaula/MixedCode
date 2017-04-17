@@ -1,4 +1,6 @@
-﻿using Xunit;
+﻿using System;
+using ObjectComparer.Implementation.Comparers;
+using Xunit;
 using StringComparer = ObjectComparer.Implementation.Comparers.StringComparer;
 
 namespace ObjectComparer.Implementation.UnitTests.Comparers
@@ -31,13 +33,19 @@ namespace ObjectComparer.Implementation.UnitTests.Comparers
 
         [Theory]
         [InlineData("abcd", false)]
-        [InlineData(null, true)]
         public void GetHashCode_ZeroCheck(string testValue, bool expected)
         {
             var comparer = new StringComparer();
             var hasCode = comparer.GetHashCode(testValue);
             var result = hasCode == 0;
             Assert.Equal(expected, result);
+        }
+
+        [Fact]
+        public void GetHashCode_Null_Throws()
+        {
+            var comparer = new StringComparer();
+            Assert.Throws<ArgumentNullException>(() => comparer.GetHashCode(null));
         }
     }
 }

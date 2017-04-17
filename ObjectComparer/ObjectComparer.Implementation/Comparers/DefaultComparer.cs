@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 
 namespace ObjectComparer.Implementation.Comparers
 {
@@ -11,7 +12,10 @@ namespace ObjectComparer.Implementation.Comparers
 
         public int GetHashCode(object obj)
         {
-            return obj?.GetHashCode() ?? 0;
+            if (obj == null)
+                throw new ArgumentNullException();
+
+            return obj.GetHashCode();
         }
     }
 }

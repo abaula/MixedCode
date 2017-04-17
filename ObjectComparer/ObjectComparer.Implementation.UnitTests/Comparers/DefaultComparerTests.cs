@@ -1,4 +1,5 @@
-﻿using ObjectComparer.Implementation.Comparers;
+﻿using System;
+using ObjectComparer.Implementation.Comparers;
 using Xunit;
 
 namespace ObjectComparer.Implementation.UnitTests.Comparers
@@ -22,13 +23,19 @@ namespace ObjectComparer.Implementation.UnitTests.Comparers
         [Theory]
         [InlineData(0, true)]
         [InlineData(1, false)]
-        [InlineData(null, true)]
         public void GetHashCode_Int_ZeroCheck(int? testValue, bool expected)
         {
             var comparer = new DefaultComparer();
             var hasCode = comparer.GetHashCode(testValue);
             var result = hasCode == 0;
             Assert.Equal(expected, result);
+        }
+
+        [Fact]
+        public void GetHashCode_Null_Throws()
+        {
+            var comparer = new DefaultComparer();
+            Assert.Throws<ArgumentNullException>(() => comparer.GetHashCode(null));
         }
     }
 }

@@ -1,6 +1,8 @@
-﻿using System.Globalization;
+﻿using System;
+using System.Globalization;
 using ObjectComparer.Implementation.Comparers;
 using Xunit;
+using StringComparer = ObjectComparer.Implementation.Comparers.StringComparer;
 
 namespace ObjectComparer.Implementation.UnitTests.Comparers
 {
@@ -23,7 +25,6 @@ namespace ObjectComparer.Implementation.UnitTests.Comparers
         [Theory]
         [InlineData(0, true)]
         [InlineData(1, false)]
-        [InlineData(null, true)]
         public void GetHashCode_Int_ZeroCheck(int? testValue, bool expected)
         {
             var comparer = new NullableStructComparer<int>();
@@ -37,7 +38,6 @@ namespace ObjectComparer.Implementation.UnitTests.Comparers
         [InlineData("0.0", true)]
         [InlineData("0.2", false)]
         [InlineData("1.1", false)]
-        [InlineData(null, true)]
         public void GetHashCode_Decimal_ZeroCheck(string testValue, bool expected)
         {
             var comparer = new NullableStructComparer<decimal>();
@@ -49,6 +49,13 @@ namespace ObjectComparer.Implementation.UnitTests.Comparers
             var hasCode = comparer.GetHashCode(decimalTestValue);
             var result = hasCode == 0;
             Assert.Equal(expected, result);
+        }
+
+        [Fact]
+        public void GetHashCode_Null_Throws()
+        {
+            var comparer = new NullableStructComparer<int>();
+            Assert.Throws<ArgumentNullException>(() => comparer.GetHashCode(null));
         }
     }
 }

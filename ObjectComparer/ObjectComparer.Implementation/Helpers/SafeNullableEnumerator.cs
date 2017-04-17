@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace ObjectComparer.Implementation.Helpers
 {
-    internal class SafeNullableEnumerator<T> : IEnumerator<T>
+    public class SafeNullableEnumerator<T> : IEnumerator<T>
         where T : class
     {
         private readonly IEnumerator<T> _enumerator;

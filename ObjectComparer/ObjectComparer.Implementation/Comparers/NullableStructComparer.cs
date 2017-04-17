@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 
 namespace ObjectComparer.Implementation.Comparers
 {
@@ -6,6 +7,13 @@ namespace ObjectComparer.Implementation.Comparers
         where T : struct
     {
         public bool Equals(T? x, T? y) => EqualityComparer<T?>.Default.Equals(x, y);
-        public int GetHashCode(T? obj) => obj?.GetHashCode() ?? 0;
+
+        public int GetHashCode(T? obj)
+        {
+            if (obj == null)
+                throw new ArgumentNullException();
+
+            return obj.GetHashCode();
+        }
     }
 }

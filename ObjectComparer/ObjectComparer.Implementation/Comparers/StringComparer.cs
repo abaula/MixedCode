@@ -12,7 +12,10 @@ namespace ObjectComparer.Implementation.Comparers
 
         public int GetHashCode(string obj)
         {
-            return obj?.GetHashCode() ?? 0;
+            if (obj == null)
+                throw new ArgumentNullException();
+
+            return obj.GetHashCode();
         }
     }
 }
