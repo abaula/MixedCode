@@ -4,7 +4,6 @@ using System.Collections.Generic;
 namespace ObjectComparer.Implementation.Helpers
 {
     public class SafeNullableEnumerator<T> : IEnumerator<T>
-        where T : class
     {
         private readonly IEnumerator<T> _enumerator;
 

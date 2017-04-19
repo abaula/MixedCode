@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Reflection;
 using ObjectComparer.Abstractions.Results;
 using ObjectComparer.ConsoleApp.Dtos;
@@ -18,6 +19,7 @@ namespace ObjectComparer.ConsoleApp.Comparers
         private readonly NullableStructComparer<DateTime> _dateTimeComparer;
         private readonly ManufacturerComparer _manufacturerComparer;
         private readonly BothNullOrNotNullComparer _bothNullOrNotNullComparer;
+        private readonly CollectionComparer<string, StringComparer> _codesComparer;
 
         public CarComparer()
         {
@@ -27,6 +29,7 @@ namespace ObjectComparer.ConsoleApp.Comparers
             _dateTimeComparer = new NullableStructComparer<DateTime>();
             _manufacturerComparer = new ManufacturerComparer();
             _bothNullOrNotNullComparer = new BothNullOrNotNullComparer();
+            _codesComparer = new CollectionComparer<string, StringComparer>();
         }
 
         public override ITypeCompareResult<CarDto> Compare(CarDto left, CarDto right, MemberInfo memberInfo = null)
@@ -77,7 +80,17 @@ namespace ObjectComparer.ConsoleApp.Comparers
                     )
             );
 
-            // TODO Properties[nameof(CarDto.WheelCodes)]
+            var collectionResults = _codesComparer.Compare(left?.WheelCodes, right?.WheelCodes);
+            var collectionBothNullOrNotNull = _bothNullOrNotNullComparer.Equals(left?.WheelCodes, right?.WheelCodes);
+
+            membersResults.Add(new CollectionCompareResult<string>
+            {
+                Left = left?.WheelCodes,
+                Right = right?.WheelCodes,
+                Member = Properties[nameof(CarDto.WheelCodes)],
+                CollectionResults = collectionResults,
+                Match = (!collectionResults.Any() || collectionResults.All(cr => cr.Match)) && collectionBothNullOrNotNull
+            });
 
             var bothNullOrNotNull = _bothNullOrNotNullComparer.Equals(left, right);
 
