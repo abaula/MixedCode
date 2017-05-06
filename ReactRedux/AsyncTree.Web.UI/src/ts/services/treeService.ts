@@ -32,7 +32,7 @@ export default class TreeService implements ITreeService
             this.treeStorage.getChildren(parent.id)
                 .then((data: ITreeNodeDto[]) =>
                 {
-                    let values = data.map((value: ITreeNodeDto): ITreeNode => this.toITreeNode(value))
+                    let values = data.map((value: ITreeNodeDto): ITreeNode => this.toITreeNode(value, parent))
                     this.logicalTree.setChildren(values, parent)
                     parent.expanded = true
                     let treeNodesList = this.logicalTree.getList(this.logicalTree.root, false)
@@ -75,11 +75,11 @@ export default class TreeService implements ITreeService
         }
     }
 
-    private toITreeNode = (value: ITreeNodeDto): ITreeNode =>
+    private toITreeNode = (value: ITreeNodeDto, parent: ITreeNode): ITreeNode =>
     {
         return {
             id: value.id,
-            parent: this.logicalTree.root,
+            parent: parent,
             children: [],
             data: value,
             expanded: false,
