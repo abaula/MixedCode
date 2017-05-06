@@ -251,5 +251,6 @@ paket-files/
 .idea/
 *.sln.iml
 
-# Проектные папки
+# пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ
 wwwroot/
+ReactRedux/AsyncTree.Web.UI/src/js/*

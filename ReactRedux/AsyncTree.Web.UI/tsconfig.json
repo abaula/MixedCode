@@ -1,0 +1,19 @@
+﻿{
+  "compilerOptions": {
+    "outDir": "./src/js/",
+    "sourceMap": true,
+    "noImplicitAny": true,
+    "module": "commonjs",
+    "target": "es2017",
+    "jsx": "react",
+    "lib": [
+      "es2016",
+      "dom"
+    ],
+    "skipLibCheck": true
+  },
+  "exclude": [
+    "node_modules",
+    "wwwroot"
+  ]
+}

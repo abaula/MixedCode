@@ -1,0 +1,40 @@
+{
+  "version": "1.0.0",
+  "name": "async-tree",
+  "private": true,
+  "devDependencies": {
+    "webpack": "2.4.1",
+    "webpack-stream": "3.2.0",
+    "ts-loader": "2.0.3",
+    "source-map-loader": "0.2.1",
+    "fs": "0.0.1-security",
+    "gulp": "3.9.1",
+    "gulp-concat": "2.6.1",
+    "del": "2.2.2",
+    "gulp-header": "1.8.8",
+    "gulp-less": "3.3.0",
+    "gulp-minify-css": "1.2.4",
+    "gulp-replace": "0.5.4",
+    "gulp-rename": "1.2.2"
+  },
+  "dependencies": {
+    "@types/react": "^15.0.23",
+    "@types/react-dom": "^15.5.0",
+    "@types/redux": "^3.6.0",
+    "@types/immutable": "3.8.7",
+    "@types/lodash": "4.14.63",
+    "@types/react-redux": "4.4.40",
+    "@types/redux-logger": "3.0.0",
+    "@types/redux-thunk": "2.1.0",
+    "lodash": "4.17.4",
+    "react": "15.5.4",
+    "react-dom": "15.5.4",
+    "redux": "3.6.0",
+    "react-redux": "5.0.4",
+    "redux-logger": "3.0.1",
+    "redux-thunk": "2.2.0",
+    "immutable": "3.8.1",
+    "typescript": "2.3.2",
+    "typings": "2.1.1"
+  }
+}

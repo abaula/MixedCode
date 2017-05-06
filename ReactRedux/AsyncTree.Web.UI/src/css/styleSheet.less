@@ -1,0 +1,131 @@
+﻿@levelMargin: 10pt;
+
+body{
+    background-color: #ffffff;
+    font-family: 'PT Sans', sans-serif;
+    font-size: 11pt;
+    margin: 0px 0px 0px 0px;
+    padding: 10px 10px 10px 10px;
+}
+
+.tree {
+    font-size: 12pt;
+}
+
+.treeNode{
+    
+}
+
+.treeNodeLevel1 {
+    margin-left: 0pt;
+}
+
+.treeNodeLevel2 {
+    margin-left: @levelMargin;
+}
+
+.treeNodeLevel3 {
+    margin-left: @levelMargin * 2;
+}
+
+.treeNodeLevel4 {
+    margin-left: @levelMargin * 3;
+}
+
+.treeNodeElement {
+    display: inline-block;
+    padding: 4pt;
+}
+
+.clickableTreeNodeButton {
+    cursor: pointer;
+}
+
+/*
+    Font Awesome Hourglass / Egg Timer 
+    http://codepen.io/wstone/pen/jqzXRR
+*/
+
+.hourglass-spin {
+    > [class*="fa-hourglass"] {
+        animation: showhide 2s steps(1) infinite;
+        opacity: 0;
+    }
+
+    > .fa-hourglass-end {
+        animation-delay: 1s;
+    }
+
+    > .fa-hourglass-half {
+        animation-delay: 0.5s;
+    }
+
+    > .fa-hourglass-start {
+        animation-delay: 0s;
+    }
+
+    > .fa-hourglass-end.spin {
+        animation: showhidespin 2s linear infinite;
+    }
+}
+
+@keyframes showhide {
+    0% {
+        opacity: 1
+    }
+
+    25% {
+        opacity: 0
+    }
+}
+
+@keyframes showhidespin {
+    0% {
+        opacity: 0
+    }
+
+    74.9999999% {
+        opacity: 0
+    }
+
+    75% {
+        opacity: 1;
+        transform: rotate(0deg);
+    }
+
+    100% {
+        opacity: 1;
+        transform: rotate(180deg);
+    }
+}
+
+/*
+    ------------ END -----------------
+    Font Awesome Hourglass / Egg Timer 
+*/
+
+#loadOverlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: #000;
+    filter: alpha(opacity=20);
+    -moz-opacity: 0.2;
+    opacity: 0.2;
+}
+
+#loadOverlay div {
+    margin: 20px;
+    padding: 5px;
+    border-radius: 5px;
+    color: #000;
+    background-color: #fff;
+    position: relative;
+    display: inline-block;
+}
+
+#loadOverlay span {
+    margin: 4px;
+}
