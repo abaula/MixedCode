@@ -36,44 +36,38 @@ export const clearTree = (): (dispatch: Dispatch<IAction>) => void =>
         dispatch({ type: ActionType.ClearTree })
     })
 
-export const expandTreeNode = (nodeId: number): (dispatch: Dispatch<IAction>) => void =>
+export const expandTreeNode = (nodeId: number, end: () => void): (dispatch: Dispatch<IAction>) => void =>
     ((dispatch: Dispatch<IAction>): void =>
     {
-        dispatch({
-            type: ActionType.ExpandingTreeNode,
-            payload: nodeId
-        })
-
         treeService.expandNodeAndGetTree(nodeId)
-            .then((nodes: ITreeNodeState[]) => dispatch(
-                {
-                    type: ActionType.ExpandTreeNode,
-                    payload: { nodeId: nodeId, nodes: nodes }
-                }))
-            .catch((reason: any) => dispatch(
-                {
-                    type: ActionType.ExpandTreeNodeError,
-                    payload: reason
-                }))
+            .then((nodes: ITreeNodeState[]) =>
+            {
+                if (nodes)
+                    dispatch({ type: ActionType.ExpandTreeNode, payload: nodes })
+
+                end()
+            })
+            .catch((reason: any) =>
+            {
+                dispatch({ type: ActionType.ExpandTreeNodeError, payload: reason })
+                end()
+            })
     })
 
-export const collapseTreeNode = (nodeId: number): (dispatch: Dispatch<IAction>) => void =>
+export const collapseTreeNode = (nodeId: number, end: () => void): (dispatch: Dispatch<IAction>) => void =>
     ((dispatch: Dispatch<IAction>): void =>
     {
-        dispatch({
-            type: ActionType.CollapsingTreeNode,
-            payload: nodeId
-        })
-
         treeService.collapseNodeAndGetTree(nodeId)
-            .then((nodes: ITreeNodeState[]) => dispatch(
-                {
-                    type: ActionType.CollapseTreeNode,
-                    payload: { nodeId: nodeId, nodes: nodes }
-                }))
-            .catch((reason: any) => dispatch(
-                {
-                    type: ActionType.CollapseTreeNodeError,
-                    payload: reason
-                }))
+            .then((nodes: ITreeNodeState[]) =>
+            {
+                if (nodes)
+                    dispatch({ type: ActionType.CollapseTreeNode, payload: nodes })
+
+                end()
+            })
+            .catch((reason: any) =>
+            {
+                dispatch({ type: ActionType.CollapseTreeNodeError, payload: reason })
+                end()
+            })
     })

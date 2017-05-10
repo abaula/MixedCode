@@ -32,6 +32,14 @@ export default class TreeService implements ITreeService
             this.treeStorage.getChildren(parent.id)
                 .then((data: ITreeNodeDto[]) =>
                 {
+                    // Оптимизация - если оказалось, что после загрузки данных с сервера родительский узел уже удалён из дерева,
+                    // то отдаём вызывающей стороне undefined.
+                    if (!this.logicalTree.findNode(parent.id))
+                    {
+                        resolve(undefined)
+                        return
+                    }
+
                     let values = data.map((value: ITreeNodeDto): ITreeNode => this.toITreeNode(value, parent))
                     this.logicalTree.setChildren(values, parent)
                     parent.expanded = true

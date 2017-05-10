@@ -2,6 +2,7 @@
 
 export interface ITreeDispatchProps
 {
-    loadTree : () => void
-    onIconClick: (event: React.MouseEvent<HTMLElement>, nodeId: number, state: TreeNodeStateType) => void
+    loadTree: () => void
+    expandTreeNode: (nodeId: number, end: () => void) => void
+    collapseTreeNode: (nodeId: number, end: () => void) => void
 }

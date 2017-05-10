@@ -6,5 +6,4 @@ export interface ITreeState
     nodes: ITreeNodeState[]
     isLoading: boolean
     error?: any
-    pendingTreeNodesOperationsMap: any
 }

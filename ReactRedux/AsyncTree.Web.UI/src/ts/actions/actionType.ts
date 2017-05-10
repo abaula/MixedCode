@@ -5,10 +5,8 @@ export enum ActionType
     LoadTree,
     LoadTreeError,
     ClearTree,
-    ExpandingTreeNode,
     ExpandTreeNode,
     ExpandTreeNodeError,
-    CollapsingTreeNode,
     CollapseTreeNode,
     CollapseTreeNodeError
 }
