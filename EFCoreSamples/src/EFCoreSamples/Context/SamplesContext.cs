@@ -10,5 +10,10 @@ namespace EFCoreSamples.Context
         }
 
         public DbSet<SampleEntry> SampleEntries { get; set; }
+
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            base.OnModelCreating(modelBuilder);
+        }
     }
 }

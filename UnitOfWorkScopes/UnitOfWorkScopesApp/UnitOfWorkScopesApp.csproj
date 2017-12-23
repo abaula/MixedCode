@@ -1,0 +1,43 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp1.0</TargetFramework>
+    <AssemblyName>UnitOfWorkScopesApp</AssemblyName>
+    <OutputType>Exe</OutputType>
+    <PackageId>UnitOfWorkScopesApp</PackageId>
+    <RuntimeFrameworkVersion>1.0.4</RuntimeFrameworkVersion>
+    <GenerateAssemblyConfigurationAttribute>false</GenerateAssemblyConfigurationAttribute>
+    <GenerateAssemblyCompanyAttribute>false</GenerateAssemblyCompanyAttribute>
+    <GenerateAssemblyProductAttribute>false</GenerateAssemblyProductAttribute>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <None Update="appsettings.json;nlog.config">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\UnitOfWorkScopes.Dal.Abstractions\UnitOfWorkScopes.Dal.Abstractions.csproj" />
+    <ProjectReference Include="..\UnitOfWorkScopes.Dal.Implementation\UnitOfWorkScopes.Dal.Implementation.csproj" />
+    <ProjectReference Include="..\UnitOfWorkScopes.Domain.Abstractions\UnitOfWorkScopes.Domain.Abstractions.csproj" />
+    <ProjectReference Include="..\UnitOfWorkScopes.Domain.Implementation\UnitOfWorkScopes.Domain.Implementation.csproj" />
+    <ProjectReference Include="..\UnitOfWorkScopes.Services.Abstractions\UnitOfWorkScopes.Services.Abstractions.csproj" />
+    <ProjectReference Include="..\UnitOfWorkScopes.Services.Implementation\UnitOfWorkScopes.Services.Implementation.csproj" />
+    <ProjectReference Include="..\UnitOfWorkScopes.UnitOfWork.Abstractions\UnitOfWorkScopes.UnitOfWork.Abstractions.csproj" />
+    <ProjectReference Include="..\UnitOfWorkScopes.UnitOfWork.Implementation\UnitOfWorkScopes.UnitOfWork.Implementation.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Autofac.Extensions.DependencyInjection" Version="4.0.0" />
+    <PackageReference Include="Microsoft.Extensions.Configuration" Version="1.1.1" />
+    <PackageReference Include="Microsoft.Extensions.Configuration.Abstractions" Version="1.1.1" />
+    <PackageReference Include="Microsoft.Extensions.Configuration.EnvironmentVariables" Version="1.1.1" />
+    <PackageReference Include="Microsoft.Extensions.Configuration.Json" Version="1.1.1" />
+    <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="1.1.0" />
+    <PackageReference Include="Microsoft.Extensions.Logging" Version="1.1.1" />
+    <PackageReference Include="NLog" Version="5.0.0-beta06" />
+    <PackageReference Include="NLog.Extensions.Logging" Version="1.0.0-rtm-beta3" />
+  </ItemGroup>
+
+</Project>

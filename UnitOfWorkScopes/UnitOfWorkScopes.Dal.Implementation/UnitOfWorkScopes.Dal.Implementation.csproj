@@ -1,0 +1,25 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard1.6</TargetFramework>
+    <AssemblyName>UnitOfWorkScopes.Dal.Implementation</AssemblyName>
+    <PackageId>UnitOfWorkScopes.Dal.Implementation</PackageId>
+    <NetStandardImplicitPackageVersion>1.6.0</NetStandardImplicitPackageVersion>
+    <PackageTargetFallback>$(PackageTargetFallback);dnxcore50</PackageTargetFallback>
+    <GenerateAssemblyConfigurationAttribute>false</GenerateAssemblyConfigurationAttribute>
+    <GenerateAssemblyCompanyAttribute>false</GenerateAssemblyCompanyAttribute>
+    <GenerateAssemblyProductAttribute>false</GenerateAssemblyProductAttribute>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\UnitOfWorkScopes.UnitOfWork.Abstractions\UnitOfWorkScopes.UnitOfWork.Abstractions.csproj" />
+    <ProjectReference Include="..\UnitOfWorkScopes.Dal.Abstractions\UnitOfWorkScopes.Dal.Abstractions.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="System.Data.SqlClient" Version="4.3.0" />
+    <PackageReference Include="Dapper" Version="1.50.2" />
+    <PackageReference Include="Microsoft.Extensions.Logging.Abstractions" Version="1.1.1" />
+  </ItemGroup>
+
+</Project>
