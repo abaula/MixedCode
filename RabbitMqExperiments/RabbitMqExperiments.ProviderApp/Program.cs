@@ -1,6 +1,7 @@
 ﻿using System;
 using MassTransit;
 using RabbitMqExperiments.Common.Const;
+using RabbitMqExperiments.Common.Helpers;
 using RabbitMqExperiments.MessagingContract.Events;
 using RabbitMqExperiments.ProviderApp.Model;
 
@@ -28,7 +29,7 @@ namespace RabbitMqExperiments.ProviderApp
             {
                 var message = Console.ReadLine();
 
-                if (string.Compare("exit", message, StringComparison.InvariantCultureIgnoreCase) == 0)
+                if (StringHelper.Equals("exit", message))
                 {
                     bus.Stop();
                     return;
