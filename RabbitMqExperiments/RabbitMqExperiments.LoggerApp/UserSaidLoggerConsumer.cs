@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Threading.Tasks;
 using MassTransit;
-using RabbitMqExperiments.MessagingContract.Events;
+using RabbitMqExperiments.MessagingContract;
 
 namespace RabbitMqExperiments.LoggerApp
 {

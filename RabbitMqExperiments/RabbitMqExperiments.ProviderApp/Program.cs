@@ -1,10 +1,8 @@
 ﻿using System;
-using System.IO;
 using MassTransit;
 using RabbitMqExperiments.Common.Const;
 using RabbitMqExperiments.Common.Helpers;
-using RabbitMqExperiments.MessagingContract.Events;
-using RabbitMqExperiments.ProviderApp.Model;
+using RabbitMqExperiments.MessagingContract;
 
 namespace RabbitMqExperiments.ProviderApp
 {
@@ -47,7 +45,7 @@ namespace RabbitMqExperiments.ProviderApp
                         .GetAwaiter()
                         .GetResult();
 
-                    endpoint.Send<IUserSaid>(new UserSaid
+                    endpoint.Send<IUserSaid>(new
                         {
                             Id = Guid.NewGuid(),
                             CreatedAt = DateTime.Now,
@@ -60,7 +58,7 @@ namespace RabbitMqExperiments.ProviderApp
                     continue;
                 }
 
-                bus.Publish<IUserSaid>(new UserSaid
+                bus.Publish<IUserSaid>(new
                 {
                     Id = Guid.NewGuid(),
                     CreatedAt = DateTime.Now,

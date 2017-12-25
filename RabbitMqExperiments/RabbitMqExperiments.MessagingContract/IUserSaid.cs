@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace RabbitMqExperiments.MessagingContract.Events
+namespace RabbitMqExperiments.MessagingContract
 {
     public interface IUserSaid
     {
