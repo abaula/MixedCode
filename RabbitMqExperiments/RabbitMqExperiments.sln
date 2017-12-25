@@ -7,11 +7,13 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RabbitMqExperiments.Messagi
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RabbitMqExperiments.Common", "RabbitMqExperiments.Common\RabbitMqExperiments.Common.csproj", "{C7861DD5-38AC-44F3-B350-E3D2347FCC92}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RabbitMqExperiments.ProviderApp", "RabbitMqExperiments.ProviderApp\RabbitMqExperiments.ProviderApp.csproj", "{66CD62E0-8535-4BC2-AB40-8C34B752CF35}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RabbitMqExperiments.ProviderApp", "RabbitMqExperiments.ProviderApp\RabbitMqExperiments.ProviderApp.csproj", "{66CD62E0-8535-4BC2-AB40-8C34B752CF35}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RabbitMqExperiments.ConsumerApp", "RabbitMqExperiments.ConsumerApp\RabbitMqExperiments.ConsumerApp.csproj", "{85956C47-3C70-404C-8F48-064713AAB2D9}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RabbitMqExperiments.ConsumerApp", "RabbitMqExperiments.ConsumerApp\RabbitMqExperiments.ConsumerApp.csproj", "{85956C47-3C70-404C-8F48-064713AAB2D9}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RabbitMqExperiments.LauncherApp", "RabbitMqExperiments.LauncherApp\RabbitMqExperiments.LauncherApp.csproj", "{EB638E81-45CD-4CC7-96DE-D2EAF41F66B5}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RabbitMqExperiments.LauncherApp", "RabbitMqExperiments.LauncherApp\RabbitMqExperiments.LauncherApp.csproj", "{EB638E81-45CD-4CC7-96DE-D2EAF41F66B5}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RabbitMqExperiments.LoggerApp", "RabbitMqExperiments.LoggerApp\RabbitMqExperiments.LoggerApp.csproj", "{F6BD0609-0B61-41E8-988A-B2755CBA3EB8}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -39,6 +41,10 @@ Global
 		{EB638E81-45CD-4CC7-96DE-D2EAF41F66B5}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{EB638E81-45CD-4CC7-96DE-D2EAF41F66B5}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{EB638E81-45CD-4CC7-96DE-D2EAF41F66B5}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F6BD0609-0B61-41E8-988A-B2755CBA3EB8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F6BD0609-0B61-41E8-988A-B2755CBA3EB8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F6BD0609-0B61-41E8-988A-B2755CBA3EB8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F6BD0609-0B61-41E8-988A-B2755CBA3EB8}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

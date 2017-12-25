@@ -7,5 +7,6 @@ namespace RabbitMqExperiments.Common.Const
         public const string RabbitLogin = "guest";
         public const string RabbitPassword = "guest";
         public const string RabbitUserTalkQueue = "user_talk_queue";
+        public const string RabbitUserTalkLogQueue = "user_talk_log_queue";
     }
 }

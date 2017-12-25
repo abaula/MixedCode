@@ -7,6 +7,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\RabbitMqExperiments.ConsumerApp\RabbitMqExperiments.ConsumerApp.csproj" />
+    <ProjectReference Include="..\RabbitMqExperiments.LoggerApp\RabbitMqExperiments.LoggerApp.csproj" />
     <ProjectReference Include="..\RabbitMqExperiments.ProviderApp\RabbitMqExperiments.ProviderApp.csproj" />
   </ItemGroup>
 
