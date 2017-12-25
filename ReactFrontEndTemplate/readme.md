@@ -16,15 +16,15 @@ _Не забываем, что для этого web-api должен подде
 
 # Использование
 ### Для работы с web-api в режиме CORS, нужно использовать webpack-dev-server:
-npm run start-dev
-npm run start-test
-npm run start-pre
+- npm run start-dev
+- npm run start-test
+- npm run start-pre
 
 не забываем настроить url, см. Примечания.
 
 ### Сборка проекта в папку dist
-npm run build:dev - без Uglify
-npm run build:prod - с Uglify
+- npm run build:dev - без Uglify
+- npm run build:prod - с Uglify
 
 # Примечания
 1. Настройка Url для web-api производится в файле /src/ts/config/webapiconfig.ts
