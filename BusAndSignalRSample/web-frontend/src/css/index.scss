@@ -1,7 +1,14 @@
 $font-stack:    Helvetica, sans-serif;
 $primary-color: #333;
+$fa-font-path: "~font-awesome/fonts";
+@import '~font-awesome/scss/font-awesome.scss';
 
 body {
   font: 100% $font-stack;
   color: $primary-color;
+}
+
+.icon {
+  width: 30px;
+  text-align: center;
 }

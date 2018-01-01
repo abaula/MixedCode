@@ -29,11 +29,23 @@ namespace BusAndSignalRSample.WebApi.Hubs
                 command.MessageId,
                 command.Message
             });
+
+            await OnMessageRegistering(new MessageRegisteringEvent
+            {
+                MessageId = command.MessageId,
+                Message = command.Message,
+                CreatedAt = DateTime.Now
+            });
         }
 
         public async Task OnMessageRegistered(IMessageRegisteredEvent data)
         {
             await Clients.All.InvokeAsync("messageRegistered", data);
+        }
+
+        public async Task OnMessageRegistering(IMessageRegisteringEvent data)
+        {
+            await Clients.All.InvokeAsync("messageRegistering", data);
         }
     }
 }

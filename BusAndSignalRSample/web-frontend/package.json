@@ -12,6 +12,7 @@
   "license": "ISC",
   "dependencies": {
     "@aspnet/signalr-client": "1.0.0-alpha2-final",
+    "font-awesome": "4.7.0",
     "react": "15.6.1",
     "react-dom": "15.6.1",
     "react-helmet": "5.1.3",

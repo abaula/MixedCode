@@ -1,5 +1,6 @@
 import IMessagingService from "./iMessagingService"
 import { IMessageRegisteredEvent } from "../model/iMessageRegisteredEvent"
+import { IMessageRegisteringEvent } from "../model/iMessageRegisteringEvent"
 import { IRegisterMessageCommand } from "../model/iRegisterMessageCommand"
 import { HubConnection } from "@aspnet/signalr-client"
 import { webApiBaseUrl } from "../config/webapiconfig"
@@ -12,6 +13,7 @@ class MessagingServiceImpl implements IMessagingService
 
     connect = (): Promise<void> =>
     {
+        this.connection.on("messageRegistering", this.onMessageRegistering);
         this.connection.on("messageRegistered", this.onMessageRegistered);
         return this.connection.start();
     }
@@ -19,6 +21,12 @@ class MessagingServiceImpl implements IMessagingService
     {
         return this.connection.invoke("registerMessage", command);
     }
+
+    onMessageRegistering = (event: IMessageRegisteringEvent): void =>
+    {
+        Action.onMessageRegistering(event);
+    }
+
     onMessageRegistered = (event: IMessageRegisteredEvent): void =>
     {
         Action.onMessageRegistered(event);

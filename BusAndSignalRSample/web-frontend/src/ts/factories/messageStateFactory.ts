@@ -1,18 +1,18 @@
 import { IMessageState } from "../states/iMessageState"
-import { IRegisterMessageCommand } from "../model/iRegisterMessageCommand"
 import { IMessageRegisteredEvent } from "../model/iMessageRegisteredEvent"
+import { IMessageRegisteringEvent } from "../model/iMessageRegisteringEvent"
 
-export const createMessageStateFromCommand = (command: IRegisterMessageCommand) : IMessageState =>
+export const createMessageStateFromRegisteringEvent = (event: IMessageRegisteringEvent) : IMessageState =>
 {
     return {
-        id: command.messageId,
-        message: command.message,
+        id: event.messageId,
+        message: event.message,
         isProcessing: true,
         error: undefined
     };
 }
 
-export const createMessageStatesFromEvent = (messages: IMessageState[], event: IMessageRegisteredEvent): IMessageState[] =>
+export const createMessageStatesFromRegisteredEvent = (messages: IMessageState[], event: IMessageRegisteredEvent): IMessageState[] =>
 {
     return messages.map(item => 
     {

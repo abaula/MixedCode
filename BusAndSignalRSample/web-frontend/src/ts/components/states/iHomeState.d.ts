@@ -1,5 +1,6 @@
 
 export default interface IHomeState
 {
-    message: string
+    message: string,
+    modifiedAt: Date
 }

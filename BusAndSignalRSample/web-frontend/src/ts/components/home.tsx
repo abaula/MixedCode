@@ -7,6 +7,7 @@ import { IHomeProps } from "./props/iHomeProps"
 import { IHomeDispatchProps } from "./props/IHomeDispatchProps"
 import { IRootState } from "../states/iRootState"
 import { IMessagingState } from "../states/iMessagingState"
+import { IMessageState } from "../states/iMessageState"
 import IMessagingService from "../services/iMessagingService"
 import { messagingService } from "../services/messagingService"
 import IHomeState from "./states/iHomeState"
@@ -21,7 +22,8 @@ const mapDispatchToProps = (dispatch: Dispatch<any>): IHomeDispatchProps => ({
 })
 
 const defaultState: IHomeState = {
-    message: ""
+    message: "",
+    modifiedAt: new Date()
 }
 
 class HomeImpl extends React.Component<(IHomeProps & IHomeDispatchProps), IHomeState>
@@ -39,10 +41,11 @@ class HomeImpl extends React.Component<(IHomeProps & IHomeDispatchProps), IHomeS
             .catch(err => console.log("Error while establishing connection :("));
     }
 
-    shouldComponentUpdate(nextProps: IHomeProps): boolean
+    shouldComponentUpdate(nextProps: IHomeProps, nextState: IHomeState): boolean
     {
-        //if(this.props.modifiedAt === nextProps.modifiedAt)
-        //    return false;
+        if(this.props.modifiedAt === nextProps.modifiedAt
+            && this.state.modifiedAt === nextState.modifiedAt)
+            return false;
 
         return true;
     }
@@ -50,13 +53,29 @@ class HomeImpl extends React.Component<(IHomeProps & IHomeDispatchProps), IHomeS
     handleMessageInputChange = (event: any): void =>
     {
         const target = event.target;
-        this.setState({ message: target.value });
+        this.setState(
+        { 
+            message: target.value,
+            modifiedAt: new Date()
+        });
     }
 
     handleSubmit = (event: any): void =>
     {
         this.props.sendMessage(this.state.message);
         event.preventDefault();
+    }
+
+    getMessageItem = (item: IMessageState): JSX.Element =>
+    {
+        const className = item.isProcessing ? "icon fa fa-spinner fa-pulse fa-fw" : "icon fa fa-check-square";
+
+        return (
+            <div key={item.id}>
+                <i className={className}></i>
+                ({item.id}) {item.message}
+            </div>
+        )
     }
 
     render(): JSX.Element
@@ -79,23 +98,7 @@ class HomeImpl extends React.Component<(IHomeProps & IHomeDispatchProps), IHomeS
                     </form>
                 </div>
                 <div>
-                    { 
-                        this.props.messages.map(item => 
-                            {
-                                if(item.isProcessing)
-                                    return (
-                                    <div 
-                                        key={item.id}
-                                        style={{ backgroundColor: "#f0f0f0" }}>
-                                        <b>id:</b>{item.id} - <b>message:</b> { item.message }
-                                    </div>
-                                    )
-                                
-                                return (
-                                    <div key={item.id}><b>id:</b>{item.id} - <b>message:</b> { item.message }</div>
-                                )
-                            }) 
-                    }
+                    { this.props.messages.map(item => this.getMessageItem(item)) }
                 </div>
                 <p>Your web-api base address is: <i>{webApiBaseUrl}</i></p>
             </div>)

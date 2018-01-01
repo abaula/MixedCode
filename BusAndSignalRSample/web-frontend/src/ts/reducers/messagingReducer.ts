@@ -3,8 +3,8 @@ import { ActionType } from "../actions/actionType"
 import { IMessageState } from "../states/iMessageState"
 import { IMessagingState } from "../states/iMessagingState"
 import * as MessageStateFactory from "../factories/messageStateFactory"
-import { IRegisterMessageCommand } from "../model/iRegisterMessageCommand"
-import { IMessageRegisteredEvent } from "../model/iMessageRegisteredEvent";
+import { IMessageRegisteredEvent } from "../model/iMessageRegisteredEvent"
+import { IMessageRegisteringEvent } from "../model/iMessageRegisteringEvent"
 
 const initialState : IMessagingState = 
 {
@@ -18,16 +18,15 @@ export const messagingReducer = (state: IMessagingState = initialState, action: 
     {
         case ActionType.SendMessage:
             return {
-                messages: [...state.messages, MessageStateFactory.createMessageStateFromCommand(action.payload as IRegisterMessageCommand) ],
+                messages: [...state.messages, MessageStateFactory.createMessageStateFromRegisteringEvent(action.payload as IMessageRegisteringEvent) ],
                 modifiedAt: new Date()
             }
         
         case ActionType.RecieveMessage:
             return {
-                messages: MessageStateFactory.createMessageStatesFromEvent(state.messages, action.payload as IMessageRegisteredEvent),
+                messages: MessageStateFactory.createMessageStatesFromRegisteredEvent(state.messages, action.payload as IMessageRegisteredEvent),
                 modifiedAt: new Date()
-            }
-        
+            }   
     }
 
     return state;
