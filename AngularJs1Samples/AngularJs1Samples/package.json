@@ -2,7 +2,7 @@
   "name": "AngulatJs1Samples",
   "version": "1.0.0",
   "devDependencies": {
-    "bower": "1.7.9",
+    "bower": "1.8.8",
     "gulp": "3.9.1",
     "gulp-bower": "0.0.13",
     "merge-stream": "1.0.0",
