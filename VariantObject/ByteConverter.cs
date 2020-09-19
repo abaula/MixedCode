@@ -5,7 +5,7 @@ using System.Text;
 using Microsoft.IO;
 
 // Thanks to https://github.com/jeanbern/jeanbern.github.io/blob/master/code/StreamExtensions.cs
-namespace ObjectGenerator
+namespace VariantObject
 {
     public static class ByteConverter
     {

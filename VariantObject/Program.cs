@@ -1,7 +1,7 @@
 ﻿using System;
 using Microsoft.IO;
 
-namespace ObjectGenerator
+namespace VariantObject
 {
     class Program
     {
@@ -11,7 +11,7 @@ namespace ObjectGenerator
         {
             var array = new [] {1,2,3,4,5,6};
             var span = new Span<int>(array, 1, 3);
-            Byte[] bytes3 = BitConverter.GetBytes(2);
+            var bytes3 = BitConverter.GetBytes(2);
 
             foreach (var number in array)
             {

@@ -4,7 +4,7 @@ using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
 using System.Text;
 
-namespace ObjectGenerator
+namespace VariantObject
 {
 /*  This class is a snippet from https://github.com/jeanbern/jeanbern.github.io/blob/master/code/StreamExtensions.cs
      *  Copyright © 2019 Jean-Bernard Pellerin
