@@ -4,6 +4,7 @@ using System.Linq;
 
 namespace ObjectGenerator
 {
+    // TODO - это дублирование HashCode?
     public class DataObjectIdFactory
     {
         private readonly string[] _uniqueFields;

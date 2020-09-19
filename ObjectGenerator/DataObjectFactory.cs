@@ -22,7 +22,7 @@ namespace ObjectGenerator
                 var val = o.Value.Value<string>();
             }
 
-            return new DataObject(Guid.Empty, new [] {new DataObjectFieldDescriptor("dummy", DataObjectFieldType.String, 0, 0)}, new byte[1]);
+            return new DataObject(Guid.Empty, string.Empty, new [] {new DataObjectFieldDescriptor("dummy", DataObjectFieldType.String, DataObjectFieldTypeFlags.None, 0, 0)}, new byte[1]);
         }
     }
 }

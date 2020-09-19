@@ -9,12 +9,13 @@ namespace ObjectGenerator
     {
         public static readonly DataObjectFieldDescriptor Empty = new DataObjectFieldDescriptor();
         public readonly string Key;
-        public readonly DataObjectFieldType FieldType;
+        public readonly DataObjectFieldType Type;
+        public readonly DataObjectFieldTypeFlags Flags;
         public readonly int Offset;
         public readonly int Length;
 
-        public DataObjectFieldDescriptor(string key, DataObjectFieldType fieldType, int offset, int length)
-            => (Key, FieldType, Offset, Length) = (key, fieldType, offset, length);
+        public DataObjectFieldDescriptor(string key, DataObjectFieldType type, DataObjectFieldTypeFlags flags, int offset, int length)
+            => (Key, Type, Flags, Offset, Length) = (key, type, flags, offset, length);
 
         public int CompareTo(DataObjectFieldDescriptor other)
         {
@@ -33,10 +34,10 @@ namespace ObjectGenerator
 
         public override int GetHashCode()
         {
-            return HashCode.Combine(Key, FieldType, Offset, Length);
+            return HashCode.Combine(Key, Type, Flags, Offset, Length);
         }
 
-        public static bool operator == (DataObjectFieldDescriptor a, DataObjectFieldDescriptor b) => (a.Key, a.FieldType, a.Length, a.Offset) == (b.Key, b.FieldType, b.Length, b.Offset);
+        public static bool operator == (DataObjectFieldDescriptor a, DataObjectFieldDescriptor b) => (a.Key, a.Type, a.Flags, a.Length, a.Offset) == (b.Key, b.Type, b.Flags, b.Length, b.Offset);
         public static bool operator != (DataObjectFieldDescriptor a, DataObjectFieldDescriptor b) => !(a == b);
     }
 }
