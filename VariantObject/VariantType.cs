@@ -20,7 +20,8 @@ namespace VariantObject
         Byte = 1024,
         DateTime = 2048,
         TimeSpan = 4096,
-        Array = 8192,
-        Nullable = 16384
+        Char = 8192,
+        Array = 16384,
+        Nullable = 32768
     }
 }
