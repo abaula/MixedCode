@@ -42,11 +42,11 @@ namespace VariantObject
                 var tSpan = MemoryMarshal.CreateSpan(ref result, 1);
                 var span = MemoryMarshal.AsBytes(tSpan);
                 stream.Read(span);
-            
+
                 return result;
             }
         }
-        
+
         public static byte[] ArrayToBytes<T>(T[] values)
             where T : unmanaged
         {
@@ -56,7 +56,7 @@ namespace VariantObject
                 var span = MemoryMarshal.AsBytes(tSpan);
                 stream.Write(values.Length);
                 stream.Write(span);
-                
+
                 return stream.ToArray();
             }
         }
@@ -80,7 +80,7 @@ namespace VariantObject
                 var tSpan = results.AsSpan();
                 var span = MemoryMarshal.AsBytes(tSpan);
                 stream.Read(span);
-            
+
                 return results;
             }
         }
@@ -128,7 +128,7 @@ namespace VariantObject
             {
                 stream.Write(values.Length);
 
-                foreach(var value in values)
+                foreach (var value in values)
                 {
                     var valueSpan = value.AsSpan();
                     var length = Utf8Encoding.GetByteCount(valueSpan);
@@ -159,7 +159,7 @@ namespace VariantObject
                 var arrayLength = stream.Read<int>();
                 var result = new string[arrayLength];
 
-                for(var i = 0; i < arrayLength; i++)
+                for (var i = 0; i < arrayLength; i++)
                 {
                     var byteLength = stream.Read<int>();
                     Span<byte> bytes = stackalloc byte[byteLength];
@@ -173,7 +173,7 @@ namespace VariantObject
 
         public static Guid BytesToMd5HashGuid(byte[] buffer)
         {
-            using(var hashComputer = MD5.Create())
+            using (var hashComputer = MD5.Create())
             {
                 var hash = hashComputer.ComputeHash(buffer);
                 return new Guid(hash);

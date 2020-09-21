@@ -3,8 +3,7 @@ using System;
 namespace VariantObject
 {
     [Serializable]
-    public readonly struct VariantObject : 
-        IEquatable<VariantObject>
+    public readonly struct VariantObject : IEquatable<VariantObject>
     {
         public static readonly VariantObject Empty = new VariantObject();
         public readonly string Type;
@@ -32,7 +31,7 @@ namespace VariantObject
             return _hashCode;
         }
 
-        public static bool operator == (VariantObject a, VariantObject b) => a.GetHashCode() == b.GetHashCode();
-        public static bool operator != (VariantObject a, VariantObject b) => !(a == b);
+        public static bool operator ==(VariantObject a, VariantObject b) => a.GetHashCode() == b.GetHashCode();
+        public static bool operator !=(VariantObject a, VariantObject b) => !(a == b);
     }
 }
