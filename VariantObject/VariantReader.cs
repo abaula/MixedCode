@@ -1,4 +1,5 @@
 using System;
+using System.IO;
 using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
 using System.Text;
@@ -15,6 +16,10 @@ namespace VariantObject
             if (typeof(T) == typeof(string))
                 throw new ArgumentException($"Use {nameof(ToStringValue)} method for string values.");
 
+            if (typeof(T) == typeof(VariantObject))
+                throw new ArgumentException($"Use {nameof(ToVariantObjectValue)} method for VariantObject values.");
+
+            CheckVariantIsNotArrayOrThrow(variant);
             CheckTypeOrThrow(typeof(T), variant);
 
             if (variant.Data == null)
@@ -41,6 +46,9 @@ namespace VariantObject
             if (typeof(T) == typeof(char))
                 throw new ArgumentException($"Use {nameof(ToCharArray)} method for char values.");
 
+            if (typeof(T) == typeof(VariantObject))
+                throw new ArgumentException($"Use {nameof(ToVariantObjectArray)} method for VariantObject values.");
+
             CheckVariantIsArrayOrThrow(variant);
             CheckTypeOrThrow(typeof(T), variant);
 
@@ -66,24 +74,14 @@ namespace VariantObject
 
         public static string ToStringValue(Variant variant)
         {
+            CheckVariantIsNotArrayOrThrow(variant);
             CheckTypeOrThrow(typeof(string), variant);
-
-            if (variant.Data == null)
-                return null;
 
             using var stream = MemoryStreamResource.GetStream();
             stream.Write(variant.Data);
             stream.Position = 0;
 
-            var byteLength = stream.Read<int>();
-
-            if (byteLength == 0)
-                return string.Empty;
-
-            Span<byte> bytes = stackalloc byte[byteLength];
-            stream.Read(bytes);
-
-            return Utf8Encoding.GetString(bytes);
+            return ReadString(stream);
         }
 
         public static string[] ToStringArray(Variant variant)
@@ -107,23 +105,8 @@ namespace VariantObject
 
             for (var i = 0; i < arrayLength; i++)
             {
-                var byteLength = stream.Read<int>();
-
-                if (byteLength == -1)
-                {
-                    result[i] = null;
-                    continue;
-                }
-
-                if (byteLength == 0)
-                {
-                    result[i] = string.Empty;
-                    continue;
-                }
-
-                Span<byte> bytes = stackalloc byte[byteLength];
-                stream.Read(bytes);
-                result[i] = Utf8Encoding.GetString(bytes);
+                var strValue = ReadString(stream);
+                result[i] = strValue;
             }
 
             return result;
@@ -157,19 +140,57 @@ namespace VariantObject
             return results;
         }
 
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static VariantObject ToVariantObjectValue(Variant variant)
+        {
+            CheckVariantIsNotArrayOrThrow(variant);
+            CheckTypeOrThrow(typeof(VariantObject), variant);
+
+
+        }
+
+        public static VariantObject[] ToVariantObjectArray(Variant variant)
+        {
+            CheckVariantIsArrayOrThrow(variant);
+            CheckTypeOrThrow(typeof(VariantObject), variant);
+
+
+        }
+
+        private static string ReadString(MemoryStream stream)
+        {
+            var byteLength = stream.Read<int>();
+
+            if (byteLength == -1)
+                return null;
+
+            if (byteLength == 0)
+                return string.Empty;
+
+            Span<byte> bytes = stackalloc byte[byteLength];
+            stream.Read(bytes);
+
+            return Utf8Encoding.GetString(bytes);
+        }
+
         private static void CheckTypeOrThrow(Type type, Variant variant)
         {
 
         }
 
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         private static void CheckVariantIsArrayOrThrow(Variant variant)
         {
             if (variant.Type.HasFlag(VariantType.Array))
                 return;
 
             throw new InvalidOperationException("Variant type is not array.");
+        }
+
+        private static void CheckVariantIsNotArrayOrThrow(Variant variant)
+        {
+            if (variant.Type.HasFlag(VariantType.Array) == false)
+                return;
+
+            throw new InvalidOperationException("Variant type is array.");
         }
     }
 }

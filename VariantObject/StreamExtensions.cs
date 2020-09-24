@@ -99,7 +99,7 @@ namespace VariantObject
             var tSpan = MemoryMarshal.CreateSpan(ref result, 1);
             var span = MemoryMarshal.AsBytes(tSpan);
             stream.Read(span);
-            
+
             return result;
         }
 
@@ -108,7 +108,7 @@ namespace VariantObject
         {
             var byteLength = stream.Read<int>();
             var charLength = stream.Read<int>();
-            
+
             Span<byte> span = stackalloc byte[byteLength];
             stream.Read(span);
 
