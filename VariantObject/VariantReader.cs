@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
@@ -145,7 +146,11 @@ namespace VariantObject
             CheckVariantIsNotArrayOrThrow(variant);
             CheckTypeOrThrow(typeof(VariantObject), variant);
 
+            using var stream = MemoryStreamResource.GetStream();
+            stream.Write(variant.Data);
+            stream.Position = 0;
 
+            return ReadVariantObject(stream);
         }
 
         public static VariantObject[] ToVariantObjectArray(Variant variant)
@@ -153,7 +158,70 @@ namespace VariantObject
             CheckVariantIsArrayOrThrow(variant);
             CheckTypeOrThrow(typeof(VariantObject), variant);
 
+            if (variant.Data == null)
+                return null;
 
+            using var stream = MemoryStreamResource.GetStream();
+            stream.Write(variant.Data);
+            stream.Position = 0;
+
+            var itemsLength = stream.Read<int>();
+
+            if (itemsLength == 0)
+                return Array.Empty<VariantObject>();
+
+            var items = new List<VariantObject>();
+
+            for (var i = 0; i < itemsLength; i++)
+            {
+                var variantObject = ReadVariantObject(stream);
+                items.Add(variantObject);
+            }
+
+            return items.ToArray();
+        }
+
+        private static VariantObject ReadVariantObject(MemoryStream stream)
+        {
+            var type = ReadString(stream);
+            var fieldsCount = stream.Read<int>();
+
+            if (fieldsCount == -1)
+                return new VariantObject(type, null);
+
+            if (fieldsCount == 0)
+                return new VariantObject(type, Array.Empty<Field>());
+
+            var fields = new List<Field>();
+
+            for (var i = 0; i < fieldsCount; i++)
+            {
+                var field = ReadField(stream);
+                fields.Add(field);
+            }
+
+            return new VariantObject(type, fields.ToArray());
+        }
+
+        private static Field ReadField(MemoryStream stream)
+        {
+            var key = ReadString(stream);
+            var type = stream.Read<VariantType>();
+            var byteLength = stream.Read<int>();
+            byte[] bytes;
+
+            if (byteLength == -1)
+                bytes = null;
+            else if (byteLength == 0)
+                bytes = Array.Empty<byte>();
+            else
+            {
+                Span<byte> span = stackalloc byte[byteLength];
+                stream.Read(span);
+                bytes = span.ToArray();
+            }
+
+            return new Field(key, new Variant(type, bytes));
         }
 
         private static string ReadString(MemoryStream stream)

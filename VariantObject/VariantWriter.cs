@@ -152,13 +152,13 @@ namespace VariantObject
 
             foreach (var field in value.Fields)
             {
-                WriteString(field.Key, stream);
                 WriteField(field, stream);
             }
         }
 
         private static void WriteField(Field field, MemoryStream stream)
         {
+            WriteString(field.Key, stream);
             stream.Write(field.Value.Type);
 
             if (field.Value.Data == null)
