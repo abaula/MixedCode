@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
 using System.Text;
@@ -242,7 +243,38 @@ namespace VariantObject
 
         private static void CheckTypeOrThrow(Type type, Variant variant)
         {
+            if (type == typeof(sbyte) && variant.Type.HasFlag(VariantType.SByte))
+                return;
 
+            if (type == typeof(byte) && variant.Type.HasFlag(VariantType.Byte))
+                return;
+
+            if (type == typeof(short) && variant.Type.HasFlag(VariantType.Int16))
+                return;
+
+            if (type == typeof(ushort) && variant.Type.HasFlag(VariantType.UInt16))
+                return;
+
+            if (type == typeof(int) && variant.Type.HasFlag(VariantType.Int32))
+                return;
+
+            if (type == typeof(uint) && variant.Type.HasFlag(VariantType.UInt32))
+                return;
+
+            if (type == typeof(long) && variant.Type.HasFlag(VariantType.Int64))
+                return;
+
+            if (type == typeof(ulong) && variant.Type.HasFlag(VariantType.UInt64))
+                return;
+
+
+
+            if (type == typeof(string) && variant.Type == VariantType.String)
+                return;
+
+
+            var variantType = string.Join(", ", GetVariantTypeFlags(variant.Type));
+            throw new InvalidOperationException($"Expected type is {type.Name} but variant has type of {variantType}.");
         }
 
         private static void CheckVariantIsArrayOrThrow(Variant variant)
@@ -259,6 +291,18 @@ namespace VariantObject
                 return;
 
             throw new InvalidOperationException("Variant type is array.");
+        }
+
+        private static string[] GetVariantTypeFlags(VariantType value)
+        {
+            if (value == VariantType.None)
+                return new [] { nameof(VariantType.None) };
+
+            return ((VariantType[])Enum.GetValues(typeof(VariantType)))
+                .Where(_ => _ != VariantType.None)
+                .Where(_ => value.HasFlag(_))
+                .Select(_ => Enum.GetName(typeof(VariantType), _))
+                .ToArray();
         }
     }
 }

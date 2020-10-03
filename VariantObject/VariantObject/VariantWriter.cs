@@ -203,6 +203,30 @@ namespace VariantObject
 
         private static VariantType GetType(Type type)
         {
+            if (type == typeof(sbyte))
+                return VariantType.SByte;
+
+            if (type == typeof(byte))
+                return VariantType.Byte;
+
+            if (type == typeof(short))
+                return VariantType.Int16;
+
+            if (type == typeof(ushort))
+                return VariantType.UInt16;
+
+            if (type == typeof(int))
+                return VariantType.Int32;
+
+            if (type == typeof(uint))
+                return VariantType.UInt32;
+
+            if (type == typeof(long))
+                return VariantType.Int64;
+
+            if (type == typeof(ulong))
+                return VariantType.UInt64;
+
             return VariantType.None;
         }
     }

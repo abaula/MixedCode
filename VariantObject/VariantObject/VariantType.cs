@@ -10,18 +10,26 @@ namespace VariantObject
         VariantObject = 1,
         Guid = 2,
         String = 4,
-        Int16 = 8,
-        Int32 = 16,
-        Int64 = 32,
-        Single = 64,
-        Float = 128,
-        Double = 256,
-        Boolean = 512,
-        Byte = 1024,
-        DateTime = 2048,
-        TimeSpan = 4096,
-        Char = 8192,
-        Array = 16384,
-        Nullable = 32768
+        SByte = 8,
+        Byte = 16,
+        Int16 = 32,
+        UInt16 = 64,
+        Int32 = 128,
+        UInt32 = 256,
+        Int64 = 512,
+        UInt64 = 1024,
+
+        Single = 2048,
+        Double = 4096,
+        Decimal = 8192,
+
+        Boolean = 32768,
+        Char = 65536,
+
+        DateTime = 131072,
+        TimeSpan = 262144,
+
+        Array = 524288,
+        Nullable = 1048576
     }
 }
