@@ -13,29 +13,48 @@ namespace VariantObject
         public static Variant ToVariant<T>(T value)
             where T : unmanaged
         {
-            if (typeof(T) == typeof(string))
-                throw new ArgumentException($"Use overload {nameof(ToVariant)}(string) method for string values.");
-
             if (typeof(T) == typeof(VariantObject))
                 throw new ArgumentException($"Use {nameof(ToVariant)}(VariantObject) method for VariantObject values.");
 
+            var type = GetType(typeof(T));
+
             if (EqualityComparer<T>.Default.Equals(value, default))
-                return new Variant(GetType(typeof(T)), null);
+                return new Variant(type, null);
 
             using var stream = MemoryStreamResource.GetStream();
+            WriteValue(value, stream);
+
+            return new Variant(type, stream.ToArray());
+        }
+
+        public static Variant ToVariant<T>(T? value)
+            where T : unmanaged
+        {
+            if (typeof(T) == typeof(VariantObject))
+                throw new ArgumentException($"Use {nameof(ToVariant)}(VariantObject) method for VariantObject values.");
+
+            var type = GetType(typeof(T)) | VariantType.Nullable;
+
+            if (value.HasValue == false)
+                return new Variant(type, null);
+
+            using var stream = MemoryStreamResource.GetStream();
+            WriteValue(value.Value, stream);
+
+            return new Variant(type, stream.ToArray());
+        }
+
+        private static void WriteValue<T>(T value, MemoryStream stream)
+            where T : unmanaged
+        {
             var tSpan = MemoryMarshal.CreateSpan(ref value, 1);
             var span = MemoryMarshal.AsBytes(tSpan);
             stream.Write(span);
-
-            return new Variant(GetType(typeof(T)), stream.ToArray());
         }
 
         public static Variant ToVariantArray<T>(T[] values)
             where T : unmanaged
         {
-            if (typeof(T) == typeof(string))
-                throw new ArgumentException($"Use overload {nameof(ToVariantArray)}(string[]) method for string values.");
-
             if (typeof(T) == typeof(char))
                 throw new ArgumentException($"Use overload {nameof(ToVariantArray)}(char[]) method for char values.");
 
@@ -56,6 +75,12 @@ namespace VariantObject
             }
 
             return new Variant(GetType(typeof(T)) | VariantType.Array, stream.ToArray());
+        }
+
+        public static Variant ToVariantArray<T>(T?[] values)
+            where T : unmanaged
+        {
+            throw new NotImplementedException();
         }
 
         public static Variant ToVariant(string value)
@@ -104,6 +129,11 @@ namespace VariantObject
             }
 
             return new Variant(VariantType.Char | VariantType.Array, stream.ToArray());
+        }
+
+        public static Variant ToVariantArray(char?[] values)
+        {
+            throw new NotImplementedException();
         }
 
         public static Variant ToVariant(VariantObject value)
@@ -203,31 +233,71 @@ namespace VariantObject
 
         private static VariantType GetType(Type type)
         {
+            var varType = VariantType.None;
+
             if (type == typeof(sbyte))
-                return VariantType.SByte;
+                varType = VariantType.SByte;
 
             if (type == typeof(byte))
-                return VariantType.Byte;
+                varType = VariantType.Byte;
 
             if (type == typeof(short))
-                return VariantType.Int16;
+                varType = VariantType.Int16;
 
             if (type == typeof(ushort))
-                return VariantType.UInt16;
+                varType = VariantType.UInt16;
 
             if (type == typeof(int))
-                return VariantType.Int32;
+                varType = VariantType.Int32;
 
             if (type == typeof(uint))
-                return VariantType.UInt32;
+                varType = VariantType.UInt32;
 
             if (type == typeof(long))
-                return VariantType.Int64;
+                varType = VariantType.Int64;
 
             if (type == typeof(ulong))
-                return VariantType.UInt64;
+                varType = VariantType.UInt64;
 
-            return VariantType.None;
+            if (type == typeof(float))
+                varType = VariantType.Float;
+
+            if (type == typeof(double))
+                varType = VariantType.Double;
+
+            if (type == typeof(decimal))
+                varType = VariantType.Decimal;
+
+            if (type == typeof(bool))
+                varType = VariantType.Bool;
+
+            if (type == typeof(char))
+                varType = VariantType.Char;
+
+            if (type == typeof(string))
+                varType = VariantType.String;
+
+            if (type == typeof(DateTime))
+                varType = VariantType.DateTime;
+
+            if (type == typeof(TimeSpan))
+                varType = VariantType.TimeSpan;
+
+            if (type == typeof(Guid))
+                varType = VariantType.Guid;
+
+            return varType;
+        }
+
+        private static bool IsNullable(Type type)
+        {
+            if (type.IsValueType == false)
+                return true;
+
+            if (Nullable.GetUnderlyingType(type) != null)
+                return true;
+
+            return false;
         }
     }
 }

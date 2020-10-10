@@ -1,9 +1,23 @@
+using System;
 using Xunit;
 
 namespace VariantObject.UnitTests
 {
     public class VariantReaderWriter_NumerticTests
     {
+        /*
+        [Fact]
+        public void SByte_WriteRead2_Success()
+        {
+            var arr = new[] {"", ""};
+            var variant = VariantWriter.ToVariant<string[]>(arr);
+
+            var actual = VariantReader.ToValue<sbyte>(variant);
+
+            Assert.Equal(expected, actual);
+        }
+        */
+
         [Fact]
         public void SByte_WriteRead_Success()
         {
@@ -14,6 +28,13 @@ namespace VariantObject.UnitTests
 
                 Assert.Equal(expected, actual);
             }
+        }
+
+        [Fact]
+        public void SByte_WriteRead_Nullable_Throws()
+        {
+            var variant = VariantWriter.ToVariant<sbyte>(null);
+            Assert.Throws<InvalidOperationException>(() => VariantReader.ToValue<sbyte>(variant));
         }
 
         [Fact]
@@ -29,6 +50,13 @@ namespace VariantObject.UnitTests
         }
 
         [Fact]
+        public void Byte_WriteRead_Nullable_Throws()
+        {
+            var variant = VariantWriter.ToVariant<byte>(null);
+            Assert.Throws<InvalidOperationException>(() => VariantReader.ToValue<byte>(variant));
+        }
+
+        [Fact]
         public void Short_WriteRead_Success()
         {
             foreach (var expected in new short[] { short.MinValue, 0, short.MaxValue })
@@ -38,6 +66,13 @@ namespace VariantObject.UnitTests
 
                 Assert.Equal(expected, actual);
             }
+        }
+
+        [Fact]
+        public void Short_WriteRead_Nullable_Throws()
+        {
+            var variant = VariantWriter.ToVariant<short>(null);
+            Assert.Throws<InvalidOperationException>(() => VariantReader.ToValue<short>(variant));
         }
 
         [Fact]
@@ -53,6 +88,13 @@ namespace VariantObject.UnitTests
         }
 
         [Fact]
+        public void UShort_WriteRead_Nullable_Throws()
+        {
+            var variant = VariantWriter.ToVariant<ushort>(null);
+            Assert.Throws<InvalidOperationException>(() => VariantReader.ToValue<ushort>(variant));
+        }
+
+        [Fact]
         public void Int_WriteRead_Success()
         {
             foreach (var expected in new int[] { int.MinValue, 0, int.MaxValue })
@@ -62,6 +104,13 @@ namespace VariantObject.UnitTests
 
                 Assert.Equal(expected, actual);
             }
+        }
+
+        [Fact]
+        public void Int_WriteRead_Nullable_Throws()
+        {
+            var variant = VariantWriter.ToVariant<int>(null);
+            Assert.Throws<InvalidOperationException>(() => VariantReader.ToValue<int>(variant));
         }
 
         [Fact]
@@ -77,6 +126,13 @@ namespace VariantObject.UnitTests
         }
 
         [Fact]
+        public void UInt_WriteRead_Nullable_Throws()
+        {
+            var variant = VariantWriter.ToVariant<uint>(null);
+            Assert.Throws<InvalidOperationException>(() => VariantReader.ToValue<uint>(variant));
+        }
+
+        [Fact]
         public void Long_WriteRead_Success()
         {
             foreach (var expected in new long[] { long.MinValue, 0, long.MaxValue })
@@ -89,6 +145,13 @@ namespace VariantObject.UnitTests
         }
 
         [Fact]
+        public void Long_WriteRead_Nullable_Throws()
+        {
+            var variant = VariantWriter.ToVariant<long>(null);
+            Assert.Throws<InvalidOperationException>(() => VariantReader.ToValue<long>(variant));
+        }
+
+        [Fact]
         public void ULong_WriteRead_Success()
         {
             foreach (var expected in new ulong[] { ulong.MinValue, ulong.MaxValue })
@@ -98,6 +161,13 @@ namespace VariantObject.UnitTests
 
                 Assert.Equal(expected, actual);
             }
+        }
+
+        [Fact]
+        public void ULong_WriteRead_Nullable_Throws()
+        {
+            var variant = VariantWriter.ToVariant<ulong>(null);
+            Assert.Throws<InvalidOperationException>(() => VariantReader.ToValue<ulong>(variant));
         }
     }
 }

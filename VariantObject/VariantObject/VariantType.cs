@@ -19,11 +19,11 @@ namespace VariantObject
         Int64 = 512,
         UInt64 = 1024,
 
-        Single = 2048,
+        Float = 2048,
         Double = 4096,
         Decimal = 8192,
 
-        Boolean = 32768,
+        Bool = 32768,
         Char = 65536,
 
         DateTime = 131072,

@@ -2,7 +2,6 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
 using System.Text;
 
@@ -15,18 +14,38 @@ namespace VariantObject
         public static T ToValue<T>(Variant variant)
             where T : unmanaged
         {
-            if (typeof(T) == typeof(string))
-                throw new ArgumentException($"Use {nameof(ToStringValue)} method for string values.");
-
             if (typeof(T) == typeof(VariantObject))
                 throw new ArgumentException($"Use {nameof(ToVariantObjectValue)} method for VariantObject values.");
 
             CheckVariantIsNotArrayOrThrow(variant);
+            CheckVariantIsNotNullableOrThrow(variant);
             CheckTypeOrThrow(typeof(T), variant);
 
             if (variant.Data == null)
                 return default;
 
+            return ReadValue<T>(variant);
+        }
+
+        public static T? ToNullableValue<T>(Variant variant)
+            where T : unmanaged
+        {
+            if (typeof(T) == typeof(VariantObject))
+                throw new ArgumentException($"Use {nameof(ToVariantObjectValue)} method for VariantObject values.");
+
+            CheckVariantIsNotArrayOrThrow(variant);
+            CheckVariantIsNullableOrThrow(variant);
+            CheckTypeOrThrow(typeof(T), variant);
+
+            if (variant.Data == null)
+                return null;
+
+            return ReadValue<T>(variant);
+        }
+
+        private static T ReadValue<T>(Variant variant)
+            where T : unmanaged
+        {
             using var stream = MemoryStreamResource.GetStream();
             stream.Write(variant.Data);
             stream.Position = 0;
@@ -42,9 +61,6 @@ namespace VariantObject
         public static T[] ToValueArray<T>(Variant variant)
             where T : unmanaged
         {
-            if (typeof(T) == typeof(string))
-                throw new ArgumentException($"Use {nameof(ToStringArray)} method for string values.");
-
             if (typeof(T) == typeof(char))
                 throw new ArgumentException($"Use {nameof(ToCharArray)} method for char values.");
 
@@ -291,6 +307,22 @@ namespace VariantObject
                 return;
 
             throw new InvalidOperationException("Variant type is array.");
+        }
+
+        private static void CheckVariantIsNullableOrThrow(Variant variant)
+        {
+            if (variant.Type.HasFlag(VariantType.Nullable))
+                return;
+
+            throw new InvalidOperationException("Variant type is not Nullable.");
+        }
+
+        private static void CheckVariantIsNotNullableOrThrow(Variant variant)
+        {
+            if (variant.Type.HasFlag(VariantType.Nullable) == false)
+                return;
+
+            throw new InvalidOperationException("Variant type is Nullable.");
         }
 
         private static string[] GetVariantTypeFlags(VariantType value)
