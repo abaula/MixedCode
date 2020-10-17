@@ -283,11 +283,8 @@ namespace VariantObject
             if (type == typeof(ulong) && variant.Type.HasFlag(VariantType.UInt64))
                 return;
 
-
-
-            if (type == typeof(string) && variant.Type == VariantType.String)
+            if (type == typeof(string) && variant.Type.HasFlag(VariantType.String))
                 return;
-
 
             var variantType = string.Join(", ", GetVariantTypeFlags(variant.Type));
             throw new InvalidOperationException($"Expected type is {type.Name} but variant has type of {variantType}.");
