@@ -1,23 +1,9 @@
-using System;
 using Xunit;
 
 namespace VariantObject.UnitTests
 {
     public class VariantReaderWriter_StringTests
     {
-        /*
-        [Fact]
-        public void SByte_WriteRead2_Success()
-        {
-            var arr = new[] {"", ""};
-            var variant = VariantWriter.ToVariant<string[]>(arr);
-
-            var actual = VariantReader.ToValue<sbyte>(variant);
-
-            Assert.Equal(expected, actual);
-        }
-        */
-
         [Theory]
         [InlineData("")]
         [InlineData(null)]

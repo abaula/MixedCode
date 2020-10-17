@@ -131,11 +131,6 @@ namespace VariantObject
             return new Variant(VariantType.Char | VariantType.Array, stream.ToArray());
         }
 
-        public static Variant ToVariantArray(char?[] values)
-        {
-            throw new NotImplementedException();
-        }
-
         public static Variant ToVariant(VariantObject value)
         {
             using var stream = MemoryStreamResource.GetStream();

@@ -90,6 +90,12 @@ namespace VariantObject
             return results;
         }
 
+        public static T?[] ToNullableValueArray<T>(Variant variant)
+            where T : unmanaged
+        {
+            throw new NotImplementedException();
+        }
+
         public static string ToStringValue(Variant variant)
         {
             CheckVariantIsNotArrayOrThrow(variant);
@@ -284,6 +290,9 @@ namespace VariantObject
                 return;
 
             if (type == typeof(string) && variant.Type.HasFlag(VariantType.String))
+                return;
+
+            if (type == typeof(char) && variant.Type.HasFlag(VariantType.Char))
                 return;
 
             var variantType = string.Join(", ", GetVariantTypeFlags(variant.Type));
