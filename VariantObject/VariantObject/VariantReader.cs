@@ -93,7 +93,62 @@ namespace VariantObject
         public static T?[] ToNullableValueArray<T>(Variant variant)
             where T : unmanaged
         {
-            throw new NotImplementedException();
+            CheckVariantIsArrayOrThrow(variant);
+            CheckVariantIsNullableOrThrow(variant);
+            CheckTypeOrThrow(typeof(T), variant);
+
+            if (variant.Data == null)
+                return null;
+
+            using var stream = MemoryStreamResource.GetStream();
+            stream.Write(variant.Data);
+            stream.Position = 0;
+
+            var length = stream.Read<int>();
+
+            if (length == 0)
+                return Array.Empty<T?>();
+
+            var nullPosLength = stream.Read<int>();
+            var nullPosSet = new HashSet<int>();
+
+            if (nullPosLength > 0)
+            {
+                for (var i = 0; i < nullPosLength; i++)
+                    nullPosSet.Add(stream.Read<int>());
+            }
+
+            var valuesLength = stream.Read<int>();
+            T[] values;
+
+            if (valuesLength == 0)
+            {
+                values = Array.Empty<T>();
+            }
+            else
+            {    
+                values = new T[valuesLength];
+                var tSpan = values.AsSpan();
+                var span = MemoryMarshal.AsBytes(tSpan);
+                stream.Read(span);
+            }
+
+            var result = new List<T?>();
+            var valuePos = 0;
+
+            for (var i = 0; i < length; i++)
+            {
+                if (nullPosSet.Contains(i))
+                {
+                    result.Add(null);
+                    continue;
+                }
+
+                result.Add(values[valuePos]);
+                valuePos++;
+            }
+
+            return result.ToArray();
         }
 
         public static string ToStringValue(Variant variant)

@@ -80,7 +80,50 @@ namespace VariantObject
         public static Variant ToVariantArray<T>(T?[] values)
             where T : unmanaged
         {
-            throw new NotImplementedException();
+            var type = GetType(typeof(T)) | VariantType.Nullable | VariantType.Array;
+
+            if (values == null)
+                return new Variant(type, null);
+
+            using var stream = MemoryStreamResource.GetStream();
+            stream.Write(values.Length);
+
+            if (values.Length == 0)
+                return new Variant(type, stream.ToArray());    
+
+            var valuesList = new List<T>();
+            var nullPosList = new List<int>();
+
+            for (var i = 0; i < values.Length; i++)
+            {
+                var value = values[i];
+
+                if (value.HasValue == false)
+                {
+                    nullPosList.Add(i);
+                    continue;
+                }
+
+                valuesList.Add(value.Value);
+            }
+
+            stream.Write(nullPosList.Count);
+
+            if (nullPosList.Count > 0)
+            {
+                foreach (var nullPos in nullPosList)
+                    stream.Write(nullPos);
+            }
+
+            stream.Write(valuesList.Count);
+
+            if (valuesList.Count > 0)
+            {
+                foreach (var value in valuesList)
+                    WriteValue(value, stream);
+            }
+
+            return new Variant(type, stream.ToArray());
         }
 
         public static Variant ToVariant(string value)

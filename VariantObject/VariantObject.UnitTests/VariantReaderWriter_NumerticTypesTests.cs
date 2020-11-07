@@ -18,7 +18,8 @@ namespace VariantObject.UnitTests
                 typeof(int),
                 typeof(uint),
                 typeof(long),
-                typeof(ulong)
+                typeof(ulong),
+                typeof(char)
             };
 
             foreach (var type1 in types)
@@ -84,34 +85,43 @@ namespace VariantObject.UnitTests
                 return;
             }
 
+            if (type == typeof(char))
+            {
+                Assert.Throws<InvalidOperationException>(() => VariantReader.ToValue<char>(variant));
+                return;
+            }
+
             throw new ArgumentException(nameof(type));
         }
 
         private static Variant GetVariant(Type type)
         {
             if (type == typeof(byte))
-                return VariantWriter.ToVariant<byte>(0);
+                return VariantWriter.ToVariant<byte>(byte.MinValue);
 
             if (type == typeof(sbyte))
-                return VariantWriter.ToVariant<sbyte>(0);
+                return VariantWriter.ToVariant<sbyte>(sbyte.MinValue);
 
             if (type == typeof(short))
-                return VariantWriter.ToVariant<short>(0);
+                return VariantWriter.ToVariant<short>(short.MinValue);
 
             if (type == typeof(ushort))
-                return VariantWriter.ToVariant<ushort>(0);
+                return VariantWriter.ToVariant<ushort>(ushort.MinValue);
 
             if (type == typeof(int))
-                return VariantWriter.ToVariant<int>(0);
+                return VariantWriter.ToVariant<int>(int.MinValue);
 
             if (type == typeof(uint))
-                return VariantWriter.ToVariant<uint>(0);
+                return VariantWriter.ToVariant<uint>(uint.MinValue);
 
             if (type == typeof(long))
-                return VariantWriter.ToVariant<long>(0);
+                return VariantWriter.ToVariant<long>(long.MinValue);
 
             if (type == typeof(ulong))
-                return VariantWriter.ToVariant<ulong>(0);
+                return VariantWriter.ToVariant<ulong>(ulong.MinValue);
+
+            if (type == typeof(char))
+                return VariantWriter.ToVariant<char>(char.MinValue);                
 
             throw new ArgumentException(nameof(type));
         }
