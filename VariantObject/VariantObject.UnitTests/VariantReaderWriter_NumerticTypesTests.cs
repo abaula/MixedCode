@@ -121,7 +121,7 @@ namespace VariantObject.UnitTests
                 return VariantWriter.ToVariant<ulong>(ulong.MinValue);
 
             if (type == typeof(char))
-                return VariantWriter.ToVariant<char>(char.MinValue);                
+                return VariantWriter.ToVariant<char>(char.MinValue);
 
             throw new ArgumentException(nameof(type));
         }

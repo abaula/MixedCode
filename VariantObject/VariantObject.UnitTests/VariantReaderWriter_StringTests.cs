@@ -23,7 +23,7 @@ namespace VariantObject.UnitTests
         [Fact]
         public void StringArray_WriteRead_Success()
         {
-            var expected = new[] 
+            var expected = new[]
             {
                 "",
                 null,
