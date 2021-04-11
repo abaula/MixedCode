@@ -126,7 +126,7 @@ namespace VariantObject
                 values = Array.Empty<T>();
             }
             else
-            {    
+            {
                 values = new T[valuesLength];
                 var tSpan = values.AsSpan();
                 var span = MemoryMarshal.AsBytes(tSpan);
@@ -389,7 +389,7 @@ namespace VariantObject
         private static string[] GetVariantTypeFlags(VariantType value)
         {
             if (value == VariantType.None)
-                return new [] { nameof(VariantType.None) };
+                return new[] { nameof(VariantType.None) };
 
             return ((VariantType[])Enum.GetValues(typeof(VariantType)))
                 .Where(_ => _ != VariantType.None)

@@ -89,7 +89,7 @@ namespace VariantObject
             stream.Write(values.Length);
 
             if (values.Length == 0)
-                return new Variant(type, stream.ToArray());    
+                return new Variant(type, stream.ToArray());
 
             var valuesList = new List<T>();
             var nullPosList = new List<int>();

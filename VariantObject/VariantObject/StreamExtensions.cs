@@ -6,7 +6,7 @@ using System.Text;
 
 namespace VariantObject
 {
-/*  This class is a snippet from https://github.com/jeanbern/jeanbern.github.io/blob/master/code/StreamExtensions.cs
+    /*  This class is a snippet from https://github.com/jeanbern/jeanbern.github.io/blob/master/code/StreamExtensions.cs
      *  Copyright © 2019 Jean-Bernard Pellerin
      *  MIT License
      *  https://github.com/jeanbern/jeanbern.github.io/blob/master/LICENSE
