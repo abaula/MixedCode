@@ -1,9 +1,9 @@
 #
 # See readme.md
-# podman build --build-arg SSH_PUBLIC_KEY="$(cat ~/.ssh/id_rsa.pub)" --build-arg SSH_PRIVATE_KEY="$(cat ~/.ssh/id_rsa)" --build-arg USER=dev --build-arg PASS=dev -t dev-host-py-312:1.0.0 .
+# podman build --build-arg SSH_PUBLIC_KEY="$(cat ~/.ssh/id_rsa.pub)" --build-arg SSH_PRIVATE_KEY="$(cat ~/.ssh/id_rsa)" --build-arg USER=dev --build-arg PASS=dev -t dev-host-pytorch-321:1.0.0 .
 #
 
-FROM python:3.12.0-bullseye
+FROM docker.io/graphcore/pytorch-jupyter:3.2.1-ubuntu-20.04-20230531
 
 ARG USER=dev
 ARG PASS=dev
