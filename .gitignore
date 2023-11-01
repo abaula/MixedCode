@@ -255,3 +255,5 @@ paket-files/
 wwwroot/
 ReactRedux/AsyncTree.Web.UI/src/js/*
 WebAppTemplate/FrontEnd/build/
+
+**/.ipynb_checkpoints
