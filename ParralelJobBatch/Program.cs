@@ -1,19 +1,23 @@
 ﻿using System;
+using System.Threading.Tasks;
 using System.Linq;
 
 internal class Program
 {
+    private static Random _random = new Random();
+
     private static void Main()
     {
-        var payloads = Enumerable.Range(1, 1000000).ToArray();
+        var payloads = Enumerable.Range(1, 1000).ToArray();
         RunParralelJobBatch(payloads, Square, 10).GetAwaiter().GetResult();
     }
 
-    private static Task Square(int value)
+    private static async Task Square(int value)
     {
-        Console.WriteLine($"square of {value} = {value * value}");
-
-        return Task.CompletedTask;
+        var threadId1 = Thread.CurrentThread.ManagedThreadId;
+        await Task.Delay(TimeSpan.FromMilliseconds(_random.Next(1, 100)));
+        var threadId2 = Thread.CurrentThread.ManagedThreadId;
+        Console.WriteLine($"Thread({threadId1}, {threadId2}). Square of {value} = {value * value}");
     }
 
     private static async Task RunParralelJobBatch<TPayload>(TPayload[] payloads, Func<TPayload, Task> job, int parralelJobsLimit)
