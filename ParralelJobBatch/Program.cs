@@ -24,7 +24,7 @@ internal class Program
     {
         var jobsSet = payloads
             .Take(parralelJobsLimit)
-            .Select(_ => job(_))
+            .Select(job)
             .ToHashSet();
 
         for (int i = parralelJobsLimit + 1; i < payloads.Length; i++)
@@ -33,5 +33,7 @@ internal class Program
             jobsSet.Remove(completed);
             jobsSet.Add(job(payloads[i]));
         }
+
+        await Task.WhenAll(jobsSet);
     }
 }
