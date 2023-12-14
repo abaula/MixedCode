@@ -8,7 +8,7 @@ internal class Program
 
     private static void Main()
     {
-        var payloads = Enumerable.Range(1, 1000).ToArray();
+        var payloads = Enumerable.Range(1, 20).ToArray();
         RunParralelJobBatch(payloads, Square, 10).GetAwaiter().GetResult();
     }
 
@@ -24,14 +24,18 @@ internal class Program
     {
         var jobsSet = payloads
             .Take(parralelJobsLimit)
-            .Select(job)
+            .Select(_ => Task.Run(() => job(_)))
             .ToHashSet();
 
-        for (int i = parralelJobsLimit + 1; i < payloads.Length; i++)
+        for (var i = parralelJobsLimit; i < payloads.Length; i++)
         {
             var completed = await Task.WhenAny(jobsSet);
             jobsSet.Remove(completed);
-            jobsSet.Add(job(payloads[i]));
+            // i не должен попадать внутрь метода. http://en.wikipedia.org/wiki/Closure_(computer_science)
+            // иначе кроме неправильных данных получаемых методом, будет выход за границы массива payloads,
+            // т.к. цикл for сначала увеличивает значение i на 1, потом делает проверку.
+            var loadValue = payloads[i];
+            jobsSet.Add(Task.Run(() => job(loadValue)));
         }
 
         await Task.WhenAll(jobsSet);
