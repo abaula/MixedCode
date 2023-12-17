@@ -71,3 +71,27 @@ Host dev-host-pytorch-321
     User dev
     Port <порт указанный при создании docker контейнера>
 ```
+
+## C++
+`./cpp/`
+
+Образ для разработки на C++.
+
+### Пользователь в конейнере:
+`dev`, пароль `dev`.
+
+### Команда для создания образа:
+`podman build --build-arg SSH_PUBLIC_KEY="$(cat ~/.ssh/id_rsa.pub)" --build-arg SSH_PRIVATE_KEY="$(cat ~/.ssh/id_rsa)" --build-arg USER=dev --build-arg PASS=dev -t dev-host-cpp:1.0.0 .`
+
+### Создание контейнера:
+Для возможности отладки необходимо при создании контейнера указать флаг `--cap-add=SYS_PTRACE`.
+
+Подробнее см. [Troubleshoot attaching to processes using GDB](https://github.com/Microsoft/MIEngine/wiki/Troubleshoot-attaching-to-processes-using-GDB)
+
+### SSH config:
+```
+Host dev-host-cpp
+    HostName localhost
+    User dev
+    Port <порт указанный при создании docker контейнера>
+```
