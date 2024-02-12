@@ -10,7 +10,7 @@ ARG PASS=dev
 ARG SSH_PUBLIC_KEY
 ARG SSH_PRIVATE_KEY
 
-RUN apt-get update && apt-get install openssh-server sudo -y
+RUN apt-get update && apt-get install openssh-server sudo mc -y
 
 RUN useradd -rm -d "/home/${USER}" -s "/bin/bash" -G sudo -u 1000 -U "${USER}" \
     && echo "${USER}:${PASS}" | chpasswd

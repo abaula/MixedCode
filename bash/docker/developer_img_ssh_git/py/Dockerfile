@@ -10,12 +10,7 @@ ARG PASS=dev
 ARG SSH_PUBLIC_KEY
 ARG SSH_PRIVATE_KEY
 
-RUN apt-get update && apt-get install openssh-server sudo git -y
-
-COPY requirements.txt ./
-
-RUN pip install --no-cache-dir --upgrade pip \
-  && pip install --no-cache-dir -r requirements.txt
+RUN apt-get update && apt-get install openssh-server sudo git mc -y
 
 RUN useradd -rm -d "/home/${USER}" -s "/bin/bash" -G sudo -u 1000 -U "${USER}" \
     && echo "${USER}:${PASS}" | chpasswd
@@ -27,6 +22,17 @@ RUN mkdir -p "/home/${USER}/.ssh"; \
     chown -R "${USER}:${USER}" "/home/${USER}/.ssh"; \
     chmod 700 "/home/${USER}/.ssh"; \
     find "/home/${USER}/.ssh" -type f -exec chmod 600 '{}' \;
+
+COPY requirements.txt ./
+RUN chown ${USER}:${USER} requirements.txt
+
+USER ${USER}
+
+RUN pip config set global.trusted-host "pypi.org files.pythonhosted.org pypi.python.org" \
+  && pip install --no-cache-dir --upgrade pip \
+  && pip install --no-cache-dir -r requirements.txt
+
+USER root
 
 RUN service ssh start
 

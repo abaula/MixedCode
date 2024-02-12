@@ -13,7 +13,7 @@ ARG SSH_PRIVATE_KEY
 # install build dependencies to build and debug
 RUN apt-get update \
     && apt-get install -y g++ build-essential make cmake gdb gdbserver \
-       rsync zip openssh-server git sudo
+       rsync zip openssh-server git sudo mc
 
 RUN useradd -rm -d "/home/${USER}" -s "/bin/bash" -G sudo -u 1000 -U "${USER}" \
     && echo "${USER}:${PASS}" | chpasswd
