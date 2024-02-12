@@ -95,3 +95,22 @@ Host dev-host-cpp
     User dev
     Port <порт указанный при создании docker контейнера>
 ```
+
+## Rust
+`./rust/`
+
+Образ для разработки на Rust.
+
+### Пользователь в конейнере:
+`dev`, пароль `dev`.
+
+### Команда для создания образа:
+`podman build --build-arg SSH_PUBLIC_KEY="$(cat ~/.ssh/id_rsa.pub)" --build-arg SSH_PRIVATE_KEY="$(cat ~/.ssh/id_rsa)" --build-arg USER=dev --build-arg PASS=dev -t dev-host-rust-176:1.0.0 .`
+
+### SSH config:
+```
+Host dev-host-rust-176
+    HostName localhost
+    User dev
+    Port <порт указанный при создании docker контейнера>
+```
