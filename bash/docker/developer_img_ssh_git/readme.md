@@ -107,6 +107,11 @@ Host dev-host-cpp
 ### Команда для создания образа:
 `podman build --build-arg SSH_PUBLIC_KEY="$(cat ~/.ssh/id_rsa.pub)" --build-arg SSH_PRIVATE_KEY="$(cat ~/.ssh/id_rsa)" --build-arg USER=dev --build-arg PASS=dev -t dev-host-rust-176:1.0.0 .`
 
+### Создание контейнера:
+Для возможности отладки необходимо при создании контейнера указать флаг `--cap-add=SYS_PTRACE`.
+
+Подробнее см. [Troubleshoot attaching to processes using GDB](https://github.com/Microsoft/MIEngine/wiki/Troubleshoot-attaching-to-processes-using-GDB)
+
 ### SSH config:
 ```
 Host dev-host-rust-176
