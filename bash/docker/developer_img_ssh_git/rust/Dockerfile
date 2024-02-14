@@ -13,7 +13,7 @@ ARG SSH_PRIVATE_KEY
 ENV RUST_VERSION=1.76.0 \
     RUST_ARCH='x86_64-unknown-linux-gnu'
 
-RUN apt-get update && apt-get install openssh-server sudo git mc curl -y
+RUN apt-get update && apt-get install build-essential openssh-server sudo git mc curl -y
 
 RUN useradd -rm -d "/home/${USER}" -s "/bin/bash" -G sudo -u 1000 -U "${USER}" \
     && echo "${USER}:${PASS}" | chpasswd
