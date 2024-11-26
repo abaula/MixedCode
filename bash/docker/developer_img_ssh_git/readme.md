@@ -72,6 +72,32 @@ Host dev-host-pytorch-321
     Port <порт указанный при создании docker контейнера>
 ```
 
+## Python + Pytorch + CUDA
+`./pytorch-cuda/`
+
+Образ для разработки на Python, с предустановленными Pytorch, Cuda.
+
+### Дополнительные модули python:
+Смотри файл `requirements.txt`.
+
+### Пользователь в конейнере:
+`dev`, пароль `dev`.
+
+### Команда для создания образа:
+`podman build --build-arg SSH_PUBLIC_KEY="$(cat ~/.ssh/id_rsa.pub)" --build-arg SSH_PRIVATE_KEY="$(cat ~/.ssh/id_rsa)" --build-arg USER=dev --build-arg PASS=dev -t dev-host-pytorch-cuda-12.6.2:1.0.0 .`
+
+### Команда для создания контейнера:
+
+`podman create --name dev-host-pytorch-cuda12 --device nvidia.com/gpu=all --publish=HOSTPORT:22/tcp dev-host-pytorch-cuda-12.6.2:1.0.0`
+
+### SSH config:
+```
+Host dev-host-pytorch-cuda-114
+    HostName localhost
+    User dev
+    Port <порт указанный при создании docker контейнера>
+```
+
 ## C++
 `./cpp/`
 
