@@ -92,7 +92,7 @@ Host dev-host-pytorch-321
 
 ### SSH config:
 ```
-Host dev-host-pytorch-cuda-114
+Host dev-host-pytorch-cuda-12
     HostName localhost
     User dev
     Port <порт указанный при создании docker контейнера>
