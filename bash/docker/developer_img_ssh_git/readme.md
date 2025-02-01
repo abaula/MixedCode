@@ -28,6 +28,25 @@ Host dev-host-net6
     Port <порт указанный при создании docker контейнера>
 ```
 
+## Dotnet 8
+`./net8/`
+
+Образ для разработки на dotnet 8.
+
+### Пользователь в конейнере:
+`dev`, пароль `dev`.
+
+### Команда для создания образа:
+`podman build --build-arg SSH_PUBLIC_KEY="$(cat ~/.ssh/id_rsa.pub)" --build-arg SSH_PRIVATE_KEY="$(cat ~/.ssh/id_rsa)" --build-arg USER=dev --build-arg PASS=dev -t dev-host-net8:1.0.0 .`
+
+### SSH config:
+```
+Host dev-host-net8
+    HostName localhost
+    User dev
+    Port <порт указанный при создании docker контейнера>
+```
+
 ## Python 3.12
 `./py/`
 
