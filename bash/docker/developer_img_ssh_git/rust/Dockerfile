@@ -10,7 +10,7 @@ ARG PASS=dev
 ARG SSH_PUBLIC_KEY
 ARG SSH_PRIVATE_KEY
 
-ENV RUST_VERSION=1.76.0 \
+ENV RUST_VERSION=1.86.0 \
     RUST_ARCH='x86_64-unknown-linux-gnu'
 
 RUN apt-get update && apt-get install build-essential openssh-server sudo git mc curl -y
