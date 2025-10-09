@@ -40,13 +40,13 @@ class Program
 
     public static SrfItem[] MergeSrf(SrfItem[] listA, SrfItem[] listB)
     {
-        var listAMaxWight = listA.Max(x => x.Weight);
-        var listAMinWight = listA.Min(x => x.Weight);
-        var listBMaxWight = listB.Max(x => x.Weight);
-        var listBMinWight = listB.Min(x => x.Weight);
+        var listAMaxWight = listA.Max(_ => _.Weight);
+        var listAMinWight = listA.Min(_ => _.Weight);
+        var listBMaxWight = listB.Max(_ => _.Weight);
+        var listBMinWight = listB.Min(_ => _.Weight);
 
-        var scaledListA = listA.Select(x => new { x.Key, Weight = NormalizeToUnitRange(x.Weight, listAMinWight, listAMaxWight) }).ToArray();
-        var scaledListB = listB.Select(x => new { x.Key, Weight = NormalizeToUnitRange(x.Weight, listBMinWight, listBMaxWight) }).ToArray();
+        var scaledListA = listA.Select(_ => new { _.Key, Weight = NormalizeToUnitRange(_.Weight, listAMinWight, listAMaxWight) }).ToArray();
+        var scaledListB = listB.Select(_ => new { _.Key, Weight = NormalizeToUnitRange(_.Weight, listBMinWight, listBMaxWight) }).ToArray();
 
         var mergedList = scaledListA
             .Concat(scaledListB)
