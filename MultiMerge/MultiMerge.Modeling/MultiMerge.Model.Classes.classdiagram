@@ -1,0 +1,622 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<logicalClassDesignerModel xmlns:dm0="http://schemas.microsoft.com/VisualStudio/2008/DslTools/Core" xmlns:dm1="http://schemas.microsoft.com/dsltools/Kernel" xmlns:dm2="http://schemas.microsoft.com/dsltools/Component" xmlns:dm3="http://schemas.microsoft.com/dsltools/UseCase" xmlns:dm4="http://schemas.microsoft.com/dsltools/Activity" xmlns:dm5="http://schemas.microsoft.com/dsltools/Interaction" xmlns:dm6="http://schemas.microsoft.com/dsltools/UmlModelLibrary" xmlns:dm7="http://schemas.microsoft.com/dsltools/UmlDiagrams" xmlns:dm8="http://schemas.microsoft.com/dsltools/ModelStore" dslVersion="1.0.0.0" Id="5c58912d-0782-48f2-8ea4-ff05ff0e1e7b" name="MultiMergeClasses" linkedPackageId="c769e545-49d2-4b8a-8753-3370d29f4bd1" xmlns="http://schemas.microsoft.com/dsltools/LogicalClassDesigner">
+  <ownedCommentsInternal>
+    <comment Id="e9301daa-eda1-4c83-9508-493535fc6959">
+      <elementDefinition Id="9bf9ad26-0f3c-43a9-92b0-820c4243f626" />
+      <body>Отражает набор изменений которые нужно применить к эталонному файлу, чтобы получить версию файла.</body>
+      <annotatedElements>
+        <interfaceMoniker Id="182f8465-3dfb-4632-bba2-5a70e2480057" LastKnownName="IDiffObject" />
+      </annotatedElements>
+    </comment>
+    <comment Id="07295b2d-8337-4b0f-990e-39b794115a0b">
+      <elementDefinition Id="80a78412-8838-4953-966a-b325b326ad36" />
+      <body>Отражает содержимое файла.</body>
+      <annotatedElements>
+        <interfaceMoniker Id="16bd5ecf-1cbf-4640-b049-5533ca8a3059" LastKnownName="ITextObject" />
+      </annotatedElements>
+    </comment>
+    <comment Id="c5d2d7e6-837a-40a2-a86c-fde2f228597b">
+      <elementDefinition Id="0f3c6ed5-bce6-4fc9-91e4-5ceae61b21e3" />
+      <body>Содержит уникальные строки одного или нескольких файлов. 
+Каждая уникальная строка получает свой числовой индекс.</body>
+      <annotatedElements>
+        <interfaceMoniker Id="fa94c440-92fd-4d31-a637-435d14d9baff" LastKnownName="IUniqueTextLinesStorage" />
+      </annotatedElements>
+    </comment>
+    <comment Id="bdf4549a-efb6-468d-a05b-6e7c4ae3e43d">
+      <elementDefinition Id="71f227cd-2192-4cd2-ab56-ac06159a6162" />
+      <body>Отражает обобщёный набор изменений, которые необходимо применить к эталонному файлу</body>
+      <annotatedElements>
+        <interfaceMoniker Id="14c94af1-fdf9-41bb-a961-f9f071471f38" LastKnownName="IMergedObject" />
+      </annotatedElements>
+    </comment>
+  </ownedCommentsInternal>
+  <packagedElements>
+    <logicalClassDesignerModelHasTypes>
+      <Interface Id="fa94c440-92fd-4d31-a637-435d14d9baff" name="IUniqueTextLinesStorage" isAbstract="false" isLeaf="false">
+        <elementDefinition Id="a69889f3-29f9-4dcd-bb34-88514174cdb9" />
+      </Interface>
+    </logicalClassDesignerModelHasTypes>
+    <logicalClassDesignerModelHasTypes>
+      <Interface Id="16bd5ecf-1cbf-4640-b049-5533ca8a3059" name="ITextObject" isAbstract="false" isLeaf="false">
+        <elementDefinition Id="216c253f-eca9-4c72-93a3-7845ecc97c13" />
+        <ownedAttributes>
+          <property Id="bfed9900-38c3-4779-9cb0-03299f37e621" name="Lines" isLeaf="false" isStatic="false" isReadOnly="false" isUnique="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false">
+            <lowerValueInternal>
+              <literalString Id="4e384754-eaff-416d-99c8-467508d1a595" name="Lower" value="*">
+                <elementDefinition Id="d31ed7fb-c9ff-4cfa-9e98-c912a4e08731" />
+              </literalString>
+            </lowerValueInternal>
+            <upperValueInternal>
+              <literalString Id="1df7af2f-a512-459a-8b48-5604d38a4732" name="Upper" value="*">
+                <elementDefinition Id="68518f59-610d-4128-9943-4675d02c7241" />
+              </literalString>
+            </upperValueInternal>
+            <elementDefinition Id="7d03fefe-85d2-420b-9e78-6bdda92890df" />
+            <type_NamedElement>
+              <referencedTypeMoniker Id="d2468ef1-a3d4-4a4c-a294-9539e1e07724" LastKnownName="Integer" />
+            </type_NamedElement>
+          </property>
+          <property Id="0cffab25-6e01-41a6-8183-c4dfcf029f8e" name="Source" isLeaf="false" isStatic="false" isReadOnly="false" isUnique="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false">
+            <elementDefinition Id="0f20f357-752c-4a31-80da-f4c3e4ab5516" />
+            <type_NamedElement>
+              <referencedTypeMoniker Id="95bda125-0eed-49c4-9478-eaa14d7d2360" LastKnownName="String" />
+            </type_NamedElement>
+          </property>
+        </ownedAttributes>
+      </Interface>
+    </logicalClassDesignerModelHasTypes>
+    <packageHasNamedElement>
+      <referencedType Id="d2468ef1-a3d4-4a4c-a294-9539e1e07724" name="Integer" isAbstract="false" isLeaf="false" cachedFullName="Integer">
+        <elementDefinition Id="220a3521-e091-4221-bae9-3ef9018e845c" />
+      </referencedType>
+    </packageHasNamedElement>
+    <logicalClassDesignerModelHasTypes>
+      <Interface Id="47caf160-1850-41ca-9181-a59a7cee43f9" name="ITextObjectBuilder" isAbstract="false" isLeaf="false">
+        <elementDefinition Id="94986667-4bdd-427b-9798-532fb128f168" />
+        <suppliersInternal>
+          <dependency Id="a6f07e3e-3470-4a24-a588-42252fc15a6f" name="Создаёт">
+            <interfaceMoniker Id="16bd5ecf-1cbf-4640-b049-5533ca8a3059" LastKnownName="ITextObject" />
+            <elementDefinition Id="004a864a-4b34-43db-a09a-bf47bdeea2bb" />
+          </dependency>
+          <dependency Id="c08e2a7c-ffec-47b3-9a16-d0837f1a3769" name="Добавляет строки">
+            <interfaceMoniker Id="fa94c440-92fd-4d31-a637-435d14d9baff" LastKnownName="IUniqueTextLinesStorage" />
+            <elementDefinition Id="e4862b6b-1962-4ec3-9b7b-6bb1e2df6ceb" />
+          </dependency>
+        </suppliersInternal>
+      </Interface>
+    </logicalClassDesignerModelHasTypes>
+    <logicalClassDesignerModelHasTypes>
+      <Interface Id="182f8465-3dfb-4632-bba2-5a70e2480057" name="IDiffObject" isAbstract="false" isLeaf="false">
+        <elementDefinition Id="82d11411-cdee-40cb-b963-7f4d40fef309" />
+        <targetEnds>
+          <association Id="e4f54179-cba1-4388-a641-ae879644913e" isDerived="false" sourceEndRoleName="" targetEndRoleName="" isLeaf="false" isAbstract="false">
+            <interfaceMoniker Id="b1dd84d8-f8a5-4783-a289-11236a8178ef" LastKnownName="IDiffObjectLine" />
+            <relationshipOwnedElementsInternal>
+              <associationHasOwnedEnds>
+                <memberEnd Id="c8530eae-0f68-4a41-bcbb-fb24997aab9a" isLeaf="false" isStatic="false" isReadOnly="false" isDerived="false" isDerivedUnion="false" aggregation="Composite" isComposite="false" isNavigableOwned="false">
+                  <elementDefinition Id="6a0ba80d-8379-499d-bfa8-30b1727594d5" />
+                </memberEnd>
+              </associationHasOwnedEnds>
+              <associationHasOwnedEnds>
+                <memberEnd Id="5317326a-b549-42ae-b66c-c8461bd11708" isLeaf="false" isStatic="false" isReadOnly="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="true" isNavigableOwned="false">
+                  <lowerValueInternal>
+                    <literalString Id="978dd865-63e1-4ca0-8911-49c34fcb4abd" name="Lower" value="1">
+                      <elementDefinition Id="ca62d7e2-7e64-427e-b87b-8b049ec181f2" />
+                    </literalString>
+                  </lowerValueInternal>
+                  <upperValueInternal>
+                    <literalString Id="5fdb27ba-f23b-40fb-b8e3-02b11a7dd71c" name="Upper" value="*">
+                      <elementDefinition Id="756965f4-bcab-4a24-aa1a-39666764dd4d" />
+                    </literalString>
+                  </upperValueInternal>
+                  <elementDefinition Id="264124a1-7ca5-42e2-a668-d35469f6e65a" />
+                </memberEnd>
+              </associationHasOwnedEnds>
+            </relationshipOwnedElementsInternal>
+            <elementDefinition Id="021a1180-ccd1-4fbf-8991-2b164013c5e8" />
+          </association>
+          <association Id="bc482eab-dd60-43ce-bf4f-eb182509cf5c" isDerived="false" sourceEndRoleName="" targetEndRoleName="" isLeaf="false" isAbstract="false">
+            <interfaceMoniker Id="16bd5ecf-1cbf-4640-b049-5533ca8a3059" LastKnownName="ITextObject" />
+            <relationshipOwnedElementsInternal>
+              <associationHasOwnedEnds>
+                <memberEnd Id="241d048a-fcf0-4db1-b636-69b33111f15d" isLeaf="false" isStatic="false" isReadOnly="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false" isNavigableOwned="false">
+                  <lowerValueInternal>
+                    <literalString Id="a8d8c4a3-7cb9-4f30-9e40-26c294cae8ae" name="Lower" value="*">
+                      <elementDefinition Id="3ef0c351-d78d-4a61-91bf-af3a60859c9a" />
+                    </literalString>
+                  </lowerValueInternal>
+                  <upperValueInternal>
+                    <literalString Id="d16b5b37-ec19-4829-b99d-a693c9d65ee7" name="Upper" value="*">
+                      <elementDefinition Id="457eaebf-1a41-4660-bf4f-e80ee1213032" />
+                    </literalString>
+                  </upperValueInternal>
+                  <elementDefinition Id="3e829579-6271-46ee-8a2e-1b614692dde2" />
+                </memberEnd>
+              </associationHasOwnedEnds>
+              <associationHasOwnedEnds>
+                <memberEnd Id="f4544166-509c-4cf1-963e-9a443710197c" isLeaf="false" isStatic="false" isReadOnly="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false">
+                  <lowerValueInternal>
+                    <literalString Id="b046cc77-96eb-4a72-8eb4-70f266416c2f" name="Lower" value="2">
+                      <elementDefinition Id="a0540029-a38d-4330-a148-d0088fe624e3" />
+                    </literalString>
+                  </lowerValueInternal>
+                  <upperValueInternal>
+                    <literalString Id="3892141c-97c4-4d91-b3b3-db59e3881522" name="Upper" value="2">
+                      <elementDefinition Id="6076d8fa-da6d-4650-8546-9bdfad858895" />
+                    </literalString>
+                  </upperValueInternal>
+                  <elementDefinition Id="413cac91-c48a-4dbd-aa1b-fdd628be1768" />
+                </memberEnd>
+              </associationHasOwnedEnds>
+            </relationshipOwnedElementsInternal>
+            <elementDefinition Id="4597d0a2-34d7-4c32-9efd-49dea50ab96c" />
+          </association>
+        </targetEnds>
+        <ownedAttributes>
+          <property Id="5e631b35-1233-483e-a4cb-f1304a57c974" name="DiffLines" isLeaf="false" isStatic="false" isReadOnly="false" isUnique="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false">
+            <lowerValueInternal>
+              <literalString Id="a5c5af13-b9a4-43f0-aa93-192549eec35e" name="Lower" value="1">
+                <elementDefinition Id="9e2cc385-59bb-4406-b396-3078d3db5d91" />
+              </literalString>
+            </lowerValueInternal>
+            <upperValueInternal>
+              <literalString Id="e9df4eed-99e2-46e0-abb1-5a65dc2efc9f" name="Upper" value="*">
+                <elementDefinition Id="b9c6660c-0347-493e-a912-553bf4680665" />
+              </literalString>
+            </upperValueInternal>
+            <elementDefinition Id="f1b9e2df-f691-422d-886b-30573bd55e85" />
+            <type_NamedElement>
+              <referencedTypeMoniker Id="1169b2af-2560-48ee-8152-f6da3560e8cc" LastKnownName="IDiffObjectLine" />
+            </type_NamedElement>
+          </property>
+          <property Id="fd25c0c3-cc3a-43ad-914e-f313c7797230" name="OriginalText" isLeaf="false" isStatic="false" isReadOnly="false" isUnique="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false">
+            <elementDefinition Id="2c50aa72-7881-46cb-b2fe-7e84ee3c71df" />
+            <type_NamedElement>
+              <referencedTypeMoniker Id="958694f8-a452-4d29-9a60-1b9397ae7e23" LastKnownName="ITextObject" />
+            </type_NamedElement>
+          </property>
+          <property Id="a7cf82d6-1e53-4a1a-b0ff-7f6c067525d2" name="VersionText" isLeaf="false" isStatic="false" isReadOnly="false" isUnique="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false">
+            <elementDefinition Id="928db69d-af3b-4554-9f37-eb577f670c63" />
+            <type_NamedElement>
+              <referencedTypeMoniker Id="869b4d7b-38aa-4041-9224-d99f7c386305" LastKnownName="ITextObject" />
+            </type_NamedElement>
+          </property>
+        </ownedAttributes>
+      </Interface>
+    </logicalClassDesignerModelHasTypes>
+    <logicalClassDesignerModelHasTypes>
+      <Interface Id="0db80f6b-5f54-4734-b777-cf4c0eaa690d" name="IDiffObjectBuilder" isAbstract="false" isLeaf="false">
+        <elementDefinition Id="ad7b5ec1-60fa-4b80-b6b9-8bf150a9d3c0" />
+        <suppliersInternal>
+          <dependency Id="6da5eb25-6c8c-4e52-a6dd-3e9c7f1a95da" name="Создаёт">
+            <interfaceMoniker Id="182f8465-3dfb-4632-bba2-5a70e2480057" LastKnownName="IDiffObject" />
+            <elementDefinition Id="bcb5b907-0dc7-4d64-9cd8-27c3c57b40c4" />
+          </dependency>
+          <dependency Id="65b0365e-8f36-4f5b-ad11-90978666b888" name="Использует">
+            <interfaceMoniker Id="16bd5ecf-1cbf-4640-b049-5533ca8a3059" LastKnownName="ITextObject" />
+            <elementDefinition Id="d3566ddc-6bf8-4418-bb97-5f472c973ad7" />
+          </dependency>
+        </suppliersInternal>
+      </Interface>
+    </logicalClassDesignerModelHasTypes>
+    <logicalClassDesignerModelHasTypes>
+      <Interface Id="b1dd84d8-f8a5-4783-a289-11236a8178ef" name="IDiffObjectLine" isAbstract="false" isLeaf="false">
+        <elementDefinition Id="0aa77c56-2237-4e95-b8bc-72227b72e7dc" />
+        <targetEnds>
+          <association Id="86692ca0-e90f-432d-999a-7e8a25ac6da1" isDerived="false" sourceEndRoleName="" targetEndRoleName="" isLeaf="false" isAbstract="false">
+            <enumerationMoniker Id="88ca8e56-5528-43bf-92e7-8be31f2829a1" LastKnownName="DiffState" />
+            <relationshipOwnedElementsInternal>
+              <associationHasOwnedEnds>
+                <memberEnd Id="0563f630-1091-422c-9ea3-55d418438a80" isLeaf="false" isStatic="false" isReadOnly="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false" isNavigableOwned="false">
+                  <lowerValueInternal>
+                    <literalString Id="dd06e097-cc56-4f01-9123-f47f9bdb24d3" name="Lower" value="*">
+                      <elementDefinition Id="496cd52e-88e7-4545-a84d-4ef0b6993efc" />
+                    </literalString>
+                  </lowerValueInternal>
+                  <upperValueInternal>
+                    <literalString Id="9abed738-1c47-428b-a1b3-5f13777e03ae" name="Upper" value="*">
+                      <elementDefinition Id="f73bc0dd-4c81-47ca-8747-cf37b237c38a" />
+                    </literalString>
+                  </upperValueInternal>
+                  <elementDefinition Id="b65dcc56-046f-4f10-bec2-6c6b773464ad" />
+                </memberEnd>
+              </associationHasOwnedEnds>
+              <associationHasOwnedEnds>
+                <memberEnd Id="f96640ea-92c6-45a3-8ab9-9fb73dddfe1c" isLeaf="false" isStatic="false" isReadOnly="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false">
+                  <elementDefinition Id="bf5ed65c-c49c-446f-a264-2d8434119653" />
+                </memberEnd>
+              </associationHasOwnedEnds>
+            </relationshipOwnedElementsInternal>
+            <elementDefinition Id="8264ed94-3e4f-43af-81cd-917993aad37f" />
+          </association>
+          <association Id="cf1e2fc8-5ec4-49b1-8e69-70b37feb688f" isDerived="false" sourceEndRoleName="" targetEndRoleName="" isLeaf="false" isAbstract="false">
+            <interfaceMoniker Id="16bd5ecf-1cbf-4640-b049-5533ca8a3059" LastKnownName="ITextObject" />
+            <relationshipOwnedElementsInternal>
+              <associationHasOwnedEnds>
+                <memberEnd Id="805e944e-6f6a-4bda-88c2-f484dec1e9c4" isLeaf="false" isStatic="false" isReadOnly="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false" isNavigableOwned="false">
+                  <lowerValueInternal>
+                    <literalString Id="00afd6d3-9cae-4ef2-b239-1aa2c550cef1" name="Lower" value="*">
+                      <elementDefinition Id="d7eb35c3-d03e-4728-ab34-af0f063aa1dd" />
+                    </literalString>
+                  </lowerValueInternal>
+                  <upperValueInternal>
+                    <literalString Id="22fe49bd-156f-4855-8ebf-45ffde985509" name="Upper" value="*">
+                      <elementDefinition Id="2363d83f-17eb-44be-81f9-35fd2385cc44" />
+                    </literalString>
+                  </upperValueInternal>
+                  <elementDefinition Id="d0799dc3-21eb-4c6c-ba80-fcb597936ecf" />
+                </memberEnd>
+              </associationHasOwnedEnds>
+              <associationHasOwnedEnds>
+                <memberEnd Id="0fbf0dee-dd36-44c7-85dd-ae1905f38dc1" isLeaf="false" isStatic="false" isReadOnly="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false">
+                  <elementDefinition Id="88f5251e-d9de-4832-bf74-45be53391d17" />
+                </memberEnd>
+              </associationHasOwnedEnds>
+            </relationshipOwnedElementsInternal>
+            <elementDefinition Id="7d3ee548-bba8-4444-a8c4-be9315c81e90" />
+          </association>
+        </targetEnds>
+        <ownedAttributes>
+          <property Id="9dd9ae57-318c-45c2-b123-37c372637a80" name="LineCode" isLeaf="false" isStatic="false" isReadOnly="false" isUnique="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false">
+            <elementDefinition Id="fcaabeaf-953c-4ccb-8aa0-44b9102182d1" />
+            <type_NamedElement>
+              <referencedTypeMoniker Id="d8ba9b90-8e7d-4f2c-9507-772d6f76bfcb" LastKnownName="Integer" />
+            </type_NamedElement>
+          </property>
+          <property Id="d5ed87a2-5dc0-4e6e-a1e1-992c688cf999" name="LineState" isLeaf="false" isStatic="false" isReadOnly="false" isUnique="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false">
+            <elementDefinition Id="b793a20c-4668-4dd3-89d0-49024df09ac2" />
+            <type_NamedElement>
+              <referencedTypeMoniker Id="31f68eb0-3ce1-4ead-b00b-4b00f126a56d" LastKnownName="DiffState" />
+            </type_NamedElement>
+          </property>
+          <property Id="fc0056ec-bff8-4eef-8260-0530d24a464b" name="SourceText" isLeaf="false" isStatic="false" isReadOnly="false" isUnique="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false">
+            <elementDefinition Id="83c46724-1617-4945-8360-47e7fa81cda6" />
+            <type_NamedElement>
+              <referencedTypeMoniker Id="ebfb46ae-c531-469b-a6c2-af17a56ac2d0" LastKnownName="ITextObject" />
+            </type_NamedElement>
+          </property>
+          <property Id="dc8910c0-82db-4d77-87fa-fd9f7d312c17" name="SourceTextLineNumber" isLeaf="false" isStatic="false" isReadOnly="false" isUnique="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false">
+            <elementDefinition Id="4e500da3-cc0b-4ad7-a423-085c3077a773" />
+            <type_NamedElement>
+              <referencedTypeMoniker Id="2ecb1096-7ecd-4837-bcf5-dca0d16cea0e" LastKnownName="Integer" />
+            </type_NamedElement>
+          </property>
+        </ownedAttributes>
+      </Interface>
+    </logicalClassDesignerModelHasTypes>
+    <logicalClassDesignerModelHasTypes>
+      <enumeration Id="88ca8e56-5528-43bf-92e7-8be31f2829a1" name="DiffState" isAbstract="false" isLeaf="false">
+        <elementDefinition Id="a23a32f0-7857-4d39-af3c-a9c3424b040b" />
+        <ownedLiterals>
+          <enumerationLiteral Id="5ce59f35-c085-465c-b117-37ad3ecd433d" name="Original">
+            <elementDefinition Id="6337ad8c-3d48-4e02-bf73-1df646fdab32" />
+          </enumerationLiteral>
+          <enumerationLiteral Id="06f1b99d-90fa-40de-bd7a-c7d7af3390c2" name="Added">
+            <elementDefinition Id="4092d668-be52-42e5-875a-cb8bcfba2181" />
+          </enumerationLiteral>
+          <enumerationLiteral Id="949977bf-5921-4cb5-8fed-f0d4cae813da" name="Deleted">
+            <elementDefinition Id="f816655c-6392-47b9-b4e9-1cb7f96d95f3" />
+          </enumerationLiteral>
+        </ownedLiterals>
+      </enumeration>
+    </logicalClassDesignerModelHasTypes>
+    <packageHasNamedElement>
+      <referencedType Id="31f68eb0-3ce1-4ead-b00b-4b00f126a56d" name="DiffState" isAbstract="false" isLeaf="false" cachedFullName="MultiMerge.Modeling::DiffState">
+        <elementDefinition Id="a23a32f0-7857-4d39-af3c-a9c3424b040b" />
+      </referencedType>
+    </packageHasNamedElement>
+    <logicalClassDesignerModelHasTypes>
+      <Interface Id="5857e95b-a405-4274-8335-a776faf350f8" name="IMergedObjectBuilder" isAbstract="false" isLeaf="false">
+        <elementDefinition Id="a5b3cdcd-d30c-421f-a838-b1e0d63b512c" />
+        <suppliersInternal>
+          <dependency Id="795e8878-3707-4019-b593-07714b3bce31" name="Использует">
+            <interfaceMoniker Id="182f8465-3dfb-4632-bba2-5a70e2480057" LastKnownName="IDiffObject" />
+            <elementDefinition Id="09a7dadf-f185-418f-9157-c85f43c3851e" />
+          </dependency>
+          <dependency Id="af58f162-cd69-45eb-9286-fcc30349a4e1" name="Создаёт">
+            <interfaceMoniker Id="14c94af1-fdf9-41bb-a961-f9f071471f38" LastKnownName="IMergedObject" />
+            <elementDefinition Id="f648f0dd-8469-411e-9dcd-77f83b272e7d" />
+          </dependency>
+        </suppliersInternal>
+      </Interface>
+    </logicalClassDesignerModelHasTypes>
+    <packageHasNamedElement>
+      <referencedType Id="1169b2af-2560-48ee-8152-f6da3560e8cc" name="IDiffObjectLine" isAbstract="false" isLeaf="false" cachedFullName="MultyMerge.Modeling::IDiffObjectLine">
+        <elementDefinition Id="0aa77c56-2237-4e95-b8bc-72227b72e7dc" />
+      </referencedType>
+    </packageHasNamedElement>
+    <logicalClassDesignerModelHasTypes>
+      <Interface Id="14c94af1-fdf9-41bb-a961-f9f071471f38" name="IMergedObject" isAbstract="false" isLeaf="false">
+        <elementDefinition Id="5942b297-cbfa-4cb8-968c-907f2d2a0ca0" />
+        <targetEnds>
+          <association Id="64f70cf6-86af-4a4e-aa51-08bed4e59e75" isDerived="false" sourceEndRoleName="" targetEndRoleName="" isLeaf="false" isAbstract="false">
+            <interfaceMoniker Id="16bd5ecf-1cbf-4640-b049-5533ca8a3059" LastKnownName="ITextObject" />
+            <relationshipOwnedElementsInternal>
+              <associationHasOwnedEnds>
+                <memberEnd Id="ea7aa1e8-6848-45c9-8e22-40d425665e39" isLeaf="false" isStatic="false" isReadOnly="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false" isNavigableOwned="false">
+                  <lowerValueInternal>
+                    <literalString Id="40fc293d-6d7b-4c21-94d1-94e46749c2f2" name="Lower" value="*">
+                      <elementDefinition Id="1764bb3d-99ad-4e95-887e-566ba3501d84" />
+                    </literalString>
+                  </lowerValueInternal>
+                  <upperValueInternal>
+                    <literalString Id="94955f6a-83db-43cf-9938-e86e63b4a2cc" name="Upper" value="*">
+                      <elementDefinition Id="fdc13a03-9145-4a9a-a36d-732c884a298a" />
+                    </literalString>
+                  </upperValueInternal>
+                  <elementDefinition Id="ea197eae-9605-4ff7-9430-9069383d86d0" />
+                </memberEnd>
+              </associationHasOwnedEnds>
+              <associationHasOwnedEnds>
+                <memberEnd Id="6892607e-2627-4eee-8b1b-d63f96178b8b" isLeaf="false" isStatic="false" isReadOnly="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false">
+                  <lowerValueInternal>
+                    <literalString Id="5326643f-9604-43e1-a198-eabed951606a" name="Lower" value="1">
+                      <elementDefinition Id="7757a8e2-18aa-4907-a0de-b9d5e59de8d0" />
+                    </literalString>
+                  </lowerValueInternal>
+                  <upperValueInternal>
+                    <literalString Id="c34b6139-4d17-4945-bdb3-3770aaefa246" name="Upper" value="*">
+                      <elementDefinition Id="31854b3d-f560-46f5-a1ab-b96f94e754dd" />
+                    </literalString>
+                  </upperValueInternal>
+                  <elementDefinition Id="293a0802-ee41-4ebf-b1a8-7acdbb441fed" />
+                </memberEnd>
+              </associationHasOwnedEnds>
+            </relationshipOwnedElementsInternal>
+            <elementDefinition Id="30393aeb-0d94-476f-b36b-6214fb7f3025" />
+          </association>
+          <association Id="e77cf6a8-4eb0-4670-a2c7-a1deca335916" isDerived="false" sourceEndRoleName="" targetEndRoleName="" isLeaf="false" isAbstract="false">
+            <interfaceMoniker Id="70f15cd9-5ae7-4f32-b619-21c3cee1ca0c" LastKnownName="IMergedObjectBlock" />
+            <relationshipOwnedElementsInternal>
+              <associationHasOwnedEnds>
+                <memberEnd Id="2e541dac-fe1c-4afd-a2a4-ba3e8c99d525" isLeaf="false" isStatic="false" isReadOnly="false" isDerived="false" isDerivedUnion="false" aggregation="Composite" isComposite="false" isNavigableOwned="false">
+                  <elementDefinition Id="19ebec76-35e9-4482-9005-8773417f7183" />
+                </memberEnd>
+              </associationHasOwnedEnds>
+              <associationHasOwnedEnds>
+                <memberEnd Id="0c7c4225-2f42-48a5-80fd-612c5201dbca" isLeaf="false" isStatic="false" isReadOnly="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="true" isNavigableOwned="false">
+                  <lowerValueInternal>
+                    <literalString Id="223e96c9-1119-46c1-bcfa-e19d1ff14b08" name="Lower" value="1">
+                      <elementDefinition Id="3256dc4b-e1ba-4e5a-9750-1bdb9a229f2f" />
+                    </literalString>
+                  </lowerValueInternal>
+                  <upperValueInternal>
+                    <literalString Id="8b99e3ce-9817-4224-a5b3-0af417a67bb9" name="Upper" value="*">
+                      <elementDefinition Id="27add99b-bfc5-4fed-aa21-620c6db39ffc" />
+                    </literalString>
+                  </upperValueInternal>
+                  <elementDefinition Id="770eaac4-d8a1-4db6-a44f-a09613d1b205" />
+                </memberEnd>
+              </associationHasOwnedEnds>
+            </relationshipOwnedElementsInternal>
+            <elementDefinition Id="4cf09183-6399-491f-ae9f-921f49b320b4" />
+          </association>
+        </targetEnds>
+        <ownedAttributes>
+          <property Id="a7a01b8e-92e6-48e5-bcfb-7934971e9c41" name="OriginalText" isLeaf="false" isStatic="false" isReadOnly="false" isUnique="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false">
+            <elementDefinition Id="e17da65d-1882-4734-b223-56ce17f17a7e" />
+            <type_NamedElement>
+              <referencedTypeMoniker Id="40954d0e-7791-4876-b997-551500a0fc20" LastKnownName="ITextObject" />
+            </type_NamedElement>
+          </property>
+          <property Id="e7e928cd-523d-43bb-87e7-c37938c5f774" name="VersionTexts" isLeaf="false" isStatic="false" isReadOnly="false" isUnique="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false">
+            <lowerValueInternal>
+              <literalString Id="6deb51fc-28b8-4ed7-86d3-304a43d7c98b" name="Lower" value="1">
+                <elementDefinition Id="3043856c-a671-4cb0-9212-cd98bd5d7479" />
+              </literalString>
+            </lowerValueInternal>
+            <upperValueInternal>
+              <literalString Id="20ef0b5b-5213-4891-a720-c6580810d53b" name="Upper" value="*">
+                <elementDefinition Id="6c1a6ffa-ee99-4ab4-baa4-a6e7cac66ba2" />
+              </literalString>
+            </upperValueInternal>
+            <elementDefinition Id="bba41983-42b2-4957-a7b9-837c683ec583" />
+            <type_NamedElement>
+              <referencedTypeMoniker Id="8f1bf39f-a265-47f3-b79b-64de3cdc56a1" LastKnownName="ITextObject" />
+            </type_NamedElement>
+          </property>
+          <property Id="adfaba94-c499-4f70-919b-9695921561ce" name="Blocks" isLeaf="false" isStatic="false" isReadOnly="false" isUnique="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false">
+            <lowerValueInternal>
+              <literalString Id="b6a96ce7-4b57-4b2b-aee8-42839b01caf8" name="Lower" value="*">
+                <elementDefinition Id="1ab8b05c-80e0-4029-a512-e8cb9ba7e35a" />
+              </literalString>
+            </lowerValueInternal>
+            <upperValueInternal>
+              <literalString Id="934c2ce3-0fa8-45f0-a944-8217a3f4e954" name="Upper" value="*">
+                <elementDefinition Id="f22a8008-2821-45c8-b788-c131a560f82d" />
+              </literalString>
+            </upperValueInternal>
+            <elementDefinition Id="e1796dda-88fa-4654-9025-33da580dd997" />
+            <type_NamedElement>
+              <referencedTypeMoniker Id="6da210d4-d86a-47f6-963e-b2b9d97f26ba" LastKnownName="IMergedObjectBlock" />
+            </type_NamedElement>
+          </property>
+        </ownedAttributes>
+      </Interface>
+    </logicalClassDesignerModelHasTypes>
+    <packageHasNamedElement>
+      <referencedType Id="d8ba9b90-8e7d-4f2c-9507-772d6f76bfcb" name="Integer" isAbstract="false" isLeaf="false" cachedFullName="Integer">
+        <elementDefinition Id="220a3521-e091-4221-bae9-3ef9018e845c" />
+      </referencedType>
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <referencedType Id="869b4d7b-38aa-4041-9224-d99f7c386305" name="ITextObject" isAbstract="false" isLeaf="false" cachedFullName="MultyMerge.Modeling::ITextObject">
+        <elementDefinition Id="216c253f-eca9-4c72-93a3-7845ecc97c13" />
+      </referencedType>
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <referencedType Id="8f1bf39f-a265-47f3-b79b-64de3cdc56a1" name="ITextObject" isAbstract="false" isLeaf="false" cachedFullName="MultyMerge.Modeling::ITextObject">
+        <elementDefinition Id="216c253f-eca9-4c72-93a3-7845ecc97c13" />
+      </referencedType>
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <referencedType Id="958694f8-a452-4d29-9a60-1b9397ae7e23" name="ITextObject" isAbstract="false" isLeaf="false" cachedFullName="MultyMerge.Modeling::ITextObject">
+        <elementDefinition Id="216c253f-eca9-4c72-93a3-7845ecc97c13" />
+      </referencedType>
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <referencedType Id="40954d0e-7791-4876-b997-551500a0fc20" name="ITextObject" isAbstract="false" isLeaf="false" cachedFullName="MultyMerge.Modeling::ITextObject">
+        <elementDefinition Id="216c253f-eca9-4c72-93a3-7845ecc97c13" />
+      </referencedType>
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <referencedType Id="95bda125-0eed-49c4-9478-eaa14d7d2360" name="String" isAbstract="false" isLeaf="false" cachedFullName="String">
+        <elementDefinition Id="59259974-6d55-42c6-b7bd-763d77ac8ef9" />
+      </referencedType>
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <referencedType Id="ebfb46ae-c531-469b-a6c2-af17a56ac2d0" name="ITextObject" isAbstract="false" isLeaf="false" cachedFullName="MultiMerge.Modeling::ITextObject">
+        <elementDefinition Id="216c253f-eca9-4c72-93a3-7845ecc97c13" />
+      </referencedType>
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <referencedType Id="2ecb1096-7ecd-4837-bcf5-dca0d16cea0e" name="Integer" isAbstract="false" isLeaf="false" cachedFullName="Integer">
+        <elementDefinition Id="220a3521-e091-4221-bae9-3ef9018e845c" />
+      </referencedType>
+    </packageHasNamedElement>
+    <logicalClassDesignerModelHasTypes>
+      <Interface Id="70f15cd9-5ae7-4f32-b619-21c3cee1ca0c" name="IMergedObjectBlock" isAbstract="false" isLeaf="false">
+        <elementDefinition Id="4d9082e3-588b-474b-a325-f6f754acf338" />
+        <targetEnds>
+          <association Id="ceaab578-1e8f-44be-b34e-4ffd4afc43e6" isDerived="false" sourceEndRoleName="" targetEndRoleName="" isLeaf="false" isAbstract="false">
+            <enumerationMoniker Id="88ca8e56-5528-43bf-92e7-8be31f2829a1" LastKnownName="DiffState" />
+            <relationshipOwnedElementsInternal>
+              <associationHasOwnedEnds>
+                <memberEnd Id="d1472d06-300e-4bcd-8488-68913fa269a8" isLeaf="false" isStatic="false" isReadOnly="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false" isNavigableOwned="false">
+                  <lowerValueInternal>
+                    <literalString Id="09663393-33d9-44c8-a99d-22e524851fa1" name="Lower" value="1">
+                      <elementDefinition Id="c7236acc-a332-47bc-a6eb-a7f14db4a9ed" />
+                    </literalString>
+                  </lowerValueInternal>
+                  <upperValueInternal>
+                    <literalString Id="6c5e3cc8-9ca5-44d8-8fd9-7f732e79c9a4" name="Upper" value="*">
+                      <elementDefinition Id="b95d1262-bb90-42a9-a947-afbc906ab2d2" />
+                    </literalString>
+                  </upperValueInternal>
+                  <elementDefinition Id="c17431cd-6af9-459d-a403-898a29274524" />
+                </memberEnd>
+              </associationHasOwnedEnds>
+              <associationHasOwnedEnds>
+                <memberEnd Id="b381a0aa-6cff-42ff-9936-ca3f08bbefbd" isLeaf="false" isStatic="false" isReadOnly="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false">
+                  <elementDefinition Id="69461aec-82de-4a89-bd93-a5e48ea55a5d" />
+                </memberEnd>
+              </associationHasOwnedEnds>
+            </relationshipOwnedElementsInternal>
+            <elementDefinition Id="791d9a9a-2d3a-40c4-b7fa-726259ddbf25" />
+          </association>
+          <association Id="e7663a19-08e3-4ee6-b62b-9de860a83376" isDerived="false" sourceEndRoleName="" targetEndRoleName="" isLeaf="false" isAbstract="false">
+            <interfaceMoniker Id="b1dd84d8-f8a5-4783-a289-11236a8178ef" LastKnownName="IDiffObjectLine" />
+            <relationshipOwnedElementsInternal>
+              <associationHasOwnedEnds>
+                <memberEnd Id="080ca4dc-d92a-4cb2-9c09-5c4579957b7f" isLeaf="false" isStatic="false" isReadOnly="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false" isNavigableOwned="false">
+                  <lowerValueInternal>
+                    <literalString Id="76bd3961-5c93-47b7-ae0b-b4e7ab504c91" name="Lower" value="1">
+                      <elementDefinition Id="3ccae710-cf0f-440f-b92d-78edc1223d96" />
+                    </literalString>
+                  </lowerValueInternal>
+                  <upperValueInternal>
+                    <literalString Id="8e0896dd-da4f-41f4-8a53-68130e491f3b" name="Upper" value="1">
+                      <elementDefinition Id="da1d6427-e5e0-456a-a267-1758b60e125d" />
+                    </literalString>
+                  </upperValueInternal>
+                  <elementDefinition Id="df48f9cd-98ca-4f70-9124-a6bc66f8af10" />
+                </memberEnd>
+              </associationHasOwnedEnds>
+              <associationHasOwnedEnds>
+                <memberEnd Id="43dca047-5859-4b81-be62-093fd4d83d98" isLeaf="false" isStatic="false" isReadOnly="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false">
+                  <lowerValueInternal>
+                    <literalString Id="42d94050-40b1-4bab-b8e9-47aac3541751" name="Lower" value="1">
+                      <elementDefinition Id="b5e7fee1-3a8a-4e30-83ff-3fee1dba6f2e" />
+                    </literalString>
+                  </lowerValueInternal>
+                  <upperValueInternal>
+                    <literalString Id="70c739db-1e2c-4a75-843f-9eca338f960e" name="Upper" value="*">
+                      <elementDefinition Id="4f3b00bc-89f2-4f1c-bd00-6ca16e103e2b" />
+                    </literalString>
+                  </upperValueInternal>
+                  <elementDefinition Id="2c3abcca-44ad-42e6-990f-1af277535b7d" />
+                </memberEnd>
+              </associationHasOwnedEnds>
+            </relationshipOwnedElementsInternal>
+            <elementDefinition Id="563b926c-213a-435f-8103-d7b8cb91fe54" />
+          </association>
+        </targetEnds>
+        <ownedAttributes>
+          <property Id="7663602d-edff-46ca-aea0-a6d8a255dfb1" name="State" isLeaf="false" isStatic="false" isReadOnly="false" isUnique="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false">
+            <elementDefinition Id="7e74c247-889d-4fc5-b848-dd409e238ce8" />
+            <type_NamedElement>
+              <referencedTypeMoniker Id="31f68eb0-3ce1-4ead-b00b-4b00f126a56d" LastKnownName="DiffState" />
+            </type_NamedElement>
+          </property>
+          <property Id="d147d10b-bee4-48f2-bb33-4cb312d40e2f" name="Source" isLeaf="false" isStatic="false" isReadOnly="false" isUnique="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false">
+            <elementDefinition Id="e43deb35-835e-44e9-b047-37f43df403f4" />
+            <type_NamedElement>
+              <referencedTypeMoniker Id="b114beb7-2469-4209-a6bc-7dd01a53356f" LastKnownName="ITextObject" />
+            </type_NamedElement>
+          </property>
+          <property Id="7ef2c823-390e-4e58-af40-400e7894b5cc" name="DiffLines" isLeaf="false" isStatic="false" isReadOnly="false" isUnique="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false">
+            <lowerValueInternal>
+              <literalString Id="0ff7b829-ca1b-401a-a72b-95841f49b52b" name="Lower" value="1">
+                <elementDefinition Id="f667aa91-7fc5-4d3d-b3c7-cac602a54e53" />
+              </literalString>
+            </lowerValueInternal>
+            <upperValueInternal>
+              <literalString Id="6a80e28d-99ca-44f4-a1f3-810d5d1ac5be" name="Upper" value="*">
+                <elementDefinition Id="a5c4d09e-2c4a-4b3b-8c4f-3ff1a54eb05a" />
+              </literalString>
+            </upperValueInternal>
+            <elementDefinition Id="acd31df8-d96a-4609-8b96-97d83f32179d" />
+            <type_NamedElement>
+              <referencedTypeMoniker Id="b3293a23-9a82-4101-bfa9-bd6019bad9ce" LastKnownName="IDiffObjectLine" />
+            </type_NamedElement>
+          </property>
+          <property Id="d6fb1967-1175-48f8-b6b8-ba870c661517" name="OriginalTextBottomBorderLineNumber" isLeaf="false" isStatic="false" isReadOnly="false" isUnique="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false">
+            <elementDefinition Id="21e54535-bb0e-4c9e-ac6d-014eb1606a97" />
+            <type_NamedElement>
+              <referencedTypeMoniker Id="d2468ef1-a3d4-4a4c-a294-9539e1e07724" LastKnownName="Integer" />
+            </type_NamedElement>
+          </property>
+          <property Id="00d40355-e3c4-4769-8ce7-30b0a0e9aed8" name="OriginalTextTopBorderLineNumber" isLeaf="false" isStatic="false" isReadOnly="false" isUnique="false" isDerived="false" isDerivedUnion="false" aggregation="None" isComposite="false">
+            <elementDefinition Id="5ea99de2-b340-4135-ba6e-171cbe61bcd8" />
+            <type_NamedElement>
+              <referencedTypeMoniker Id="d2468ef1-a3d4-4a4c-a294-9539e1e07724" LastKnownName="Integer" />
+            </type_NamedElement>
+          </property>
+        </ownedAttributes>
+      </Interface>
+    </logicalClassDesignerModelHasTypes>
+    <packageHasNamedElement>
+      <referencedType Id="b114beb7-2469-4209-a6bc-7dd01a53356f" name="ITextObject" isAbstract="false" isLeaf="false" cachedFullName="MultiMerge.Modeling::ITextObject">
+        <elementDefinition Id="216c253f-eca9-4c72-93a3-7845ecc97c13" />
+      </referencedType>
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <referencedType Id="b3293a23-9a82-4101-bfa9-bd6019bad9ce" name="IDiffObjectLine" isAbstract="false" isLeaf="false" cachedFullName="MultiMerge.Modeling::IDiffObjectLine">
+        <elementDefinition Id="0aa77c56-2237-4e95-b8bc-72227b72e7dc" />
+      </referencedType>
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <referencedType Id="6da210d4-d86a-47f6-963e-b2b9d97f26ba" name="IMergedObjectBlock" isAbstract="false" isLeaf="false" cachedFullName="MultiMerge.Modeling::IMergedObjectBlock">
+        <elementDefinition Id="4d9082e3-588b-474b-a325-f6f754acf338" />
+      </referencedType>
+    </packageHasNamedElement>
+  </packagedElements>
+  <package Id="c769e545-49d2-4b8a-8753-3370d29f4bd1" name="MultiMerge.Modeling">
+    <elementDefinition Id="dcacb333-9d99-410e-9678-b4ff03d0e4ae" />
+    <profileInstances>
+      <packageHasProfileInstances Id="55f2b98c-2fef-48f7-862f-55cecfeb7a55">
+        <profileInstance Id="d460f7bb-5cbd-4936-ac79-b10ba3ffd121" name="StandardProfileL2">
+          <elementDefinition Id="e34d544e-0fea-4ed6-ac5e-1b74119ac791" />
+        </profileInstance>
+        <elementDefinition Id="0caec977-1f8c-4ba3-a7db-8cc9ad9cc73b" />
+      </packageHasProfileInstances>
+      <packageHasProfileInstances Id="148b26e6-44f2-4325-981b-06c302c9bcf8">
+        <profileInstance Id="f474e331-5820-4a45-8101-fb54d75c91e9" name="StandardProfileL3">
+          <elementDefinition Id="532ea607-fb19-44b8-8502-3351b05452be" />
+        </profileInstance>
+        <elementDefinition Id="29349502-908c-4fda-9054-c48619c59ed0" />
+      </packageHasProfileInstances>
+    </profileInstances>
+  </package>
+</logicalClassDesignerModel>

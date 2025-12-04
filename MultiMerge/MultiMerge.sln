@@ -1,0 +1,57 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 2013
+VisualStudioVersion = 12.0.21005.1
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{F088123C-0E9E-452A-89E6-6BA2F21D5CAC}") = "MultiMerge.Modeling", "MultiMerge.Modeling\MultiMerge.Modeling.modelproj", "{924A5CA0-C910-4113-B7CE-8C61AA3FC513}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MultiMerge.Model", "MultiMerge.Model\MultiMerge.Model.csproj", "{27457548-7956-4BC3-8574-BED197B530E1}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MultiMerge.Client", "MultiMerge.Client\MultiMerge.Client.csproj", "{37B2996F-8AE8-4DD2-8E96-90C8D6A89606}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MultiMerge.UnitTests", "MultiMerge.UnitTests\MultiMerge.UnitTests.csproj", "{27DD4039-4163-48F3-AF62-61D58ECA2959}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MultiMerge.Formatters", "MultiMerge.Formatters\MultiMerge.Formatters.csproj", "{90DCA310-FB60-455F-B3D5-8FDD5EDB4824}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MultiMerge.Utils", "MultiMerge.Utils\MultiMerge.Utils.csproj", "{88E7A4BF-7D99-41B4-AA36-D8F48F2554D6}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "UnitTests", "UnitTests", "{BAF5E720-6752-41A4-9294-456367EF81B6}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{924A5CA0-C910-4113-B7CE-8C61AA3FC513}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{924A5CA0-C910-4113-B7CE-8C61AA3FC513}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{924A5CA0-C910-4113-B7CE-8C61AA3FC513}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{924A5CA0-C910-4113-B7CE-8C61AA3FC513}.Release|Any CPU.Build.0 = Release|Any CPU
+		{27457548-7956-4BC3-8574-BED197B530E1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{27457548-7956-4BC3-8574-BED197B530E1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{27457548-7956-4BC3-8574-BED197B530E1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{27457548-7956-4BC3-8574-BED197B530E1}.Release|Any CPU.Build.0 = Release|Any CPU
+		{37B2996F-8AE8-4DD2-8E96-90C8D6A89606}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{37B2996F-8AE8-4DD2-8E96-90C8D6A89606}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{37B2996F-8AE8-4DD2-8E96-90C8D6A89606}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{37B2996F-8AE8-4DD2-8E96-90C8D6A89606}.Release|Any CPU.Build.0 = Release|Any CPU
+		{27DD4039-4163-48F3-AF62-61D58ECA2959}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{27DD4039-4163-48F3-AF62-61D58ECA2959}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{27DD4039-4163-48F3-AF62-61D58ECA2959}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{27DD4039-4163-48F3-AF62-61D58ECA2959}.Release|Any CPU.Build.0 = Release|Any CPU
+		{90DCA310-FB60-455F-B3D5-8FDD5EDB4824}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{90DCA310-FB60-455F-B3D5-8FDD5EDB4824}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{90DCA310-FB60-455F-B3D5-8FDD5EDB4824}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{90DCA310-FB60-455F-B3D5-8FDD5EDB4824}.Release|Any CPU.Build.0 = Release|Any CPU
+		{88E7A4BF-7D99-41B4-AA36-D8F48F2554D6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{88E7A4BF-7D99-41B4-AA36-D8F48F2554D6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{88E7A4BF-7D99-41B4-AA36-D8F48F2554D6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{88E7A4BF-7D99-41B4-AA36-D8F48F2554D6}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{27DD4039-4163-48F3-AF62-61D58ECA2959} = {BAF5E720-6752-41A4-9294-456367EF81B6}
+	EndGlobalSection
+EndGlobal
