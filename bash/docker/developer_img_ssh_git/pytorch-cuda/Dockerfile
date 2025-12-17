@@ -1,9 +1,9 @@
 #
 # See readme.md
-# podman build --build-arg SSH_PUBLIC_KEY="$(cat ~/.ssh/id_rsa.pub)" --build-arg SSH_PRIVATE_KEY="$(cat ~/.ssh/id_rsa)" --build-arg USER=dev --build-arg PASS=dev -t dev-host-pytorch-cuda-12.6.2:1.0.0 .
+# podman build --build-arg SSH_PUBLIC_KEY="$(cat ~/.ssh/id_rsa.pub)" --build-arg SSH_PRIVATE_KEY="$(cat ~/.ssh/id_rsa)" --build-arg USER=dev --build-arg PASS=dev -t dev-host-pytorch-cuda-13.1.0:1.0.0 .
 #
 
-FROM docker.io/nvidia/cuda:12.6.2-cudnn-devel-ubuntu22.04
+FROM docker.io/nvidia/cuda:13.1.0-devel-ubuntu24.04
 
 # Конфигурация Unubtu по умолчанию...
 ENV DEBIAN_FRONTEND=noninteractive
@@ -22,9 +22,10 @@ RUN apt-get update && \
     python3-pip \
     python3-dev \
     python3-opencv \
+    python3.12-venv \
     libglib2.0-0
 
-RUN useradd -rm -d "/home/${USER}" -s "/bin/bash" -G sudo -u 1000 -U "${USER}" \
+RUN useradd -rm -d "/home/${USER}" -s "/bin/bash" -G sudo -u 1001 -U "${USER}" \
     && echo "${USER}:${PASS}" | chpasswd
 
 RUN mkdir -p "/home/${USER}/.ssh"; \
@@ -40,10 +41,16 @@ RUN chown ${USER}:${USER} requirements.txt
 
 USER ${USER}
 
-RUN pip3 config set global.trusted-host "pypi.org files.pythonhosted.org pypi.python.org" \
-  && pip3 install --no-cache-dir --upgrade pip \
-  && pip3 install torch torchvision torchaudio -f https://download.pytorch.org/whl/cu111/torch_stable.html \
-  && pip3 install --no-cache-dir -r requirements.txt 
+# Создаём venv и ставим туда torch
+RUN cd /home/${USER} \
+  && python3 -m venv venv \
+  && . venv/bin/activate \
+  && pip3 install torch torchvision --index-url https://download.pytorch.org/whl/cu130
+
+# Ставим пакеты из файла /requirements.txt в venv
+RUN cd /home/${USER} \
+  && . venv/bin/activate \
+  && pip3 install --no-cache-dir -r /requirements.txt
 
 USER root
 
