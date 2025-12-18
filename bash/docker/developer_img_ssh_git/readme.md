@@ -73,10 +73,10 @@ Host dev-host-py314
     Port <порт указанный при создании docker контейнера>
 ```
 
-## Python + Pytorch + Jupyter
+## Python + Pytorch 2.9.1 CPU + Jupyter Notebook
 `./pytorch/`
 
-Образ для разработки на Python, с предустановленными Pytorch, Jupyter.
+Образ для разработки на Python, с предустановленными Pytorch 2.9.1 CPU, Jupyter Notebook.
 
 ### Дополнительные модули python:
 Смотри файл `requirements.txt`.
@@ -85,20 +85,24 @@ Host dev-host-py314
 `dev`, пароль `dev`.
 
 ### Команда для создания образа:
-`podman build --build-arg SSH_PUBLIC_KEY="$(cat ~/.ssh/id_rsa.pub)" --build-arg SSH_PRIVATE_KEY="$(cat ~/.ssh/id_rsa)" --build-arg USER=dev --build-arg PASS=dev -t dev-host-pytorch-321:1.0.0 .`
+`podman build --build-arg SSH_PUBLIC_KEY="$(cat ~/.ssh/id_rsa.pub)" --build-arg SSH_PRIVATE_KEY="$(cat ~/.ssh/id_rsa)" --build-arg USER=dev --build-arg PASS=dev -t dev-host-pytorch-2-9-1:1.0.0 .`
+
+### Команда для создания контейнера:
+
+`podman create --name dev-host-pytorch291 -v /host/path:/container/path --publish=HOSTPORT:22/tcp dev-host-pytorch-2-9-1:1.0.0`
 
 ### SSH config:
 ```
-Host dev-host-pytorch-321
+Host dev-host-pytorch-291
     HostName localhost
     User dev
     Port <порт указанный при создании docker контейнера>
 ```
 
-## Python + Pytorch + CUDA
+## Python + Pytorch 2.9.1 + CUDA 13
 `./pytorch-cuda/`
 
-Образ для разработки на Python, с предустановленными Pytorch, Cuda.
+Образ для разработки на Python, с предустановленными Pytorch 2.9.1, Cuda 13.
 
 ### Дополнительные модули python:
 Смотри файл `requirements.txt`.
