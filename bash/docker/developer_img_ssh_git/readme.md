@@ -73,10 +73,10 @@ Host dev-host-py314
     Port <порт указанный при создании docker контейнера>
 ```
 
-## Python + Pytorch 2.9.1 CPU + Jupyter Notebook
+## Python 3.14.2 + Pytorch 2.9.1 CPU + Jupyter Notebook
 `./pytorch/`
 
-Образ для разработки на Python, с предустановленными Pytorch 2.9.1 CPU, Jupyter Notebook.
+Образ для разработки на Python 3.14.2 bookworm, с предустановленными Pytorch 2.9.1 CPU, Jupyter Notebook.
 
 ### Дополнительные модули python:
 Смотри файл `requirements.txt`.
