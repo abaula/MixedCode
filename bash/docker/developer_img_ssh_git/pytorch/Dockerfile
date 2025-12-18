@@ -1,9 +1,9 @@
 #
 # See readme.md
-# podman build --build-arg SSH_PUBLIC_KEY="$(cat ~/.ssh/id_rsa.pub)" --build-arg SSH_PRIVATE_KEY="$(cat ~/.ssh/id_rsa)" --build-arg USER=dev --build-arg PASS=dev -t dev-host-pytorch-321:1.0.0 .
+# podman build --build-arg SSH_PUBLIC_KEY="$(cat ~/.ssh/id_rsa.pub)" --build-arg SSH_PRIVATE_KEY="$(cat ~/.ssh/id_rsa)" --build-arg USER=dev --build-arg PASS=dev -t dev-host-pytorch-2-9-1:1.0.0 .
 #
 
-FROM docker.io/graphcore/pytorch-jupyter:3.2.1-ubuntu-20.04-20230531
+FROM python:3.14.2-bookworm
 
 ARG USER=dev
 ARG PASS=dev
@@ -28,9 +28,16 @@ RUN chown ${USER}:${USER} requirements.txt
 
 USER ${USER}
 
-RUN pip config set global.trusted-host "pypi.org files.pythonhosted.org pypi.python.org" \
-  && pip install --no-cache-dir --upgrade pip \
-  && pip install --no-cache-dir -r requirements.txt
+# Создаём venv и ставим туда torch
+RUN cd /home/${USER} \
+  && python3 -m venv venv \
+  && . venv/bin/activate \
+  && pip3 install torch torchvision --index-url https://download.pytorch.org/whl/cpu
+
+# Ставим пакеты из файла /requirements.txt в venv
+RUN cd /home/${USER} \
+  && . venv/bin/activate \
+  && pip3 install --no-cache-dir -r /requirements.txt
 
 USER root
 
