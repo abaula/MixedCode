@@ -1,9 +1,9 @@
 #
 # See readme.md
-# podman build --build-arg SSH_PUBLIC_KEY="$(cat ~/.ssh/id_rsa.pub)" --build-arg SSH_PRIVATE_KEY="$(cat ~/.ssh/id_rsa)" --build-arg USER=dev --build-arg PASS=dev -t dev-host-pytorch-cuda-13.1.0:1.0.0 .
+# podman build --build-arg SSH_PUBLIC_KEY="$(cat ~/.ssh/id_rsa.pub)" --build-arg SSH_PRIVATE_KEY="$(cat ~/.ssh/id_rsa)" --build-arg USER=dev --build-arg PASS=dev -t dev-host-pytorch-cuda-13.0.2:1.0.0 .
 #
 
-FROM docker.io/nvidia/cuda:13.1.0-devel-ubuntu24.04
+FROM docker.io/nvidia/cuda:13.0.2-devel-ubuntu24.04
 
 # Конфигурация Unubtu по умолчанию...
 ENV DEBIAN_FRONTEND=noninteractive
@@ -19,6 +19,7 @@ RUN apt-get update && \
     sudo \
     git \
     mc \
+    wget \
     python3-pip \
     python3-dev \
     python3-opencv \

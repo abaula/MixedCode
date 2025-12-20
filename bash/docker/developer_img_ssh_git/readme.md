@@ -102,7 +102,7 @@ Host dev-host-pytorch-291
 ## Python + Pytorch 2.9.1 + CUDA 13
 `./pytorch-cuda/`
 
-Образ для разработки на Python, с предустановленными Pytorch 2.9.1, Cuda 13.
+Образ для разработки на Python 3.12 ubuntu24.04, с предустановленными Pytorch 2.9.1, Cuda 13.0.2.
 
 ### Дополнительные модули python:
 Смотри файл `requirements.txt`.
@@ -111,11 +111,11 @@ Host dev-host-pytorch-291
 `dev`, пароль `dev`.
 
 ### Команда для создания образа:
-`podman build --build-arg SSH_PUBLIC_KEY="$(cat ~/.ssh/id_rsa.pub)" --build-arg SSH_PRIVATE_KEY="$(cat ~/.ssh/id_rsa)" --build-arg USER=dev --build-arg PASS=dev -t dev-host-pytorch-cuda-13.1.0:1.0.0 .`
+`podman build --build-arg SSH_PUBLIC_KEY="$(cat ~/.ssh/id_rsa.pub)" --build-arg SSH_PRIVATE_KEY="$(cat ~/.ssh/id_rsa)" --build-arg USER=dev --build-arg PASS=dev -t dev-host-pytorch-cuda-13.0.2:1.0.0 .`
 
 ### Команда для создания контейнера:
 
-`podman create --name dev-host-pytorch-cuda13 -v /host/path:/container/path --device nvidia.com/gpu=all --publish=HOSTPORT:22/tcp dev-host-pytorch-cuda-13.1.0:1.0.0`
+`podman create --name dev-host-pytorch-cuda13 -v /host/path:/container/path --device nvidia.com/gpu=all --publish=HOSTPORT:22/tcp dev-host-pytorch-cuda-13.0.2:1.0.0`
 
 ### SSH config:
 ```
