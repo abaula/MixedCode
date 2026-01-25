@@ -1,5 +1,4 @@
-﻿using System.ComponentModel;
-using System.Runtime.CompilerServices;
+﻿using System.Runtime.CompilerServices;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace DecoupledLogging
@@ -8,24 +7,16 @@ namespace DecoupledLogging
     {
         private static void Main()
         {
-            //UseWrapper();
             UseServiceProvider();
-        }
-
-        private static void UseWrapper()
-        {
-            var service = new MyService();
-            var serviceWithLogger = new MyServiceWrapperWithLogger(service);
-            serviceWithLogger.Instance.DoWork();
         }
 
         private static void UseServiceProvider()
         {
             var services = new ServiceCollection();
-            // Регистрация ConditionalWeakTable<MyService, LoggerForMyService>
+            // Регистрация ConditionalWeakTable<object, object>
             // AddSingleton используется только для демонстрации работоспособности,
             // в реальных приложениях рекомендую AddScoped.
-            services.AddSingleton<ConditionalWeakTable<MyService, LoggerForMyService>>();
+            services.AddSingleton<ConditionalWeakTable<object, object>>();
             // Регистрация MyService.
             services.AddScoped<MyService>();
             // Регистрация IMyService.
@@ -33,30 +24,34 @@ namespace DecoupledLogging
             {
                 var instance = sp.GetRequiredService<MyService>();
                 var logger = new LoggerForMyService(instance);
-                var conditionalWeekTable = sp.GetRequiredService<ConditionalWeakTable<MyService, LoggerForMyService>>();
+                var conditionalWeekTable = sp.GetRequiredService<ConditionalWeakTable<object, object>>();
+                // Помещаем instance и logger в ConditionalWeakTable.
                 conditionalWeekTable.Add(instance, logger);
 
                 return instance;
             });
-            // Регистрация Lazy<MyService>.
+            // Регистрация Lazy<IMyService>.
             services.AddScoped(sp => new Lazy<IMyService>(() => sp.GetRequiredService<IMyService>()));
+            // Создаём ServiceProvider.
             var serviceProvider = services.BuildServiceProvider();
-            // instance, который держит ссылки на теневые объекты логгеров.
-            var conditionalWeekTable = serviceProvider.GetRequiredService<ConditionalWeakTable<MyService, LoggerForMyService>>();
+
+            // Instance ConditionalWeakTable, который держит ссылки на теневые объекты логгеров.
+            var conditionalWeekTable = serviceProvider.GetRequiredService<ConditionalWeakTable<object, object>>();
+            // ScopeFactory для использования в методах.
             var scopeFactory = serviceProvider.GetRequiredService<IServiceScopeFactory>();
 
-            PrintConditionalWeakTable("Перед началом работы", conditionalWeekTable);
+            PrintConditionalWeakTable("CWT перед началом работы", conditionalWeekTable);
 
             DoServiceWork(scopeFactory);
             DoLazyServiceWork(scopeFactory);
 
-            PrintConditionalWeakTable("По окнчании работы", conditionalWeekTable);
+            PrintConditionalWeakTable("CWT по окончании работы", conditionalWeekTable);
 
             GC.Collect();
             GC.WaitForPendingFinalizers();
             GC.Collect();
 
-            PrintConditionalWeakTable("После GC", conditionalWeekTable);
+            PrintConditionalWeakTable("CWT после GC", conditionalWeekTable);
         }
 
         private static void DoServiceWork(IServiceScopeFactory scopeFactory)
@@ -67,8 +62,8 @@ namespace DecoupledLogging
             var service = scope.ServiceProvider.GetRequiredService<IMyService>();
             service.DoWork();
 
-            var table = scope.ServiceProvider.GetRequiredService<ConditionalWeakTable<MyService, LoggerForMyService>>();
-            PrintConditionalWeakTable("DoServiceWork", table);
+            var table = scope.ServiceProvider.GetRequiredService<ConditionalWeakTable<object, object>>();
+            PrintConditionalWeakTable("CWT в методе DoServiceWork", table);
         }
 
         private static void DoLazyServiceWork(IServiceScopeFactory scopeFactory)
@@ -77,12 +72,12 @@ namespace DecoupledLogging
             var lazyService = scope.ServiceProvider.GetRequiredService<Lazy<IMyService>>();
             lazyService.Value.DoWork();
 
-            var table = scope.ServiceProvider.GetRequiredService<ConditionalWeakTable<MyService, LoggerForMyService>>();
-            PrintConditionalWeakTable("DoLazyServiceWork", table);
+            var table = scope.ServiceProvider.GetRequiredService<ConditionalWeakTable<object, object>>();
+            PrintConditionalWeakTable("CWT в методе DoLazyServiceWork", table);
         }
 
         private static void PrintConditionalWeakTable(string title,
-            ConditionalWeakTable<MyService, LoggerForMyService> table)
+            ConditionalWeakTable<object, object> table)
         {
             Console.WriteLine(title);
             var values = new List<string>();
