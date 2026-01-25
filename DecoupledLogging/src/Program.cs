@@ -17,21 +17,13 @@ namespace DecoupledLogging
             // AddSingleton используется только для демонстрации работоспособности,
             // в реальных приложениях рекомендую AddScoped.
             services.AddSingleton<ConditionalWeakTable<object, object>>();
-            // Регистрация MyService.
-            services.AddScoped<MyService>();
-            // Регистрация IMyService.
-            services.AddScoped<IMyService>(sp =>
-            {
-                var instance = sp.GetRequiredService<MyService>();
-                var logger = new LoggerForMyService(instance);
-                var conditionalWeekTable = sp.GetRequiredService<ConditionalWeakTable<object, object>>();
-                // Помещаем instance и logger в ConditionalWeakTable.
-                conditionalWeekTable.Add(instance, logger);
 
-                return instance;
-            });
+            // Регистрируем все необходимые классы - сервис и его теневой логер.
+            services.AddScopedWithLogger<IMyService, MyService, LoggerForMyService>();
+
             // Регистрация Lazy<IMyService>.
             services.AddScoped(sp => new Lazy<IMyService>(() => sp.GetRequiredService<IMyService>()));
+
             // Создаём ServiceProvider.
             var serviceProvider = services.BuildServiceProvider();
 
@@ -88,6 +80,33 @@ namespace DecoupledLogging
             Console.WriteLine($"Кол-во записей: {values.Count}");
             foreach(var value in values)
                 Console.WriteLine(value);
+        }
+    }
+
+    public static class ServiceCollectionExtensions
+    {
+        public static ServiceCollection AddScopedWithLogger<TService, TServiceInstance, TServiceLogger>(this ServiceCollection services)
+            where TService : class
+            where TServiceInstance : class, TService
+            where TServiceLogger : class
+        {
+            // Регистрация TServiceInstance.
+            services.AddScoped<TServiceInstance>();
+            // Регистрация TServiceLogger.
+            services.AddScoped<TServiceLogger>();
+            // Регистрация TService.
+            services.AddScoped<TService>(sp =>
+            {
+                var instance = sp.GetRequiredService<TServiceInstance>();
+                var logger = sp.GetRequiredService<TServiceLogger>();
+                var conditionalWeekTable = sp.GetRequiredService<ConditionalWeakTable<object, object>>();
+                // Помещаем instance и logger в ConditionalWeakTable.
+                conditionalWeekTable.Add(instance, logger);
+
+                return instance;
+            });
+
+            return services;
         }
     }
 
