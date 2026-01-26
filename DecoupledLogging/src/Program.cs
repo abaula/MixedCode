@@ -20,8 +20,8 @@ namespace DecoupledLogging
 
             // Регистрируем все необходимые классы - сервис и его теневой логер.
             services.AddScopedWithLogger<IMyService, MyService, LoggerForMyService>();
-
-            // Регистрация Lazy<IMyService>.
+            services.AddScopedWithLogger<IMySecondService, MySecondService, LoggerForMySecondService>();
+            // Регистрация Lazy<IMyService> для проверки работы с Lazy<>.
             services.AddScoped(sp => new Lazy<IMyService>(() => sp.GetRequiredService<IMyService>()));
 
             // Создаём ServiceProvider.
@@ -35,6 +35,7 @@ namespace DecoupledLogging
             PrintConditionalWeakTable("CWT перед началом работы", conditionalWeekTable);
 
             DoServiceWork(scopeFactory);
+            DoSecondServiceWork(scopeFactory);
             DoLazyServiceWork(scopeFactory);
 
             PrintConditionalWeakTable("CWT по окончании работы", conditionalWeekTable);
@@ -48,9 +49,8 @@ namespace DecoupledLogging
 
         private static void DoServiceWork(IServiceScopeFactory scopeFactory)
         {
-            // instance MyService
             using var scope = scopeFactory.CreateScope();
-
+            // instance MyService
             var service = scope.ServiceProvider.GetRequiredService<IMyService>();
             service.DoWork();
 
@@ -58,9 +58,22 @@ namespace DecoupledLogging
             PrintConditionalWeakTable("CWT в методе DoServiceWork", table);
         }
 
+        private static void DoSecondServiceWork(IServiceScopeFactory scopeFactory)
+        {
+            using var scope = scopeFactory.CreateScope();
+
+            // instance MySecondService
+            var service = scope.ServiceProvider.GetRequiredService<IMySecondService>();
+            service.DoWork();
+
+            var table = scope.ServiceProvider.GetRequiredService<ConditionalWeakTable<object, object>>();
+            PrintConditionalWeakTable("CWT в методе DoSecondServiceWork", table);
+        }
+
         private static void DoLazyServiceWork(IServiceScopeFactory scopeFactory)
         {
             using var scope = scopeFactory.CreateScope();
+            // instance Lazy<IMyService>
             var lazyService = scope.ServiceProvider.GetRequiredService<Lazy<IMyService>>();
             lazyService.Value.DoWork();
 
@@ -120,22 +133,7 @@ namespace DecoupledLogging
 
         private void LogInformation(object? sender, string message)
         {
-            Console.WriteLine($"LogEvent(obj: {sender?.GetHashCode()}, message: {message})");
-        }
-    }
-
-    public class MyServiceWrapperWithLogger
-    {
-        public readonly MyService Instance;
-        public MyServiceWrapperWithLogger(MyService serviceInstance)
-        {
-            Instance = serviceInstance;
-            Instance.LogEvent += LogInformation;
-        }
-
-        private void LogInformation(object? sender, string message)
-        {
-            Console.WriteLine(message);
+            Console.WriteLine($"MyService.LogEvent(obj: {sender?.GetHashCode()}, message: {message})");
         }
     }
 
@@ -146,6 +144,38 @@ namespace DecoupledLogging
     }
 
     public class MyService : IMyService
+    {
+        public event EventHandler<string>? LogEvent;
+
+        public void DoWork()
+        {
+            LogEvent?.Invoke(this, "Работа начата");
+            // Логика...
+            LogEvent?.Invoke(this, "Ошибка произошла");
+        }
+    }
+
+    public class LoggerForMySecondService
+    {
+        public LoggerForMySecondService(MySecondService serviceInstance)
+        {
+            // Ссылку на объект MySecondService не храним, иначе не будет правильно работать ConditionalWeakTable.
+            serviceInstance.LogEvent += LogInformation;
+        }
+
+        private void LogInformation(object? sender, string message)
+        {
+            Console.WriteLine($"MySecondService.LogEvent(obj: {sender?.GetHashCode()}, message: {message})");
+        }
+    }
+
+    public interface IMySecondService
+    {
+        event EventHandler<string>? LogEvent;
+        void DoWork();
+    }
+
+    public class MySecondService : IMySecondService
     {
         public event EventHandler<string>? LogEvent;
 
