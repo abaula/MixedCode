@@ -141,6 +141,7 @@ namespace DecoupledLogging
 
     public interface IMyService
     {
+        event EventHandler<string>? LogEvent;
         void DoWork();
     }
 
