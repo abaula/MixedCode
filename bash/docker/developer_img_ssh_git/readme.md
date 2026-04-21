@@ -46,6 +46,29 @@ Host dev-host-net8
     User dev
     Port <порт указанный при создании docker контейнера>
 ```
+## Dotnet 10
+`./net10/`
+
+Образ для разработки на dotnet 10.
+
+### Пользователь в конейнере:
+`dev`, пароль `dev`.
+
+### Команда для создания образа:
+`podman build --build-arg SSH_PUBLIC_KEY="$(cat ~/.ssh/id_rsa.pub)" --build-arg SSH_PRIVATE_KEY="$(cat ~/.ssh/id_rsa)" --build-arg USER=dev --build-arg PASS=dev -t dev-host-net10:1.0.0 .`
+
+### SSH config:
+```
+Host dev-host-net10
+    HostName localhost
+    User dev
+    Port <порт указанный при создании docker контейнера>
+```
+
+### Команда для создания контейнера:
+
+`podman create --name dev-host-net10 -v /host/path:/container/path --publish=HOSTPORT:22/tcp dev-host-net10:1.0.0`
+
 
 ## Python 3.14.2 bookworm
 `./py/`
