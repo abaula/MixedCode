@@ -63,16 +63,13 @@ namespace ImageBaseColorsExtract.ConsoleApp
         private static void ConvertToSRgb(MagickImage image)
         {
             if (image.ColorSpace == ColorSpace.sRGB)
-            {
                 return;
-            }
 
             // В Magick.NET 14+ для правильной конвертации профилей
             // используется метод TransformColorSpace.
             // Первый параметр — профиль по умолчанию (если у исходного изображения его нет).
             // Второй параметр — целевой профиль, в который выполняется трансформация.
             image.TransformColorSpace(ColorProfiles.USWebCoatedSWOP, ColorProfiles.SRGB);
-
             image.ColorSpace = ColorSpace.sRGB;
         }
     }

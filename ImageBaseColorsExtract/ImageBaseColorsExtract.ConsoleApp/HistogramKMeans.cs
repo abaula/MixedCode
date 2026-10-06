@@ -1,13 +1,25 @@
 ﻿using ImageMagick;
 using System;
 using System.Collections.Generic;
-using System.Linq;
 
 namespace ImageBaseColorsExtract.ConsoleApp
 {
-    /// <summary>
-    /// based on https://visualstudiomagazine.com/articles/2013/12/01/k-means-data-clustering-using-c.aspx
-    /// </summary>
+    struct DataPoint<T>
+        where T : struct
+    {
+        public T R;
+        public T G;
+        public T B;
+        public T A;
+    }
+
+    struct ImgPoint
+    {
+        public DataPoint<byte> Color;
+        public uint Weight;
+        public int Cluster;
+    }
+
     class HistogramKMeans
     {
         private readonly IReadOnlyDictionary<IMagickColor<byte>, uint> _histogram;
@@ -19,9 +31,16 @@ namespace ImageBaseColorsExtract.ConsoleApp
 
         public (MagickColor, double)[] Cluster(int numberOfClusters, int maxTryCount)
         {
-            var (data, weights) = Initialize();
-            var clustering = InitClustering(data.Length, numberOfClusters);
-            var means = AllocateMeans(numberOfClusters, data[0].Length);
+            int count = _histogram.Count;
+            // Картинки могут быть большими поэтому выделяем память в куче.
+            Span<ImgPoint> imgPoints = new ImgPoint[count].AsSpan();
+            // Инициализируем данные всех точек картинки.
+            InitializeImgPoints(imgPoints);
+            // Инициализируем данные кластеров для каждой точки картинки.
+            InitClustering(imgPoints, numberOfClusters);
+
+            // Создаём данные means для каждого кластера.
+            Span<DataPoint<double>> means = stackalloc DataPoint<double>[numberOfClusters];
 
             var changed = true;
             var success = true;
@@ -30,86 +49,94 @@ namespace ImageBaseColorsExtract.ConsoleApp
             while (changed && success && counter < maxTryCount)
             {
                 ++counter;
-                success = UpdateMeans(data, weights, clustering, means);
-                changed = UpdateClustering(data, clustering, means);
+                success = UpdateMeans(imgPoints, means);
+                changed = UpdateClustering(imgPoints, means);
             }
 
             var centers = new List<(MagickColor, double)>();
 
             for (var i = 0; i < numberOfClusters; i++)
             {
-                var clusterItemCount = clustering.Count(_ => _ == i);
-                var r = Convert.ToByte(means[i][0]);
-                var g = Convert.ToByte(means[i][1]);
-                var b = Convert.ToByte(means[i][2]);
-                var a = Convert.ToByte(means[i][3]);
-                centers.Add((new MagickColor(r, g, b, a), (double)clusterItemCount / data.Length));
+                var clusterItemCount = CountClusterItems(imgPoints, i);
+                var r = Convert.ToByte(means[i].R);
+                var g = Convert.ToByte(means[i].G);
+                var b = Convert.ToByte(means[i].B);
+                var a = Convert.ToByte(means[i].A);
+                centers.Add((new MagickColor(r, g, b, a), (double)clusterItemCount / imgPoints.Length));
             }
 
             return centers.ToArray();
         }
 
-        private static bool UpdateMeans(double[][] data, uint[] weights, int[] clustering, double[][] means)
+        private static bool UpdateMeans(Span<ImgPoint> data, Span<DataPoint<double>> means)
         {
             var numClusters = means.Length;
-            var clusterCounts = new uint[numClusters];
+            Span<uint> clusterItemsCount = stackalloc uint[numClusters];
 
             for (var i = 0; i < data.Length; i++)
             {
-                var cluster = clustering[i];
-                clusterCounts[cluster] += weights[i];
+                var cluster = data[i].Cluster;
+                clusterItemsCount[cluster] += data[i].Weight;
             }
 
+            // Если хотя бы один из кластеров не содержит данных, возвращаем false.
             for (var k = 0; k < numClusters; k++)
             {
-                if (clusterCounts[k] == 0)
-                {
+                if (clusterItemsCount[k] == 0)
                     return false;
-                }
             }
 
+            // Zero means.
             for (var k = 0; k < means.Length; k++)
             {
-                for (var j = 0; j < means[k].Length; j++)
-                {
-                    means[k][j] = 0.0;
-                }
+                means[k].R = 0.0;
+                means[k].G = 0.0;
+                means[k].B = 0.0;
+                means[k].A = 0.0;
             }
 
+            // accumulate sum
             for (var i = 0; i < data.Length; i++)
             {
-                var cluster = clustering[i];
-                for (var j = 0; j < data[i].Length; j++)
-                {
-                    means[cluster][j] += data[i][j] * weights[i]; // accumulate sum
-                }
+                var point = data[i];
+                var cluster = point.Cluster;
+                var weight = point.Weight;
+                var color = point.Color;
+                means[cluster].R += color.R * weight;
+                means[cluster].G += color.G * weight;
+                means[cluster].B += color.B * weight;
+                means[cluster].A += color.A * weight;
             }
 
+            // calculate mean value
             for (var k = 0; k < means.Length; k++)
             {
-                for (var j = 0; j < means[k].Length; j++)
-                {
-                    means[k][j] /= clusterCounts[k]; // danger of div by 0
-                }
+                var clusterCount = clusterItemsCount[k];
+                means[k].R /= clusterCount;
+                means[k].G /= clusterCount;
+                means[k].B /= clusterCount;
+                means[k].A /= clusterCount;
             }
 
             return true;
         }
 
-        private static bool UpdateClustering(double[][] data, int[] clustering, double[][] means)
+        private static bool UpdateClustering(Span<ImgPoint> data, Span<DataPoint<double>> means)
         {
             var numClusters = means.Length;
             var changed = false;
-            var newClustering = new int[clustering.Length];
-            Array.Copy(clustering, newClustering, clustering.Length);
-            var distances = new double[numClusters];
+            Span<int> newClustering = new int[data.Length].AsSpan();
+
+            // Копируем текущие значения кластера для каждой точки картинки.
+            for (var i = 0; i < data.Length; i++)
+                newClustering[i] = data[i].Cluster;
+
+            Span<double> distances = stackalloc double[numClusters];
 
             for (var i = 0; i < data.Length; i++)
             {
                 for (var k = 0; k < numClusters; k++)
-                {
-                    distances[k] = Distance(data[i], means[k]);
-                }
+                    distances[k] = Distance(data[i].Color, means[k]);
 
                 var newClusterId = MinIndex(distances);
 
@@ -120,44 +147,37 @@ namespace ImageBaseColorsExtract.ConsoleApp
                 }
             }
 
+            // Если не было изменений, возвращаем false.
             if (changed == false)
-            {
                 return false;
-            }
 
-            var clusterCounts = new int[numClusters];
-
-            for (var i = 0; i < data.Length; i++)
-            {
-                var cluster = newClustering[i];
-                ++clusterCounts[cluster];
-            }
-
+            // Если хотя бы один из кластеров не содержит данных, возвращаем false.
             for (var k = 0; k < numClusters; k++)
             {
-                if (clusterCounts[k] == 0)
-                {
+                var clusterCount = CountClusterItems(newClustering, k);
+
+                if (clusterCount == 0)
                     return false;
-                }
             }
 
-            Array.Copy(newClustering, clustering, newClustering.Length);
+            // Записываем новые значения кластеров для каждой точки картинки.
+            for (var i = 0; i < data.Length; i++)
+                data[i].Cluster = newClustering[i];
+
             return true; // no zero-counts and at least one change
         }
 
-        private static double Distance(double[] tuple, double[] mean)
+        private static double Distance(DataPoint<byte> point, DataPoint<double> mean)
         {
             var sumSquaredDiffs = 0.0;
-
-            for (var j = 0; j < tuple.Length; j++)
-            {
-                sumSquaredDiffs += Math.Pow((tuple[j] - mean[j]), 2);
-            }
-
+            sumSquaredDiffs += Math.Pow(point.R - mean.R, 2);
+            sumSquaredDiffs += Math.Pow(point.G - mean.G, 2);
+            sumSquaredDiffs += Math.Pow(point.B - mean.B, 2);
+            sumSquaredDiffs += Math.Pow(point.A - mean.A, 2);
             return Math.Sqrt(sumSquaredDiffs);
         }
 
-        private static int MinIndex(double[] distances)
+        private static int MinIndex(Span<double> distances)
         {
             var indexOfMin = 0;
             var smallDist = distances[0];
@@ -170,54 +190,63 @@ namespace ImageBaseColorsExtract.ConsoleApp
                     indexOfMin = k;
                 }
             }
+
             return indexOfMin;
         }
 
-        private static double[][] AllocateMeans(int numClusters, int numDimentions)
-        {
-            var result = new double[numClusters][];
-
-            for (var i = 0; i < numClusters; i++)
-            {
-                result[i] = new double[numDimentions];
-            }
-
-            return result;
-        }
-
-        private static int[] InitClustering(int dataLength, int numClusters, int? seed = null)
+        private static void InitClustering(Span<ImgPoint> imgPoints, int numClusters, int? seed = null)
         {
             var random = seed == null ? new Random() : new Random(seed.Value);
-            var clustering = new int[dataLength];
 
+            // для правильной работы, обязательно должны присутствовать индексы всех кластеров.
             for (var i = 0; i < numClusters; i++)
-            {
-                clustering[i] = i;
-            }
+                imgPoints[i].Cluster = i;
 
-            for (var i = numClusters; i < clustering.Length; i++)
-            {
-                clustering[i] = random.Next(0, numClusters);
-            }
-
-            return clustering;
+            // Далее заполняем случайными значениями.
+            for (var i = numClusters; i < imgPoints.Length; i++)
+                imgPoints[i].Cluster = random.Next(0, numClusters);
         }
 
-        private (double[][], uint[]) Initialize()
+        private void InitializeImgPoints(Span<ImgPoint> data)
         {
-            var data = new double[_histogram.Count][];
-            var weights = new uint[_histogram.Count];
             var i = 0;
 
             foreach (var pair in _histogram)
             {
                 var color = pair.Key;
-                data[i] = new double[] { color.R, color.G, color.B, color.A };
-                weights[i] = pair.Value;
+                data[i].Color.R = color.R;
+                data[i].Color.G =  color.G;
+                data[i].Color.B = color.B;
+                data[i].Color.A = color.A;
+                data[i].Weight = pair.Value;
                 i++;
             }
+        }
 
-            return (data, weights);
+        private static int CountClusterItems(Span<ImgPoint> data, int cluster)
+        {
+            var count = 0;
+
+            for (var i = 0; i < data.Length; i++)
+            {
+                if (data[i].Cluster == cluster)
+                    count++;
+            }
+
+            return count;
+        }
+
+        private static int CountClusterItems(Span<int> clusters, int cluster)
+        {
+            var count = 0;
+
+            for (var i = 0; i < clusters.Length; i++)
+            {
+                if (clusters[i] == cluster)
+                    count++;
+            }
+
+            return count;
         }
     }
 }
