@@ -1,5 +1,6 @@
 ﻿using System.Linq;
 using ImageMagick;
+using ImageMagick.Drawing;
 
 namespace ImageBaseColorsExtract.ConsoleApp
 {
@@ -16,7 +17,7 @@ namespace ImageBaseColorsExtract.ConsoleApp
             using (var originalImage = new MagickImage(inputFile))
             {
                 ConvertToSRgb(originalImage);
-                var width = (int)(originalImage.Width * 1.2);
+                var width = (uint)(originalImage.Width * 1.2);
                 var height = originalImage.Height;
 
                 using (var image = new MagickImage(new MagickColor("#ffffff"), width, height))
@@ -62,12 +63,13 @@ namespace ImageBaseColorsExtract.ConsoleApp
         private static void ConvertToSRgb(MagickImage image)
         {
             if (image.ColorSpace == ColorSpace.sRGB)
-            {
                 return;
-            }
 
-            image.AddProfile(ColorProfile.USWebCoatedSWOP);
-            image.AddProfile(ColorProfile.SRGB);
+            // В Magick.NET 14+ для правильной конвертации профилей
+            // используется метод TransformColorSpace.
+            // Первый параметр — профиль по умолчанию (если у исходного изображения его нет).
+            // Второй параметр — целевой профиль, в который выполняется трансформация.
+            image.TransformColorSpace(ColorProfiles.USWebCoatedSWOP, ColorProfiles.SRGB);
             image.ColorSpace = ColorSpace.sRGB;
         }
     }
