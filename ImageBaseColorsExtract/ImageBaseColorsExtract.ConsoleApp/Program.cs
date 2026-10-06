@@ -8,8 +8,8 @@ namespace ImageBaseColorsExtract.ConsoleApp
 
         static void Main()
         {
-            var basePath = @"C:\ImageBaseColorsExtract";
-            ListBaseColorsFromImagesInPath($@"{basePath}\input_images", $@"{basePath}\output_images");
+            var basePath = "/home/dev/work/MixedCode/ImageBaseColorsExtract";
+            ListBaseColorsFromImagesInPath($"{basePath}/input_images", $"{basePath}/output_images");
         }
 
         private static void ListBaseColorsFromImagesInPath(string inputPath, string outputPath)
@@ -19,7 +19,7 @@ namespace ImageBaseColorsExtract.ConsoleApp
 
             foreach (var inputFile in inputDir.GetFiles())
             {
-                var outputFile = $"{outputPath}\\{inputFile.Name}.jpg";
+                var outputFile = $"{outputPath}/{inputFile.Name}.jpg";
                 extracter.MakeImageWithBaseColors(inputFile.FullName, outputFile, NumberOfBaseColors);
             }
         }
