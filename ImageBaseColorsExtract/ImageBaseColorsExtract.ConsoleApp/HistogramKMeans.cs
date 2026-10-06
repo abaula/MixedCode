@@ -6,13 +6,13 @@ using System.Linq;
 namespace ImageBaseColorsExtract.ConsoleApp
 {
     /// <summary>
-    /// based on https://visualstudiomagazine.com/articles/2013/12/01/k-means-data-clustering-using-c.aspx 
+    /// based on https://visualstudiomagazine.com/articles/2013/12/01/k-means-data-clustering-using-c.aspx
     /// </summary>
     class HistogramKMeans
     {
-        private readonly IReadOnlyDictionary<MagickColor, int> _histogram;
+        private readonly IReadOnlyDictionary<IMagickColor<byte>, uint> _histogram;
 
-        public HistogramKMeans(IReadOnlyDictionary<MagickColor, int> histogram)
+        public HistogramKMeans(IReadOnlyDictionary<IMagickColor<byte>, uint> histogram)
         {
             _histogram = histogram;
         }
@@ -49,10 +49,10 @@ namespace ImageBaseColorsExtract.ConsoleApp
             return centers.ToArray();
         }
 
-        private static bool UpdateMeans(double[][] data, int[] weights, int[] clustering, double[][] means)
+        private static bool UpdateMeans(double[][] data, uint[] weights, int[] clustering, double[][] means)
         {
             var numClusters = means.Length;
-            var clusterCounts = new int[numClusters];
+            var clusterCounts = new uint[numClusters];
 
             for (var i = 0; i < data.Length; i++)
             {
@@ -203,10 +203,10 @@ namespace ImageBaseColorsExtract.ConsoleApp
             return clustering;
         }
 
-        private (double[][], int[]) Initialize()
+        private (double[][], uint[]) Initialize()
         {
             var data = new double[_histogram.Count][];
-            var weights = new int[_histogram.Count];
+            var weights = new uint[_histogram.Count];
             var i = 0;
 
             foreach (var pair in _histogram)
