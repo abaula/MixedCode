@@ -67,7 +67,7 @@ Host dev-host-net10
 
 ### Команда для создания контейнера:
 
-`podman create --name dev-host-net10 -v /host/path:/container/path --publish=HOSTPORT:22/tcp dev-host-net10:1.0.0`
+`podman create --name dev-host-net10 --network dev-network -v /host/path:/container/path --publish=HOSTPORT:22/tcp dev-host-net10:1.0.0`
 
 
 ## Python 3.14.2 bookworm
@@ -86,7 +86,7 @@ Host dev-host-net10
 
 ### Команда для создания контейнера:
 
-`podman create --name dev-host-py314 -v /host/path:/container/path --publish=HOSTPORT:22/tcp dev-host-py-3-14-2:1.0.0`
+`podman create --name dev-host-py314 --network dev-network -v /host/path:/container/path --publish=HOSTPORT:22/tcp dev-host-py-3-14-2:1.0.0`
 
 ### SSH config:
 ```
@@ -112,7 +112,7 @@ Host dev-host-py314
 
 ### Команда для создания контейнера:
 
-`podman create --name dev-host-pytorch291 -v /host/path:/container/path --publish=HOSTPORT:22/tcp dev-host-pytorch-2-9-1:1.0.0`
+`podman create --name dev-host-pytorch291 --network dev-network -v /host/path:/container/path --publish=HOSTPORT:22/tcp dev-host-pytorch-2-9-1:1.0.0`
 
 ### SSH config:
 ```
@@ -138,7 +138,7 @@ Host dev-host-pytorch-291
 
 ### Команда для создания контейнера:
 
-`podman create --name dev-host-pytorch-cuda13 -v /host/path:/container/path --device nvidia.com/gpu=all --publish=HOSTPORT:22/tcp dev-host-pytorch-cuda-13.0.2:1.0.0`
+`podman create --name dev-host-pytorch-cuda13 --network dev-network -v /host/path:/container/path --device nvidia.com/gpu=all --publish=HOSTPORT:22/tcp dev-host-pytorch-cuda-13.0.2:1.0.0`
 
 ### SSH config:
 ```
