@@ -9,6 +9,8 @@
 Для удобства подключения к контейнеру через ssh, в образ копируется публичный ключ из текущего профиля пользователя запустившего сборку образа.
 Также, для доступа к внешним сервисам по SSH (например github.com), в образ копируется закрытый ключ из текущего профиля пользователя запустившего сборку образа.
 
+---
+
 ## Dotnet 6
 `./net6/`
 
@@ -28,6 +30,8 @@ Host dev-host-net6
     Port <порт указанный при создании docker контейнера>
 ```
 
+---
+
 ## Dotnet 8
 `./net8/`
 
@@ -46,6 +50,9 @@ Host dev-host-net8
     User dev
     Port <порт указанный при создании docker контейнера>
 ```
+
+---
+
 ## Dotnet 10
 `./net10/`
 
@@ -67,8 +74,34 @@ Host dev-host-net10
 
 ### Команда для создания контейнера:
 
-`podman create --name dev-host-net10 --network dev-network -v /host/path:/container/path --publish=HOSTPORT:22/tcp dev-host-net10:1.0.0`
+`podman create --name dev-host-net10 --network dev-network -v /HOST/PATH:/CONTAINER/PATH --publish=HOSTPORT:22/tcp dev-host-net10:1.0.0`
 
+---
+
+## Dotnet 10 + CUDA 13
+`./net10-cuda/`
+
+Образ для разработки на dotnet 10 с предустановленными Cuda 13.0.2..
+
+### Пользователь в конейнере:
+`dev`, пароль `dev`.
+
+### Команда для создания образа:
+`podman build --build-arg SSH_PUBLIC_KEY="$(cat ~/.ssh/id_rsa.pub)" --build-arg SSH_PRIVATE_KEY="$(cat ~/.ssh/id_rsa)" --build-arg USER=dev --build-arg PASS=dev -t dev-host-net10-cuda-13.0.2:1.0.0 .`
+
+### SSH config:
+```
+Host dev-host-net10-cuda
+    HostName localhost
+    User dev
+    Port <порт указанный при создании docker контейнера>
+```
+
+### Команда для создания контейнера:
+
+`podman create --name dev-host-net10-cuda13 --network dev-network -v /HOST/PATH:/CONTAINER/PATH --device nvidia.com/gpu=all --publish=HOSTPORT:22/tcp dev-host-net10-cuda-13.0.2:1.0.0`
+
+---
 
 ## Python 3.14.2 bookworm
 `./py/`
@@ -86,7 +119,7 @@ Host dev-host-net10
 
 ### Команда для создания контейнера:
 
-`podman create --name dev-host-py314 --network dev-network -v /host/path:/container/path --publish=HOSTPORT:22/tcp dev-host-py-3-14-2:1.0.0`
+`podman create --name dev-host-py314 --network dev-network -v /HOST/PATH:/CONTAINER/PATH --publish=HOSTPORT:22/tcp dev-host-py-3-14-2:1.0.0`
 
 ### SSH config:
 ```
@@ -95,6 +128,8 @@ Host dev-host-py314
     User dev
     Port <порт указанный при создании docker контейнера>
 ```
+
+---
 
 ## Python 3.14.2 + Pytorch 2.9.1 CPU + Jupyter Notebook
 `./pytorch/`
@@ -112,7 +147,7 @@ Host dev-host-py314
 
 ### Команда для создания контейнера:
 
-`podman create --name dev-host-pytorch291 --network dev-network -v /host/path:/container/path --publish=HOSTPORT:22/tcp dev-host-pytorch-2-9-1:1.0.0`
+`podman create --name dev-host-pytorch291 --network dev-network -v /HOST/PATH:/CONTAINER/PATH --publish=HOSTPORT:22/tcp dev-host-pytorch-2-9-1:1.0.0`
 
 ### SSH config:
 ```
@@ -121,6 +156,8 @@ Host dev-host-pytorch-291
     User dev
     Port <порт указанный при создании docker контейнера>
 ```
+
+---
 
 ## Python + Pytorch 2.9.1 + CUDA 13
 `./pytorch-cuda/`
@@ -138,7 +175,7 @@ Host dev-host-pytorch-291
 
 ### Команда для создания контейнера:
 
-`podman create --name dev-host-pytorch-cuda13 --network dev-network -v /host/path:/container/path --device nvidia.com/gpu=all --publish=HOSTPORT:22/tcp dev-host-pytorch-cuda-13.0.2:1.0.0`
+`podman create --name dev-host-pytorch-cuda13 --network dev-network -v /HOST/PATH:/CONTAINER/PATH --device nvidia.com/gpu=all --publish=HOSTPORT:22/tcp dev-host-pytorch-cuda-13.0.2:1.0.0`
 
 ### SSH config:
 ```
@@ -147,6 +184,8 @@ Host dev-host-pytorch-cuda-13
     User dev
     Port <порт указанный при создании docker контейнера>
 ```
+
+---
 
 ## C++
 `./cpp/`
@@ -171,6 +210,8 @@ Host dev-host-cpp
     User dev
     Port <порт указанный при создании docker контейнера>
 ```
+
+---
 
 ## Rust
 `./rust/`
