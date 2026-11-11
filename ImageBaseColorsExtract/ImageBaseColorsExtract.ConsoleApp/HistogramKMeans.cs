@@ -1,5 +1,6 @@
 ﻿using ImageMagick;
 using System;
+using System.Buffers;
 using System.Collections.Generic;
 
 namespace ImageBaseColorsExtract.ConsoleApp
@@ -125,7 +126,9 @@ namespace ImageBaseColorsExtract.ConsoleApp
         {
             var numClusters = means.Length;
             var changed = false;
-            Span<int> newClustering = new int[data.Length].AsSpan();
+            // Снижаем нагрузку на GC, выделяем память в куче
+            // так как размер картинки может быть большим и stackalloc использовать небезопасно.
+            var newClustering = ArrayPool<int>.Shared.Rent(data.Length).AsSpan();
 
             // Копируем текущие значения кластера для каждой точки картинки.
             for (var i = 0; i < data.Length; i++)
